@@ -8,14 +8,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
       title: 'Material de Inicio',
       routes: {
-        'login': (_) =>  LoginScreen(),
+        'login': (_) => const LoginScreen(),
       },
       initialRoute: 'login',
-
     );
   }
 }
