@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-class Login_Screen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   
-  const Login_Screen({super.key});
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Text('Hola Mundo');
   }
 }
