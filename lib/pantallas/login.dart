@@ -8,8 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Quitar etiqueta de debug
-      title: 'Material de Inicio',
+      title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Material App Bar'),
