@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/register.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -151,6 +152,12 @@ class LoginScreen extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           // TODO: Redireccionar a RegisterScreen 
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterScreen(),
+                            ),
+                          );                          
                         },
                         child: const Text('Regístrate', style: TextStyle(color: Color(0xFF471AA0), fontWeight: FontWeight.bold),)
                       )
