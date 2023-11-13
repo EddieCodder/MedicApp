@@ -86,7 +86,13 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {
-                          // TODO:Redireccionar a LoginScreen
+                          // TODO: Realizar recuperacion de cuenta
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                         },
                         child: const Text('Olvidaste tu contraseña', style: TextStyle(color: Color(0xFF471AA0), fontWeight: FontWeight.bold),)
                       ),
@@ -151,7 +157,6 @@ class LoginScreen extends StatelessWidget {
                       const Text('No tienes una cuenta', style: TextStyle(color: Color(0xFF471AA0))),
                       TextButton(
                         onPressed: () {
-                          // TODO: Redireccionar a RegisterScreen 
                           Navigator.push(
                             context,
                             MaterialPageRoute(
