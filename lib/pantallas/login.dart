@@ -107,7 +107,6 @@ class LoginScreen extends StatelessWidget {
                       )
                   ),
 
-
                   SizedBox(height: size.height * 0.04),
                   const Text('O ingresa con', style: TextStyle(color: Color(0xFF471AA0))),
 
