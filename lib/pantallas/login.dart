@@ -152,7 +152,6 @@ class LoginScreen extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           // TODO: Redireccionar a RegisterScreen 
-                          // Navegar a la pantalla principal al presionar el botón
                           Navigator.push(
                             context,
                             MaterialPageRoute(
