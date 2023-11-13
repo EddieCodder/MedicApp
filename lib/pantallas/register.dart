@@ -21,13 +21,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        // TODO: Volver a LoginScreen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
+                        Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back_ios),
                       color: const Color(0xFF471AA0),
@@ -106,6 +100,13 @@ class RegisterScreen extends StatelessWidget {
                 FloatingActionButton.extended(
                     onPressed: () {
                       // TODO: Realizar operacion de Registro
+                      // TODO: Redireccionar a home
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const WelcomeApp(),
+                      //     ),
+                      //   );
                     },
                     label: const Text('Registrarse'),
                     extendedPadding:
@@ -121,7 +122,12 @@ class RegisterScreen extends StatelessWidget {
                         style: TextStyle(color: Color(0xFF471AA0))),
                     TextButton(
                         onPressed: () {
-                          // TODO: Redireccionar a LoginScreen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Inicia Sesion Aquí',
