@@ -71,23 +71,27 @@ class RegisterScreen extends StatelessWidget {
                 const TextFieldRegister(
                   iconLeft: Icon(Icons.person_outline),
                   hintText: 'Nombre',
+                  esOculto: false,
                 ),
                 SizedBox(height: size.height * 0.02),
                 const TextFieldRegister(
                   iconLeft: Icon(Icons.mail_outline),
                   hintText: 'Correo',
+                  esOculto: false,
                 ),
                 SizedBox(height: size.height * 0.02),
                 const TextFieldRegister(
                   iconLeft: Icon(Icons.lock_outline_rounded),
                   iconRight: Icon(Icons.remove_red_eye_outlined),
                   hintText: 'Contraseña',
+                  esOculto: true,
                 ),
                 SizedBox(height: size.height * 0.02),
                 const TextFieldRegister(
                   iconLeft: Icon(Icons.lock_outline_rounded),
                   iconRight: Icon(Icons.remove_red_eye_outlined),
                   hintText: 'Confirmar Contraseña',
+                  esOculto: true,
                 ),
                 SizedBox(
                   height: size.height * 0.1,
@@ -101,19 +105,23 @@ class RegisterScreen extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: size.width),
                     backgroundColor: const Color(0xFF9550CE),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15), 
-                    )
-                ),
+                      borderRadius: BorderRadius.circular(15),
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Ya tiene una cuenta? ', style: TextStyle(color: Color(0xFF471AA0))),
+                    const Text('Ya tiene una cuenta? ',
+                        style: TextStyle(color: Color(0xFF471AA0))),
                     TextButton(
-                      onPressed: () {
-                        // TODO: Redireccionar a LoginScreen
-                      },
-                      child: const Text('Inicia Sesion Aquí', style: TextStyle(color: Color(0xFF471AA0), fontWeight: FontWeight.bold),)
-                    )
+                        onPressed: () {
+                          // TODO: Redireccionar a LoginScreen
+                        },
+                        child: const Text(
+                          'Inicia Sesion Aquí',
+                          style: TextStyle(
+                              color: Color(0xFF471AA0),
+                              fontWeight: FontWeight.bold),
+                        ))
                   ],
                 ),
               ],
@@ -129,30 +137,34 @@ class TextFieldRegister extends StatefulWidget {
   final Icon iconLeft;
   final String hintText;
   final Icon? iconRight;
+  final bool esOculto;
 
   const TextFieldRegister({
-    Key? key,
+    super.key,
     required this.iconLeft,
     required this.hintText,
     this.iconRight,
-  }) : super(key: key);
+    required this.esOculto,
+  });
 
   @override
-  // ignore: library_private_types_in_public_api
-  _TextFieldRegisterState createState() => _TextFieldRegisterState();
+  TextFieldRegisterState createState() {
+    return TextFieldRegisterState();
+  }
 }
 
-class _TextFieldRegisterState extends State<TextFieldRegister> {
+class TextFieldRegisterState extends State<TextFieldRegister> {
   late TextEditingController _controller;
-  bool _obscureText = true;
+  late bool _obscureText;
 
-    final outlineInputBorder = OutlineInputBorder(
-          borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
-          borderRadius: BorderRadius.circular(15));
+  final outlineInputBorder = OutlineInputBorder(
+      borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
+      borderRadius: BorderRadius.circular(15));
 
   @override
   void initState() {
     super.initState();
+    _obscureText = widget.esOculto;
     _controller = TextEditingController();
   }
 
@@ -172,7 +184,12 @@ class _TextFieldRegisterState extends State<TextFieldRegister> {
   }
 
   Widget? validarIconoIzquierda(Icon? iconRight) {
-    if (iconRight == null) return null;
+    if (iconRight == null) {
+      // setState(() {
+      //   _obscureText = false;
+      // });
+      return null;
+    }
     return IconButton(
       onPressed: () {
         setState(() {
