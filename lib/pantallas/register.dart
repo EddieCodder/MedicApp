@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/login.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -21,6 +22,12 @@ class RegisterScreen extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         // TODO: Volver a LoginScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.arrow_back_ios),
                       color: const Color(0xFF471AA0),
