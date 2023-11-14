@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false, // Quitar etiqueta de debug
       home: WelcomeApp()
+
     );
   }
 }

@@ -7,7 +7,17 @@ class WelcomeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const WelcomeScreen();
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Aquí es donde se establece para que no se muestre la etiqueta de depuración
       home: Scaffold(
         body: ResponsiveContainer(
           child: Stack(
@@ -24,7 +34,6 @@ class WelcomeApp extends StatelessWidget {
                 ),
               ),
               CenteredContent(),
-              // Nueva sección para las imágenes en la parte inferior
               Positioned(
                 left: 0,
                 right: 0,
@@ -35,12 +44,12 @@ class WelcomeApp extends StatelessWidget {
                     color: Color(0xFFD9D9D9),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(45),
-                        bottomRight: Radius.circular(45),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(0),
                       ),
                     ),
                   ),
-                  child:Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ImageButton(
@@ -70,6 +79,7 @@ class WelcomeApp extends StatelessWidget {
     );
   }
 }
+
 class ResponsiveContainer extends StatelessWidget {
   final Widget child;
 
@@ -86,10 +96,10 @@ class ResponsiveContainer extends StatelessWidget {
           end: Alignment(0, 1),
           colors: [
             Color(0xFFEDDAF0),
-            Color(0xFFCA53DD),
+            Color(0xFFEDDAF0),
             Color(0xFFB83ECC),
             Color(0xFFC143D6),
-            Color(0xFF530260),
+            Color(0xFFC143D6),
           ],
         ),
         borderRadius: BorderRadius.all(Radius.circular(45)),
@@ -107,13 +117,14 @@ class LogoButton extends StatelessWidget {
       height: 65,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xF8CEA8F5),
+          backgroundColor: Color(0xFFEDDAF0),
+          shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         onPressed: () {
-          // Handle button press
+          // Menu Principal
         },
         child: Image.asset("assets/Vector.png", width: 32, height: 32),
       ),
@@ -202,7 +213,7 @@ class ProductButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          // Handle button press
+          // Ir a la lista de productos
         },
         child: Text(
           'Ver Productos',
@@ -235,76 +246,79 @@ class CenteredContent extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - 134,
-            child: Column(
-              children: [
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontFamily: 'Lalezar',
-                      fontWeight: FontWeight.w400,
-                      height: 1.2,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Hola Usuario,\n',
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 134,
+              child: Column(
+                children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontFamily: 'Lalezar',
+                        fontWeight: FontWeight.w700,
+                        height: 1.2,
                       ),
-                      TextSpan(
-                        text: 'Buenos días',
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  width: 318,
-                  height: 56,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 33,
-                        height: 33,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/ubicacion.png"),
-                            fit: BoxFit.cover,
-                          ),
+                      children: [
+                        TextSpan(
+                          text: 'Hola Usuario,\n',
                         ),
+                        TextSpan(
+                          text: 'Buenos días',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: 318,
+                    height: 56,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '¿Dónde quieres recibir tu pedido?',
-                            hintStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.6),
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 33,
+                          height: 33,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/ubicacion.png"),
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '¿Dónde quieres recibir tu pedido?',
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.6),
+                                fontSize: 12,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                LocationButton(),
-                const SizedBox(height: 16),
-                ProductButton(),
-                const SizedBox(height: 16),
-              ],
+                  const SizedBox(height: 16),
+                  LocationButton(),
+                  const SizedBox(height: 16),
+                  ProductButton(),
+                  const SizedBox(height: 16),
+                ],
+              ),
             ),
           ),
         ],
@@ -312,7 +326,6 @@ class CenteredContent extends StatelessWidget {
     );
   }
 }
-
 class ImageButton extends StatelessWidget {
   final String imagePath;
   final Color backgroundColor;
@@ -342,4 +355,3 @@ class ImageButton extends StatelessWidget {
     );
   }
 }
-
