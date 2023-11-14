@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': (_) => const LoginScreen(),
       },
+
       initialRoute: 'login',
     );
   }
