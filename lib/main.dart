@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/welcome.dart';
+import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,10 +8,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false, // Quitar etiqueta de debug
-      home: WelcomeApp()
 
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // Quita la etiqueta debug
+      title: 'Material de Inicio',
+      routes: {
+        'login': (_) => const LoginScreen(),
+      },
+      initialRoute: 'login',
     );
   }
 }
