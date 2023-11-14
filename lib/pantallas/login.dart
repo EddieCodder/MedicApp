@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
+import 'package:medic_app/pantallas/welcome.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -103,7 +104,12 @@ class LoginScreen extends StatelessWidget {
 
                   FloatingActionButton.extended(
                       onPressed: () {
-                        // TODO: Realizar operacion de Login
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeApp(),
+                            ),
+                          );               
                       },
                       label: const Text('Iniciar Sesión'),
                       extendedPadding:EdgeInsets.symmetric(horizontal: size.width),
@@ -112,7 +118,6 @@ class LoginScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15), 
                       )
                   ),
-
 
                   SizedBox(height: size.height * 0.04),
                   const Text('O ingresa con', style: TextStyle(color: Color(0xFF471AA0))),
@@ -127,7 +132,12 @@ class LoginScreen extends StatelessWidget {
                       // Google
                       TextButton(
                         onPressed: () {
-                          //TODO: INICIAR SESIÓN CON GOOGLE
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeApp(),
+                            ),
+                          );             
                         }, 
                         child: Image.asset('assets/logoGoogle.png')
                       ),
@@ -135,7 +145,12 @@ class LoginScreen extends StatelessWidget {
                       // Facebook
                       TextButton(
                         onPressed: () {
-                          //TODO: INICIAR SESIÓN CON FACEBOOK
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeApp(),
+                            ),
+                          );                                      
                         }, 
                         child: Image.asset('assets/logoFacebook.png')
                       ),
@@ -143,7 +158,12 @@ class LoginScreen extends StatelessWidget {
                       // Twitter
                       TextButton(
                         onPressed: () {
-                          //TODO: INICIAR SESIÓN CON TWITTER
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeApp(),
+                            ),
+                          );             
                         }, 
                         child: Image.asset('assets/logoTwitter.png')
                       ),
