@@ -22,25 +22,25 @@ class WelcomeScreen extends StatelessWidget {
         body: ResponsiveContainer(
           child: Stack(
             children: [
-              Positioned(
+              const Positioned(
                 left: 27,
                 top: 57,
                 child: Row(
                   children: [
                     LogoButton(),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     SearchBar(),
                   ],
                 ),
               ),
-              CenteredContent(),
+              const CenteredContent(),
               Positioned(
                 left: 0,
                 right: 0,
                 bottom: 0,
                 child: Container(
                   height: 90,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ImageButton(
@@ -110,6 +110,8 @@ class ResponsiveContainer extends StatelessWidget {
 }
 
 class LogoButton extends StatelessWidget {
+  const LogoButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -117,7 +119,7 @@ class LogoButton extends StatelessWidget {
       height: 65,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFEDDAF0),
+          backgroundColor: const Color(0xFFEDDAF0),
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
@@ -133,6 +135,8 @@ class LogoButton extends StatelessWidget {
 }
 
 class SearchBar extends StatelessWidget {
+  const SearchBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,9 +144,9 @@ class SearchBar extends StatelessWidget {
       height: 52,
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
-          side: BorderSide(
+          side: const BorderSide(
             width: 1,
-            color: const Color(0xFF9747FF),
+            color: Color(0xFF9747FF),
           ),
           borderRadius: BorderRadius.circular(40),
         ),
@@ -175,15 +179,18 @@ class SearchBar extends StatelessWidget {
 }
 
 class LocationButton extends StatelessWidget {
+  const LocationButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 24,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset("assets/u_actual_1.png", width: 23, height: 23),
           const SizedBox(width: 10),
-          Text(
+          const Text(
             'Usar ubicación actual',
             style: TextStyle(
               color: Colors.white,
@@ -199,6 +206,8 @@ class LocationButton extends StatelessWidget {
 }
 
 class ProductButton extends StatelessWidget {
+  const ProductButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -206,8 +215,8 @@ class ProductButton extends StatelessWidget {
       height: 65,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF9550CE),
-          foregroundColor: Color(0xFFEAD0F6),
+          backgroundColor: const Color(0xFF9550CE),
+          foregroundColor: const Color(0xFFEAD0F6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -215,7 +224,7 @@ class ProductButton extends StatelessWidget {
         onPressed: () {
           // Ir a la lista de productos
         },
-        child: Text(
+        child: const Text(
           'Ver Productos',
           style: TextStyle(
             fontSize: 20,
@@ -229,6 +238,8 @@ class ProductButton extends StatelessWidget {
 }
 
 class CenteredContent extends StatelessWidget {
+  const CenteredContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
@@ -238,7 +249,7 @@ class CenteredContent extends StatelessWidget {
           Container(
             width: 96,
             height: 146,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/Logo_App.png"),
                 fit: BoxFit.cover,
@@ -254,7 +265,7 @@ class CenteredContent extends StatelessWidget {
                 children: [
                   RichText(
                     textAlign: TextAlign.center,
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -284,10 +295,11 @@ class CenteredContent extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
+                        const SizedBox(width: 30),
                         Container(
                           width: 33,
                           height: 33,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/ubicacion.png"),
                               fit: BoxFit.cover,
@@ -296,6 +308,7 @@ class CenteredContent extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         Expanded(
+                          
                           child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -313,9 +326,9 @@ class CenteredContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  LocationButton(),
+                  const LocationButton(),
                   const SizedBox(height: 16),
-                  ProductButton(),
+                  const ProductButton(),
                   const SizedBox(height: 16),
                 ],
               ),
@@ -331,6 +344,7 @@ class ImageButton extends StatelessWidget {
   final Color backgroundColor;
 
   const ImageButton({
+    super.key, 
     required this.imagePath,
     required this.backgroundColor,
   });
