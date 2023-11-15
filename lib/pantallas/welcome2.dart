@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/barraBusqueda.dart';
+import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const WelcomeScreen2());
 
@@ -37,12 +38,27 @@ class WelcomeScreen2 extends StatelessWidget {
                   horizontal: 25,
                   vertical: 50,
                 ),
+                
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.asset('assets/vector.png'),
-                    
+                      // Boton menu
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );                                      
+                        }, 
+                        child: Image.asset('assets/vector.png')
+                      ),
+
                     // Buscador
                     const BarraBusqueda(),
+
+
                   ],
                 ),
               )

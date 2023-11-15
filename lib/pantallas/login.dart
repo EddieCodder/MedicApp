@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'package:medic_app/pantallas/welcome2.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -161,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const WelcomeApp(),
+                              builder: (context) => const WelcomeScreen2(),
                             ),
                           );             
                         }, 

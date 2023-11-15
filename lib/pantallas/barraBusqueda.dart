@@ -12,7 +12,6 @@ class BarraBusqueda extends StatelessWidget {
       // Propiedades del contenedor
       width: MediaQuery.of(context).size.width - 120,
       padding: const EdgeInsets.all(5.0),
-      margin: const EdgeInsets.all(16.0),
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           side: const BorderSide(
