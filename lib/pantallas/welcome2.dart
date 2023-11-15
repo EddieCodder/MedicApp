@@ -99,46 +99,41 @@ class WelcomeScreen2 extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              Container(
-                width: 355,
-                height: 65,
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  )
-                ) 
+              // REALIZAR PEDIDO
+              ElevatedButton(
                 
-              )
-
-              // BOTON DE REALIZAR PEDIDO 
-              /*FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );               
                 },
 
-                label: Text(
-                  '¿Dónde quieres recibir tu pedido?',
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.6000000238418579),
-                    fontSize: 15,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,                    
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Color de fondo del botón
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0), // Ajusta el tamaño del botón
+
                 ),
-                
-                extendedPadding:const EdgeInsets.symmetric(horizontal:50),
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), 
-                )
-              ),*/
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/ubicacion.png'),
+                    const SizedBox(width: 8.0), // Espacio entre el icono y el texto
+                    
+                    const Text(
+                      '¿Dónde quieres recbir tu pedido?',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'Inter',
+
+                        fontWeight: FontWeight.w400,
+                        color: Color.fromARGB(255, 50, 45, 45), // Color del texto
+              
+                       ),
+                    )
+                  ],
+                ),
+              )
+
 
 
             ],
