@@ -128,7 +128,7 @@ class LogoButton extends StatelessWidget {
         onPressed: () {
           // Menu Principal
         },
-        child: Image.asset("assets/Vector.png", width: 32, height: 32),
+        child: Image.asset("assets/vector.png", width: 32, height: 32),
       ),
     );
   }
@@ -155,7 +155,7 @@ class SearchBar extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/Lupa.png", width: 23, height: 23),
+            child: Image.asset("assets/lupa.png", width: 23, height: 23),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -251,8 +251,8 @@ class CenteredContent extends StatelessWidget {
             height: 146,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/Logo_App.png"),
-                fit: BoxFit.cover,
+                image: AssetImage("assets/logoApp.png"),
+                //fit: BoxFit.cover,
               ),
             ),
           ),

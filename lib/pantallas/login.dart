@@ -215,7 +215,7 @@ class TextFieldRegister extends StatefulWidget {
 
 class _TextFieldRegisterState extends State<TextFieldRegister> {
   //late TextEditingController _controller;
-  bool textoOculto = false; // Oculta el texto
+  bool textoOculto = true; // Oculta el texto
   final outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
       borderRadius: BorderRadius.circular(15));
