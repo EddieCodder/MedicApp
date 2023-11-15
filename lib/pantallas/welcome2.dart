@@ -32,6 +32,10 @@ class WelcomeScreen2 extends StatelessWidget {
           child: Column(
 
             children: [
+
+              const SizedBox(height: 20),
+
+              // BARRA DE BUSQUEDA CON BOTON DE MENU
               Padding(
                 // Padding del buscador
                 padding: const EdgeInsets.symmetric(
@@ -48,7 +52,7 @@ class WelcomeScreen2 extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                              builder: (context) => const LoginScreen(), 
                             ),
                           );                                      
                         }, 
@@ -57,11 +61,86 @@ class WelcomeScreen2 extends StatelessWidget {
 
                     // Buscador
                     const BarraBusqueda(),
-
-
                   ],
                 ),
+              ),
+
+
+              const SizedBox(height: 100),
+
+              // Logo App
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 20),
+                  Image.asset(
+                    'assets/logoApp.png',
+                    height: 200,
+                  )
+                ], 
+              ),
+
+              const SizedBox(height: 30),
+
+              // TEXTO BUENOS DÍAS
+              const SizedBox(
+                child: Text(
+                  'Hola USUARIO, buenos días',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 50,
+                    fontFamily: 'Lalezar',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              Container(
+                width: 355,
+                height: 65,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )
+                ) 
+                
               )
+
+              // BOTON DE REALIZAR PEDIDO 
+              /*FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );               
+                },
+
+                label: Text(
+                  '¿Dónde quieres recibir tu pedido?',
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.6000000238418579),
+                    fontSize: 15,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    height: 0,                    
+                  ),
+                ),
+                
+                extendedPadding:const EdgeInsets.symmetric(horizontal:50),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), 
+                )
+              ),*/
+
+
             ],
             
           ),
