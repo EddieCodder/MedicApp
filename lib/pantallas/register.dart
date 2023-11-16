@@ -12,12 +12,12 @@ class RegisterScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
                       onPressed: () {
@@ -48,7 +48,7 @@ class RegisterScreen extends StatelessWidget {
                         fontSize: 18,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
-                        height: 7,
+                        height: 0,
                       ),
                     ),
                     Image.asset(
