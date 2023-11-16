@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/barraBusqueda.dart';
-import 'package:medic_app/pantallas/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/barraBusqueda.dart';
+import 'package:medic_app/pantallas/components/barraNavegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const WelcomeScreen());
