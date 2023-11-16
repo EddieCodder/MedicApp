@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/barraBusqueda.dart';
+import 'package:medic_app/pantallas/barraNavegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const WelcomeScreen());
@@ -61,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 100),
+              const SizedBox(height: 45),
 
               // LOGO APP
               Row(
@@ -171,7 +172,6 @@ class WelcomeScreen extends StatelessWidget {
                   },
                   extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
                   elevation: 20,
-
                   label: const Text(
                     'Ver Productos',
                     style: TextStyle(
@@ -184,10 +184,23 @@ class WelcomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                   )
                 ),
+
+              // Barra de Navegacion
+
+              /*const Expanded (
+                child: BarrraNavegacion(),
+              ),*/
+             
+
+
             ],
-          ),
+          ), 
         ),
+
+        // BARRA DE NAVEGACIÓN
+        bottomNavigationBar: const BarraNavegacion(),
       ),
+
     );
   }
 }
