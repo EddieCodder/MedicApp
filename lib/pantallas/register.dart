@@ -16,6 +16,7 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: size.height * 0.04),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -58,6 +59,9 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                
+                SizedBox(height: size.height * 0.04),
+
                 const Text(
                   'Regístrate',
                   style: TextStyle(

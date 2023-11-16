@@ -169,7 +169,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  extendedPadding: const EdgeInsets.symmetric(horizontal: 8),
+                  extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
                   elevation: 20,
 
                   label: const Text(
@@ -179,9 +179,9 @@ class WelcomeScreen extends StatelessWidget {
                         fontFamily: 'Inter',
                     ),
                   ),
-                  backgroundColor: Color.fromARGB(255, 75, 8, 130),
+                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(40),
                   )
                 ),
             ],
