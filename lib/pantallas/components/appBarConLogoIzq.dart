@@ -75,5 +75,5 @@ class AppBarLogoIzquierda extends StatelessWidget
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(kToolbarHeight + 50.0); // Altura deseada
+      const Size.fromHeight(kToolbarHeight + 10.0); // Altura deseada
 }
