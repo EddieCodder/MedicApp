@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/components/barraBusqueda.dart';
-import 'package:medic_app/pantallas/components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/barra_busqueda.dart';
+import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/menu.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/components/appBarConLogoIzq.dart';
-import 'package:medic_app/pantallas/components/botonSeleccion.dart';
+import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
+import 'package:medic_app/pantallas/components/boton_seleccion.dart';
 
 void main() => runApp(const MenuScreen());
 
