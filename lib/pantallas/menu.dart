@@ -95,10 +95,21 @@ class MenuScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-
-
           ],
         )),
+
+        bottomSheet: TextButton(
+            onPressed: () {},
+            child: Text(
+              'Opciones de Administrador',
+              style: TextStyle(
+                color: Colors.black.withOpacity(0.6000000238418579),
+                fontSize: 15,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                height: 0,
+              ),
+            )),
 
         // ---------------------------------------------------------------------
       ),

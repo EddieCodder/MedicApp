@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/welcome.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -59,9 +60,7 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                
                 SizedBox(height: size.height * 0.04),
-
                 const Text(
                   'Regístrate',
                   style: TextStyle(
@@ -104,13 +103,12 @@ class RegisterScreen extends StatelessWidget {
                 FloatingActionButton.extended(
                     onPressed: () {
                       // TODO: Realizar operacion de Registro
-                      // TODO: Redireccionar a home
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const WelcomeApp(),
-                      //     ),
-                      //   );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(),
+                        ),
+                      );
                     },
                     label: const Text('Registrarse'),
                     extendedPadding:
