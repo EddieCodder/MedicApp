@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
+import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const MenuScreen());
 
@@ -147,7 +148,12 @@ class FotoPerfil extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
+              },
               child: const Icon(
                 Icons.edit,
                 color: Color.fromARGB(255, 0, 0,

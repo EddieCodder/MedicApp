@@ -1,12 +1,10 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
-import 'package:medic_app/pantallas/welcome.dart';
 
 // ignore: must_be_immutable
 class BotonSeleccion extends StatelessWidget {
   String texto;
-  String pantall = 'RegisterScreen()';
 
   BotonSeleccion({super.key, required this.texto});
 
@@ -14,12 +12,7 @@ class BotonSeleccion extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
+        _navegarA(context, widgetName: texto);
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -66,6 +59,46 @@ class BotonSeleccion extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+
+  void _navegarA(BuildContext context, {required String widgetName}) {
+    Widget widget;
+
+    switch (widgetName) {
+      case 'Realizar Pedido':
+        widget =
+            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CATEGORÍAS
+        break;
+      case 'Mis pedidos':
+        widget =
+            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE MIS PEDIDOS
+        break;
+      case 'Información de la cuenta':
+        widget =
+            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
+        break;
+      case 'Contáctanos':
+        widget =
+            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CONTACTO
+        break;
+      case 'Ayuda':
+        widget =
+            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE AYUDA
+        break;
+      case 'Cerrar Sesión':
+        widget = const LoginScreen();
+        break;
+
+      default:
+        throw ArgumentError('Nombre de widget no reconocido: $widgetName');
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
     );
   }
 }
