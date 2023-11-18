@@ -185,15 +185,6 @@ class WelcomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                   )
                 ),
-
-              // Barra de Navegacion
-
-              /*const Expanded (
-                child: BarrraNavegacion(),
-              ),*/
-             
-
-
             ],
           ), 
         ),

@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/tipo_pedido.dart';
+import 'package:medic_app/pantallas/welcome.dart';
 
 // ignore: must_be_immutable
 class BotonSeleccion extends StatelessWidget {
@@ -68,7 +70,7 @@ class BotonSeleccion extends StatelessWidget {
     switch (widgetName) {
       case 'Realizar Pedido':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CATEGORÍAS
+            const SelecPedidoScreen(); 
         break;
       case 'Mis pedidos':
         widget =
@@ -88,6 +90,15 @@ class BotonSeleccion extends StatelessWidget {
         break;
       case 'Cerrar Sesión':
         widget = const LoginScreen();
+        break;
+
+      // PARA EL TIPO DE PEDIDO
+      case 'Sin Receta':
+        widget = const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO SIN RECETA
+        break;
+
+      case 'Con Receta':
+        widget = const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO CON RECETA
         break;
 
       default:
