@@ -15,6 +15,8 @@ class MenuScreen extends StatelessWidget {
 
       title: 'Material App',
       home: Scaffold(
+        extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
+
         appBar: const AppBarLogoIzquierda(
             showX: true), // Barra con Logo a la Izquierda con (X)
         body: Center(

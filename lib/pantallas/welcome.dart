@@ -15,8 +15,7 @@ class WelcomeScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         // Fondo con degradado
-        backgroundColor: Colors
-            .transparent, // Establece el color de fondo del Scaffold a transparente
+        //backgroundColor: Color.fromARGB(0, 255, 255, 255), // Establece el color de fondo del Scaffold a transparente
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(

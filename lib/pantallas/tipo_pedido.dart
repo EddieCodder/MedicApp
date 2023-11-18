@@ -60,7 +60,7 @@ class SelecPedidoScreen extends StatelessWidget {
                 'Adjunte la receta médica y un encargado se ocupará de enviarle el pedido',
           ),
         ]),
-        bottomNavigationBar: const BarraNavegacion(),
+        //bottomNavigationBar: const BarraNavegacion(),
       ),
       // BARRA DE NAVEGACIÓN
     );
