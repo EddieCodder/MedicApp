@@ -124,56 +124,61 @@ class CuadroCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        alignment: Alignment.bottomLeft,
-        children: [
-          Container(
-            alignment: Alignment.bottomLeft,
-            width: 167,
-            height: 153,
-            decoration: ShapeDecoration(
-              image: DecorationImage(
-                image: AssetImage(ruta),
-                fit: BoxFit.fill,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-          Container(
-            width: 167,
-            height: 58,
-            decoration: const ShapeDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.00, -1.00),
-                end: Alignment(0, 1),
-                colors: [Color(0x002F084F), Color(0xFFA472CE)],
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+    return InkWell(
+      onTap: () {
+        // TODO: REDIRIGIR A LA PANTALLA CORRESPONDIENTE
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          alignment: Alignment.bottomLeft,
+          children: [
+            Container(
+              alignment: Alignment.bottomLeft,
+              width: 167,
+              height: 153,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  image: AssetImage(ruta),
+                  fit: BoxFit.fill,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w700,
-                height: 0,
+            Container(
+              width: 167,
+              height: 58,
+              decoration: const ShapeDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(0.00, -1.00),
+                  end: Alignment(0, 1),
+                  colors: [Color(0x002F084F), Color(0xFFA472CE)],
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
+                  height: 0,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
