@@ -10,12 +10,12 @@ class AppBarCategorias extends StatelessWidget implements PreferredSizeWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 40,
+          height: 60,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 20,),
+            const SizedBox(width: 20,),
             TextButton(
                 onPressed: () {
                   Navigator.push(

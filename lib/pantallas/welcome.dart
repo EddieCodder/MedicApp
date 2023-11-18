@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/components/app_bar_categorias.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
@@ -15,7 +16,6 @@ class WelcomeScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         // Fondo con degradado
-        //backgroundColor: Color.fromARGB(0, 255, 255, 255), // Establece el color de fondo del Scaffold a transparente
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
