@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_categorias.dart';
-import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 

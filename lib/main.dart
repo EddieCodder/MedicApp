@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
-import 'package:medic_app/pantallas/welcome.dart';
 
 void main() => runApp(const MyApp());
 
