@@ -1,5 +1,7 @@
-import '../components/barraNavegacion.dart';
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/welcome.dart';
+import '../components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/login.dart';
 
 void main() => runApp(const OpcionesAdmin());
 
@@ -19,9 +21,10 @@ class OpcionesAdmin extends StatelessWidget {
               begin: Alignment(0.00, -1.00),
               end: Alignment(0, 1),
               colors: [
-                Color.fromARGB(255, 228, 222, 229),
                 Color.fromARGB(255, 215, 120, 230),
-                Color.fromARGB(255, 227, 147, 239),
+                Color.fromARGB(255, 251, 246, 251),
+                Color.fromARGB(255, 251, 246, 251),
+                Color.fromARGB(255, 251, 246, 251),
               ],
             ),
           ),
@@ -37,101 +40,173 @@ class OpcionesAdmin extends StatelessWidget {
                     },
                     icon: const Icon(Icons.arrow_back_ios),
                     color: const Color(0xFF471AA0),
-                    iconSize: 15,
+                    iconSize: 25,
                     padding: const EdgeInsets.only(left: 30),
                   ),
                   const Text(
                     'Opciones de administrador',
                     style: TextStyle(
                       color: Color.fromARGB(255, 33, 11, 75),
-                      fontSize: 20,
+                      fontSize: 30,
                       fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.bold,
                       height: 0,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: size.height * 0.02),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 5),
+                      padding: const EdgeInsets.only(left: 20),
                       child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFD9D9D9),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'U',
-                              style: TextStyle(
-                                color: Color(0xFF685252),
-                                fontSize: 45,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
+                        width: 80,
+                        height: 80,
+                        child: Stack(children: [
+                          const DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD9D9D9),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'U',
+                                style: TextStyle(
+                                  color: Color(0xFF685252),
+                                  fontSize: 45,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ]),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 5, bottom: 20),
-                        child: Text(
-                          'Mi perfil',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 140, 139, 139),
-                            fontSize: 14,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 2, left: 0),
-                        child: Row(children: [
-                          Text(
-                            'NOMBRE NOMBRE2 APELLIDO',
-                            style: TextStyle(
-                              color: Color(0xFF5C4F5F),
-                              fontSize: 15,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w800,
-                              height: 0,
+                          Positioned(
+                            top: -5,
+                            right: -5,
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.edit),
+                              color: const Color.fromARGB(255, 110, 77, 77),
+                              iconSize: 24,
                             ),
                           ),
                         ]),
-                      )
+                      ),
+                    ),
+                  ]),
+                  const Row(
+                    children: [
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, bottom: 5),
+                                child: Text(
+                                  'Mi perfil',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 140, 139, 139),
+                                    fontSize: 20,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 2, left: 10),
+                                    child: Row(children: [
+                                      Text(
+                                        'NOMBRE NOMBRE2 APELLIDO',
+                                        style: TextStyle(
+                                          color: Color(0xFF5C4F5F),
+                                          fontSize: 20,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w800,
+                                          height: 0,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
               ),
-              const Center(
-                child: CustomContainer(text: 'Revisar documentos'),
-              ),
-              const Center(
-                child: CustomContainer(text: 'Revisar documentos'),
-              ),
-              const Center(
-                child: CustomContainer(text: 'Revisar documentos'),
-              ),
-              const Center(
-                child: CustomContainer(text: 'Revisar documentos'),
-              ),
-              const Center(
-                child: CustomContainer(text: 'Revisar documentos'),
-              ),
+              SizedBox(height: size.height * 0.05),
+              Padding(
+                padding: const EdgeInsets.only(left: 45),
+                child: Column(
+                  children: [
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text: 'Revisar pedidos (Con Receta) ',
+                          screen:
+                              LoginScreen(), // TODO: Implementar para revisar los documentos
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text: 'Revisar pedidos (Sin Receta)  ',
+                          screen: WelcomeScreen(), // TODO: Revisar los pedidos
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text:
+                              'Agregar productos                   ', // TODO: Agregar productos
+                          screen: WelcomeScreen(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text:
+                              'Editar productos                      ', // TODO: Agregar productos
+                          screen: WelcomeScreen(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text:
+                              'Bloquear Usuarios                   ', // TODO: Agregar productos
+                          screen: WelcomeScreen(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -143,48 +218,64 @@ class OpcionesAdmin extends StatelessWidget {
 
 class CustomContainer extends StatelessWidget {
   final String text;
+  final Widget screen;
 
-  const CustomContainer({super.key, required this.text});
+  const CustomContainer({super.key, required this.screen, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 326,
-          height: 43,
-          decoration: ShapeDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment(0.00, -1.00),
-              end: Alignment(0, 1),
-              colors: [Color(0x00EAD0F6), Color(0xFFEAD0F6)],
+    return Center(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 20),
+            decoration: ShapeDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment(0.00, -1.00),
+                end: Alignment(0, 1),
+                colors: [Color(0x00EAD0F6), Color(0xFFEAD0F6)],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+            child: Padding(
+              padding: const EdgeInsets.all(0),
+              child: Row(
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      color: Color(0xFF5C4F5F),
+                      fontSize: 22,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(0.01),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => screen,
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios),
+                      color: const Color(0xFF471AA0),
+                      iconSize: 15,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        Text(
-          text,
-          style: const TextStyle(
-            color: Color(0xFF5C4F5F),
-            fontSize: 18,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
-            height: 0,
-          ),
-        ),
-        IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_forward_ios),
-          color: const Color(0xFF471AA0),
-          iconSize: 15,
-          padding: const EdgeInsets.only(left: 30),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
