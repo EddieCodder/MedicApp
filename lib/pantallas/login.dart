@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'components/autenticate_fields.dart';
+
+import '../providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final TextEditingController _nombreUsuarioController =
+      TextEditingController();
+  final TextEditingController _contrasenaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,17 +77,27 @@ class LoginScreen extends StatelessWidget {
                   // Campo de texto Usuario
                   SizedBox(height: size.height * 0.02),
 
-                  const TextFieldRegister(
+                  TextFieldRegister(
+                    iconLeft: const Icon(null),
+                    iconRight: const Icon(null),
                     hintText: 'Nombre de Usuario o Correo',
                     esOculto: false,
+                    controller: _nombreUsuarioController,
                   ),
 
                   // Campo de texto Usuario
                   SizedBox(height: size.height * 0.02),
-                  const TextFieldRegister(
+                  TextFieldRegister(
+                    iconLeft: const Icon(null),
+                    iconRight: const Icon(Icons.remove_red_eye_outlined),
                     hintText: 'Contraseña',
+<<<<<<< HEAD
+                    esOculto: true,
+                    controller: _contrasenaController,
+=======
                     iconRight: Icon(Icons.remove_red_eye_outlined),
                     esOculto: true,
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                   ),
 
                   // Boton textual olvidaste contraseñas
@@ -90,7 +108,11 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
+<<<<<<< HEAD
+                              builder: (context) => LoginScreen(),
+=======
                               builder: (context) => const LoginScreen(),
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                             ),
                           );
                         },
@@ -106,12 +128,36 @@ class LoginScreen extends StatelessWidget {
 
                   FloatingActionButton.extended(
                       onPressed: () {
+<<<<<<< HEAD
+                        final nombreUsuario = _nombreUsuarioController.text;
+                        final contrasena = _contrasenaController.text;
+                        // Verifica si el valor contiene '@' para determinar si es un correo electrónico
+                        bool esCorreo = nombreUsuario.contains('@');
+                        if (esCorreo) {
+                          Provider.of<Auth>(context, listen: false).login(
+                              correo: nombreUsuario, contrasena: contrasena);
+                        } else {
+                          Provider.of<Auth>(context, listen: false).login(
+                              nombreUsuario: nombreUsuario,
+                              contrasena: contrasena);
+                        }
+
+                        if (Provider.of<Auth>(context, listen: false).esAutenticado == 1) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeApp(),
+                            ),
+                          );
+                        }
+=======
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const WelcomeScreen(),
                           ),
                         );
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                       },
                       label: const Text('Iniciar Sesión'),
                       extendedPadding:
@@ -137,7 +183,11 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
+<<<<<<< HEAD
+                                builder: (context) => const WelcomeApp(),
+=======
                                 builder: (context) => const WelcomeScreen(),
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -149,7 +199,11 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
+<<<<<<< HEAD
+                                builder: (context) => const WelcomeApp(),
+=======
                                 builder: (context) => const WelcomeScreen(),
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -161,7 +215,11 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
+<<<<<<< HEAD
+                                builder: (context) => const WelcomeApp(),
+=======
                                 builder: (context) => const WelcomeScreen(),
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -179,7 +237,11 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
+<<<<<<< HEAD
+                                builder: (context) => RegisterScreen(),
+=======
                                 builder: (context) => const RegisterScreen(),
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -200,6 +262,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
+=======
 
 class TextFieldRegister extends StatefulWidget {
   final String hintText;
@@ -262,3 +326,4 @@ class TextFieldRegisterState extends State<TextFieldRegister> {
     );
   }
 }
+>>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0

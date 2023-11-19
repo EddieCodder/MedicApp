@@ -75,22 +75,22 @@ class BotonSeleccion extends StatelessWidget {
         break;
       case 'Mis pedidos':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE MIS PEDIDOS
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE MIS PEDIDOS
         break;
       case 'Información de la cuenta':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
         break;
       case 'Contáctanos':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CONTACTO
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CONTACTO
         break;
       case 'Ayuda':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE AYUDA
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE AYUDA
         break;
       case 'Cerrar Sesión':
-        widget = const LoginScreen();
+        widget = LoginScreen();
         break;
 
       // PARA EL TIPO DE PEDIDO
