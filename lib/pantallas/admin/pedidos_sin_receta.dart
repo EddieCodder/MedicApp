@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/opciones_admin.dart';
+import 'package:medic_app/pantallas/admin/pedidos_sin_receta_detalle.dart';
 import 'package:medic_app/pantallas/components/barraNavegacion.dart';
 
 import '../components/barraBusqueda.dart';
@@ -175,7 +176,7 @@ class PedidosSinReceta extends StatelessWidget {
                   child: Column(children: [
                     SizedBox(height: size.height * 0.05),
                     const BarraLateralButton(
-                        screen: OpcionesAdmin(),
+                        screen: PedidosSinRecetaDetalleScreen(),
                         topLeftText: '30/10/2023',
                         bottomLeftText: '0004',
                         text: '17.00',
