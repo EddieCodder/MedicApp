@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/welcome.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -12,12 +13,13 @@ class RegisterScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: size.height * 0.04),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
                       onPressed: () {
@@ -48,7 +50,7 @@ class RegisterScreen extends StatelessWidget {
                         fontSize: 18,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
-                        height: 7,
+                        height: 0,
                       ),
                     ),
                     Image.asset(
@@ -58,6 +60,7 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(height: size.height * 0.04),
                 const Text(
                   'Regístrate',
                   style: TextStyle(
@@ -100,13 +103,12 @@ class RegisterScreen extends StatelessWidget {
                 FloatingActionButton.extended(
                     onPressed: () {
                       // TODO: Realizar operacion de Registro
-                      // TODO: Redireccionar a home
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const WelcomeApp(),
-                      //     ),
-                      //   );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(),
+                        ),
+                      );
                     },
                     label: const Text('Registrarse'),
                     extendedPadding:
