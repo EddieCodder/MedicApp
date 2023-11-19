@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
-import 'package:medic_app/pantallas/welcome.dart';
 import 'components/autenticate_fields.dart';
-
+import 'welcome.dart';
 import '../providers/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -91,13 +90,8 @@ class LoginScreen extends StatelessWidget {
                     iconLeft: const Icon(null),
                     iconRight: const Icon(Icons.remove_red_eye_outlined),
                     hintText: 'Contraseña',
-<<<<<<< HEAD
                     esOculto: true,
                     controller: _contrasenaController,
-=======
-                    iconRight: Icon(Icons.remove_red_eye_outlined),
-                    esOculto: true,
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                   ),
 
                   // Boton textual olvidaste contraseñas
@@ -108,11 +102,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-<<<<<<< HEAD
                               builder: (context) => LoginScreen(),
-=======
-                              builder: (context) => const LoginScreen(),
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                             ),
                           );
                         },
@@ -128,7 +118,6 @@ class LoginScreen extends StatelessWidget {
 
                   FloatingActionButton.extended(
                       onPressed: () {
-<<<<<<< HEAD
                         final nombreUsuario = _nombreUsuarioController.text;
                         final contrasena = _contrasenaController.text;
                         // Verifica si el valor contiene '@' para determinar si es un correo electrónico
@@ -146,18 +135,10 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const WelcomeApp(),
+                              builder: (context) => const WelcomeScreen(),
                             ),
                           );
                         }
-=======
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(),
-                          ),
-                        );
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                       },
                       label: const Text('Iniciar Sesión'),
                       extendedPadding:
@@ -183,11 +164,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-<<<<<<< HEAD
-                                builder: (context) => const WelcomeApp(),
-=======
                                 builder: (context) => const WelcomeScreen(),
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -199,11 +176,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-<<<<<<< HEAD
-                                builder: (context) => const WelcomeApp(),
-=======
                                 builder: (context) => const WelcomeScreen(),
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -215,11 +188,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-<<<<<<< HEAD
-                                builder: (context) => const WelcomeApp(),
-=======
                                 builder: (context) => const WelcomeScreen(),
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -237,11 +206,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-<<<<<<< HEAD
                                 builder: (context) => RegisterScreen(),
-=======
-                                builder: (context) => const RegisterScreen(),
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
                               ),
                             );
                           },
@@ -262,68 +227,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
-=======
-
-class TextFieldRegister extends StatefulWidget {
-  final String hintText;
-  final Icon? iconRight;
-  final bool esOculto;
-
-  const TextFieldRegister({
-    super.key,
-    required this.hintText,
-    this.iconRight,
-    required this.esOculto,
-  });
-
-  @override
-  TextFieldRegisterState createState() {
-    return TextFieldRegisterState();
-  }
-}
-
-class TextFieldRegisterState extends State<TextFieldRegister> {
-  late TextEditingController _controller;
-  late bool _obscureText;
-
-  final outlineInputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
-      borderRadius: BorderRadius.circular(15));
-
-  @override
-  void initState() {
-    super.initState();
-    _obscureText = widget.esOculto;
-    _controller = TextEditingController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      obscureText: _obscureText,
-      decoration: InputDecoration(
-        focusedBorder: outlineInputBorder,
-        enabledBorder: outlineInputBorder,
-        hintText: widget.hintText,
-        suffixIcon: validarIconoIzquierda(widget.iconRight),
-      ),
-    );
-  }
-
-  Widget? validarIconoIzquierda(Icon? iconRight) {
-    if (iconRight == null) {
-      return null;
-    }
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          _obscureText = !_obscureText;
-        });
-      },
-      icon: iconRight,
-    );
-  }
-}
->>>>>>> 8f18d43a0649f90be24539b79f9fc79b1583a0c0
