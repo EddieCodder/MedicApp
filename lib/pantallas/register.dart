@@ -3,7 +3,7 @@ import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/splash_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
-import '../conponents/autenticate_fields.dart';
+import 'components/autenticate_fields.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -22,12 +22,13 @@ class RegisterScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: size.height * 0.04),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
                       onPressed: () {
@@ -58,7 +59,7 @@ class RegisterScreen extends StatelessWidget {
                         fontSize: 18,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
-                        height: 7,
+                        height: 0,
                       ),
                     ),
                     Image.asset(
@@ -68,6 +69,7 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(height: size.height * 0.04),
                 const Text(
                   'Regístrate',
                   style: TextStyle(
@@ -132,6 +134,7 @@ class RegisterScreen extends StatelessWidget {
                       } else {
                         mostrarError(context, 'Las contraseñas no coinciden');
                       }
+
                     },
                     label: const Text('Registrarse'),
                     extendedPadding:

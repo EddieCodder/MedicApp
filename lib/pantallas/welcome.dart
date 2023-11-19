@@ -1,371 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/components/barra_busqueda.dart';
+import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/menu.dart';
 
-void main() => runApp(const WelcomeApp());
-
-class WelcomeApp extends StatelessWidget {
-  const WelcomeApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const WelcomeScreen();
-  }
-}
+void main() => runApp(const WelcomeScreen());
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Aquí es donde se establece para que no se muestre la etiqueta de depuración
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: ResponsiveContainer(
-          child: Stack(
+        // Fondo con degradado
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(0.00, -1.00),
+              end: Alignment(0, 1),
+              colors: [
+                Color.fromARGB(255, 228, 222, 229),
+                Color.fromARGB(255, 215, 120, 230),
+                Color.fromARGB(255, 182, 75, 198),
+                Color(0xFFC143D6),
+                Color.fromARGB(255, 129, 18, 146)
+              ],
+            ),
+          ),
+          child: Column(
             children: [
-              const Positioned(
-                left: 27,
-                top: 57,
+              const SizedBox(height: 20),
+
+              // BARRA DE BUSQUEDA CON BOTON DE MENU
+              Padding(
+                // Padding del buscador
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 50,
+                ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    LogoButton(),
-                    SizedBox(width: 10),
-                    SearchBar(),
+                    // Boton menu
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MenuScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset('assets/vector.png')),
+
+                    // Buscador
+                    const BarraBusqueda(),
                   ],
                 ),
               ),
-              const CenteredContent(),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  height: 90,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                      ),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ImageButton(
-                        imagePath: "assets/casa.png",
-                        backgroundColor: Color(0xFFD9D9D9),
-                      ),
-                      ImageButton(
-                        imagePath: "assets/heart.png",
-                        backgroundColor: Color(0xFFD9D9D9),
-                      ),
-                      ImageButton(
-                        imagePath: "assets/list.png",
-                        backgroundColor: Color(0xFFD9D9D9),
-                      ),
-                      ImageButton(
-                        imagePath: "assets/user.png",
-                        backgroundColor: Color(0xFFD9D9D9),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
-class ResponsiveContainer extends StatelessWidget {
-  final Widget child;
+              const SizedBox(height: 45),
 
-  const ResponsiveContainer({Key? key, required this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment(0.00, -1.00),
-          end: Alignment(0, 1),
-          colors: [
-            Color(0xFFEDDAF0),
-            Color(0xFFEDDAF0),
-            Color(0xFFB83ECC),
-            Color(0xFFC143D6),
-            Color(0xFFC143D6),
-          ],
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(45)),
-      ),
-      child: child,
-    );
-  }
-}
-
-class LogoButton extends StatelessWidget {
-  const LogoButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 55,
-      height: 65,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFEDDAF0),
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-        ),
-        onPressed: () {
-          // Menu Principal
-        },
-        child: Image.asset("assets/Vector.png", width: 32, height: 32),
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 134,
-      height: 52,
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(
-            width: 1,
-            color: Color(0xFF9747FF),
-          ),
-          borderRadius: BorderRadius.circular(40),
-        ),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/Lupa.png", width: 23, height: 23),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Buscar medicamentos, farmacias ...',
-                hintStyle: TextStyle(
-                  color: Colors.black.withOpacity(0.3),
-                  fontSize: 15,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class LocationButton extends StatelessWidget {
-  const LocationButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 24,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/u_actual_1.png", width: 23, height: 23),
-          const SizedBox(width: 10),
-          const Text(
-            'Usar ubicación actual',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProductButton extends StatelessWidget {
-  const ProductButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 225,
-      height: 65,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF9550CE),
-          foregroundColor: const Color(0xFFEAD0F6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        onPressed: () {
-          // Ir a la lista de productos
-        },
-        child: const Text(
-          'Ver Productos',
-          style: TextStyle(
-            fontSize: 20,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CenteredContent extends StatelessWidget {
-  const CenteredContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 96,
-            height: 146,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/Logo_App.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width - 134,
-              child: Column(
+              // LOGO APP
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontFamily: 'Lalezar',
-                        fontWeight: FontWeight.w700,
-                        height: 1.2,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'Hola Usuario,\n',
-                        ),
-                        TextSpan(
-                          text: 'Buenos días',
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    width: 318,
-                    height: 56,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 30),
-                        Container(
-                          width: 33,
-                          height: 33,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/ubicacion.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: '¿Dónde quieres recibir tu pedido?',
-                              hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const LocationButton(),
-                  const SizedBox(height: 16),
-                  const ProductButton(),
-                  const SizedBox(height: 16),
+                  const SizedBox(width: 20),
+                  Image.asset(
+                    'assets/logoApp.png',
+                    height: 200,
+                  )
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-class ImageButton extends StatelessWidget {
-  final String imagePath;
-  final Color backgroundColor;
 
-  const ImageButton({
-    super.key, 
-    required this.imagePath,
-    required this.backgroundColor,
-  });
+              const SizedBox(height: 30),
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 55,
-      height: 55,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+              // TEXTO BUENOS DÍAS
+              const SizedBox(
+                child: Text(
+                  'Hola USUARIO, buenos días',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 50,
+                    fontFamily: 'Lalezar',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // REALIZAR PEDIDO
+              ElevatedButton(
+                onPressed: () {
+                  // TODO: REDIRIGIR A DIRECCION
+                  
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(
+                      255, 255, 255, 255), // Color de fondo del botón
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 15.0), // Ajusta el tamaño del botón
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/ubicacion.png'),
+                    const SizedBox(
+                        width: 8.0), // Espacio entre el icono y el texto
+                    const Text(
+                      '¿Dónde quieres recbir tu pedido? ',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'Inter',
+
+                        fontWeight: FontWeight.w400,
+                        color:
+                            Color.fromARGB(255, 50, 45, 45), // Color del texto
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 25),
+
+              // REALIZAR PEDIDO (UBICACIÓN ACTUAL)
+              TextButton(
+                onPressed: () {
+                  // Acciones a realizar cuando se presiona el botón
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/ubiActual.png'),
+                    const SizedBox(
+                        width: 8.0), // Espacio entre la imagen y el texto
+                    const Text(
+                      'Usar ubicación actual',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 25),
+
+              // VER PRODUCTOS
+              FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
+                  extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  elevation: 20,
+                  label: const Text(
+                    'Ver Productos',
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Inter',
+                    ),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  )
+                ),
+            ],
+          ), 
         ),
-        onPressed: () {
-          // Acciones al presionar el botón
-        },
-        child: Image.asset(imagePath, width: 32, height: 32),
+
+        // BARRA DE NAVEGACIÓN
+        bottomNavigationBar: const BarraNavegacion(),
       ),
+
     );
   }
 }
