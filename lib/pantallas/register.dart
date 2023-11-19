@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/splash_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth.dart';
+import '../conponents/autenticate_fields.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  RegisterScreen({super.key});
+
+  final TextEditingController _nombreUsuarioController =
+      TextEditingController();
+  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _contrasenaController1 = TextEditingController();
+  final TextEditingController _contrasenaController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,30 +79,34 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                const TextFieldRegister(
-                  iconLeft: Icon(Icons.person_outline),
+                TextFieldRegister(
+                  iconLeft: const Icon(Icons.person_outline),
                   hintText: 'Nombre',
                   esOculto: false,
+                  controller: _nombreUsuarioController,
                 ),
                 SizedBox(height: size.height * 0.02),
-                const TextFieldRegister(
-                  iconLeft: Icon(Icons.mail_outline),
+                TextFieldRegister(
+                  iconLeft: const Icon(Icons.mail_outline),
                   hintText: 'Correo',
                   esOculto: false,
+                  controller: _correoController,
                 ),
                 SizedBox(height: size.height * 0.02),
-                const TextFieldRegister(
-                  iconLeft: Icon(Icons.lock_outline_rounded),
-                  iconRight: Icon(Icons.remove_red_eye_outlined),
+                TextFieldRegister(
+                  iconLeft: const Icon(Icons.lock_outline_rounded),
+                  iconRight: const Icon(Icons.remove_red_eye_outlined),
                   hintText: 'Contraseña',
                   esOculto: true,
+                  controller: _contrasenaController1,
                 ),
                 SizedBox(height: size.height * 0.02),
-                const TextFieldRegister(
-                  iconLeft: Icon(Icons.lock_outline_rounded),
-                  iconRight: Icon(Icons.remove_red_eye_outlined),
+                TextFieldRegister(
+                  iconLeft: const Icon(Icons.lock_outline_rounded),
+                  iconRight: const Icon(Icons.remove_red_eye_outlined),
                   hintText: 'Confirmar Contraseña',
                   esOculto: true,
+                  controller: _contrasenaController2,
                 ),
                 SizedBox(
                   height: size.height * 0.1,
@@ -100,13 +114,24 @@ class RegisterScreen extends StatelessWidget {
                 FloatingActionButton.extended(
                     onPressed: () {
                       // TODO: Realizar operacion de Registro
-                      // TODO: Redireccionar a home
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const WelcomeApp(),
-                      //     ),
-                      //   );
+                      final nombreUsuario = _nombreUsuarioController.text;
+                      final correo = _correoController.text;
+                      final contrasena1 = _contrasenaController1.text;
+                      final contrasena2 = _contrasenaController2.text;
+
+                      if (contrasena1 == contrasena2) {
+                        Provider.of<Auth>(context, listen: false).signup(nombreUsuario, correo, contrasena1);
+                        if ( Provider.of<Auth>(context, listen: false).esAutenticado == 1 ) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SplashScreen(),
+                            ),
+                          );
+                        }
+                      } else {
+                        mostrarError(context, 'Las contraseñas no coinciden');
+                      }
                     },
                     label: const Text('Registrarse'),
                     extendedPadding:
@@ -125,7 +150,7 @@ class RegisterScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
@@ -146,70 +171,16 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class TextFieldRegister extends StatefulWidget {
-  final Icon iconLeft;
-  final String hintText;
-  final Icon? iconRight;
-  final bool esOculto;
-
-  const TextFieldRegister({
-    super.key,
-    required this.iconLeft,
-    required this.hintText,
-    this.iconRight,
-    required this.esOculto,
-  });
-
-  @override
-  TextFieldRegisterState createState() {
-    return TextFieldRegisterState();
-  }
-}
-
-class TextFieldRegisterState extends State<TextFieldRegister> {
-  late TextEditingController _controller;
-  late bool _obscureText;
-
-  final outlineInputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
-      borderRadius: BorderRadius.circular(15));
-
-  @override
-  void initState() {
-    super.initState();
-    _obscureText = widget.esOculto;
-    _controller = TextEditingController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      obscureText: _obscureText,
-      decoration: InputDecoration(
-        focusedBorder: outlineInputBorder,
-        enabledBorder: outlineInputBorder,
-        prefixIcon: widget.iconLeft,
-        hintText: widget.hintText,
-        suffixIcon: validarIconoIzquierda(widget.iconRight),
-      ),
-    );
-  }
-
-  Widget? validarIconoIzquierda(Icon? iconRight) {
-    if (iconRight == null) {
-      // setState(() {
-      //   _obscureText = false;
-      // });
-      return null;
-    }
-    return IconButton(
+void mostrarError(BuildContext context, String mensaje) {
+  final snackBar = SnackBar(
+    content: Text(mensaje),
+    action: SnackBarAction(
+      label: 'OK',
       onPressed: () {
-        setState(() {
-          _obscureText = !_obscureText;
-        });
+        // Al hacer clic en "OK", puedes realizar alguna acción si es necesario.
       },
-      icon: iconRight,
-    );
-  }
+    ),
+  );
+
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
