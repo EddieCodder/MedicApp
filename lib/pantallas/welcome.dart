@@ -3,15 +3,12 @@ import 'package:medic_app/pantallas/components/barraBusqueda.dart';
 import 'package:medic_app/pantallas/components/barraNavegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
-void main() => runApp(const WelcomeScreen());
-
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         // Fondo con degradado
         backgroundColor: Colors
@@ -99,7 +96,6 @@ class WelcomeScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // TODO: REDIRIGIR A DIRECCION
-                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
@@ -175,32 +171,27 @@ class WelcomeScreen extends StatelessWidget {
                   label: const Text(
                     'Ver Productos',
                     style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Inter',
+                      fontSize: 25,
+                      fontFamily: 'Inter',
                     ),
                   ),
                   backgroundColor: const Color.fromARGB(255, 139, 46, 215),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
-                  )
-                ),
+                  )),
 
               // Barra de Navegacion
 
               /*const Expanded (
                 child: BarrraNavegacion(),
               ),*/
-             
-
-
             ],
-          ), 
+          ),
         ),
 
         // BARRA DE NAVEGACIÓN
         bottomNavigationBar: const BarraNavegacion(),
       ),
-
     );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/welcome.dart';
 import '../components/barraNavegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
-void main() => runApp(const OpcionesAdmin());
-
 class OpcionesAdmin extends StatelessWidget {
-  const OpcionesAdmin({Key? key}) : super(key: key);
+  const OpcionesAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +169,7 @@ class OpcionesAdmin extends StatelessWidget {
                       children: [
                         CustomContainer(
                           text: 'Revisar pedidos (Sin Receta)  ',
-                          screen: WelcomeScreen(), // TODO: Revisar los pedidos
+                          screen: PedidosSinReceta(),
                         ),
                       ],
                     ),
