@@ -1,9 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 
-import '../components/barraBusqueda.dart';
+import '../components/barra_busqueda.dart';
 
 class PedidosSinRecetaDetalleScreen extends StatelessWidget {
   const PedidosSinRecetaDetalleScreen({super.key});
@@ -94,7 +94,7 @@ class PedidosSinRecetaDetalleScreen extends StatelessWidget {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                             color: const Color(0xFFAC37BF),
                             borderRadius: BorderRadius.circular(5),
@@ -125,23 +125,22 @@ class PedidosSinRecetaDetalleScreen extends StatelessWidget {
                     SizedBox(height: size.height * 0.02),
                   ]),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 100),
-                  child: Row(
-                    children: [
-                      Center(
-                        child: Text(
-                          'No hay más productos',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 144, 143, 143),
-                            fontSize: 25,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 35.0),
+                      child: Text(
+                        'No hay más productos',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 144, 143, 143),
+                          fontSize: 25,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ])),

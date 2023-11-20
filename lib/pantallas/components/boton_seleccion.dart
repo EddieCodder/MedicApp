@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/agregar_producto.dart';
+import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
@@ -70,8 +72,7 @@ class BotonSeleccion extends StatelessWidget {
 
     switch (widgetName) {
       case 'Realizar Pedido':
-        widget =
-            const SelecPedidoScreen(); 
+        widget = const SelecPedidoScreen();
         break;
       case 'Mis pedidos':
         widget =
@@ -99,9 +100,23 @@ class BotonSeleccion extends StatelessWidget {
         break;
 
       case 'Con Receta':
-        widget = const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO CON RECETA
+        widget =
+            const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO CON RECETA
         break;
 
+      //  OPCIONES ADMIN
+      //CON RECETA
+      case 'Realizar Pedido (Con Receta)':
+        widget = const WelcomeScreen();
+        break;
+
+      case 'Realizar Pedido (Sin Receta)':
+        widget = const PedidosSinReceta();
+        break;
+
+      case 'Agregar Producto':
+        widget = const AgregarProductoScreen();
+        break;
       default:
         throw ArgumentError('Nombre de widget no reconocido: $widgetName');
     }

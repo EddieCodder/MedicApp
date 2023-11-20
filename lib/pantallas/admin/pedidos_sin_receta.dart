@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta_detalle.dart';
-import 'package:medic_app/pantallas/components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 
-import '../components/barraBusqueda.dart';
+import '../components/barra_busqueda.dart';
 
 class PedidosSinReceta extends StatelessWidget {
   const PedidosSinReceta({super.key});
@@ -63,10 +63,10 @@ class PedidosSinReceta extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 60),
+                          padding: const EdgeInsets.only(left: 40),
                           child: Container(
-                            width: 85,
-                            height: 30,
+                            width: 105,
+                            height: 35,
                             decoration: const BoxDecoration(
                               color: Color(0xFFF2EFF4),
                               boxShadow: [
@@ -97,13 +97,13 @@ class PedidosSinReceta extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(width: size.width * 0.06),
+                    SizedBox(width: size.width * 0.04),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 85,
-                          height: 30,
+                          width: 105,
+                          height: 35,
                           decoration: const BoxDecoration(
                             color: Color(0xFFF2EFF4),
                             boxShadow: [
@@ -133,13 +133,13 @@ class PedidosSinReceta extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(width: size.width * 0.06),
+                    SizedBox(width: size.width * 0.04),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 85,
-                          height: 30,
+                          width: 105,
+                          height: 35,
                           decoration: const BoxDecoration(
                             color: Color(0xFFF2EFF4),
                             boxShadow: [

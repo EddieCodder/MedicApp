@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/admin/agregar_producto.dart';
-import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
-import 'package:medic_app/pantallas/welcome.dart';
-import '../components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/boton_seleccion.dart';
+import '../components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
 class OpcionesAdmin extends StatelessWidget {
@@ -28,187 +26,151 @@ class OpcionesAdmin extends StatelessWidget {
               ],
             ),
           ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: size.height * 0.12),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: const Color(0xFF471AA0),
-                    iconSize: 25,
-                    padding: const EdgeInsets.only(left: 30),
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: size.height * 0.12),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back_ios),
+                  color: const Color(0xFF471AA0),
+                  iconSize: 25,
+                  padding: const EdgeInsets.only(left: 30),
+                ),
+                const Text(
+                  'Opciones de administrador',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 33, 11, 75),
+                    fontSize: 30,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold,
+                    height: 0,
                   ),
-                  const Text(
-                    'Opciones de administrador',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 33, 11, 75),
-                      fontSize: 30,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      height: 0,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: Stack(children: [
+                        const DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFD9D9D9),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'U',
+                              style: TextStyle(
+                                color: Color(0xFF685252),
+                                fontSize: 45,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: -5,
+                          right: -5,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.edit),
+                            color: const Color.fromARGB(255, 110, 77, 77),
+                            iconSize: 24,
+                          ),
+                        ),
+                      ]),
                     ),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: SizedBox(
-                        width: 80,
-                        height: 80,
-                        child: Stack(children: [
-                          const DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFD9D9D9),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
+                ]),
+                const Row(
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10, bottom: 5),
                               child: Text(
-                                'U',
+                                'Mi perfil',
                                 style: TextStyle(
-                                  color: Color(0xFF685252),
-                                  fontSize: 45,
+                                  color: Color.fromARGB(255, 140, 139, 139),
+                                  fontSize: 20,
                                   fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w400,
                                   height: 0,
                                 ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: -5,
-                            right: -5,
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(Icons.edit),
-                              color: const Color.fromARGB(255, 110, 77, 77),
-                              iconSize: 24,
-                            ),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ]),
-                  const Row(
-                    children: [
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 10, bottom: 5),
-                                child: Text(
-                                  'Mi perfil',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 140, 139, 139),
-                                    fontSize: 20,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 2, left: 10),
-                                    child: Row(children: [
-                                      Text(
-                                        'NOMBRE NOMBRE2 APELLIDO',
-                                        style: TextStyle(
-                                          color: Color(0xFF5C4F5F),
-                                          fontSize: 20,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w800,
-                                          height: 0,
-                                        ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 2, left: 10),
+                                  child: Row(children: [
+                                    Text(
+                                      'NOMBRE NOMBRE2 APELLIDO',
+                                      style: TextStyle(
+                                        color: Color(0xFF5C4F5F),
+                                        fontSize: 20,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w800,
+                                        height: 0,
                                       ),
-                                    ]),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.05),
-              Padding(
-                padding: const EdgeInsets.only(left: 45),
-                child: Column(
-                  children: [
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text: 'Revisar pedidos (Con Receta) ',
-                          screen:
-                              LoginScreen(), // TODO: Implementar para revisar los documentos
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text: 'Revisar pedidos (Sin Receta)  ',
-                          screen: PedidosSinReceta(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text:
-                              'Agregar productos                   ', // TODO: Agregar productos
-                          screen: AgregarProductoScreen(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text:
-                              'Editar productos                      ', // TODO: editar productos
-                          screen: WelcomeScreen(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text:
-                              'Bloquear Usuarios                   ', // TODO: Bloquear productos
-                          screen: WelcomeScreen(),
+                                    ),
+                                  ]),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ],
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ],
+            ),
+            SizedBox(height: size.height * 0.05),
+            Column(children: [
+              BotonSeleccion(
+                texto: 'Realizar Pedido (Con Receta)',
+              ),
+              SizedBox(height: size.height * 0.03),
+              BotonSeleccion(
+                texto: 'Realizar Pedido (Sin Receta)',
+              ),
+              SizedBox(height: size.height * 0.03),
+              BotonSeleccion(
+                texto: 'Agregar Producto',
+              ),
+              SizedBox(height: size.height * 0.03),
+              BotonSeleccion(
+                texto: 'Editar producto(s)',
+              ),
+              SizedBox(height: size.height * 0.03),
+              BotonSeleccion(
+                texto: 'Bloquear usuarios',
+              ),
+            ])
+          ]),
         ),
         bottomNavigationBar: const BarraNavegacion(),
       ),

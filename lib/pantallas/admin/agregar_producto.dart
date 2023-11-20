@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/barraNavegacion.dart';
+import '../components/barra_navegacion.dart';
 
 class AgregarProductoScreen extends StatelessWidget {
   const AgregarProductoScreen({super.key});
