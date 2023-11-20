@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/components/barraBusqueda.dart';
-import 'package:medic_app/pantallas/components/barraNavegacion.dart';
+import 'package:medic_app/pantallas/components/barra_busqueda.dart';
+import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/menu.dart';
+
+void main() => runApp(const WelcomeScreen());
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -11,8 +14,6 @@ class WelcomeScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         // Fondo con degradado
-        backgroundColor: Colors
-            .transparent, // Establece el color de fondo del Scaffold a transparente
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -47,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                              builder: (context) => const MenuScreen(),
                             ),
                           );
                         },
@@ -179,12 +180,6 @@ class WelcomeScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   )),
-
-              // Barra de Navegacion
-
-              /*const Expanded (
-                child: BarrraNavegacion(),
-              ),*/
             ],
           ),
         ),
