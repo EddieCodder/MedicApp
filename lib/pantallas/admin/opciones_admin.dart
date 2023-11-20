@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/agregar_producto.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/welcome.dart';
 import '../components/barraNavegacion.dart';
@@ -179,6 +180,16 @@ class OpcionesAdmin extends StatelessWidget {
                         CustomContainer(
                           text:
                               'Agregar productos                   ', // TODO: Agregar productos
+                          screen: AgregarProductoScreen(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.03),
+                    const Row(
+                      children: [
+                        CustomContainer(
+                          text:
+                              'Editar productos                      ', // TODO: editar productos
                           screen: WelcomeScreen(),
                         ),
                       ],
@@ -188,17 +199,7 @@ class OpcionesAdmin extends StatelessWidget {
                       children: [
                         CustomContainer(
                           text:
-                              'Editar productos                      ', // TODO: Agregar productos
-                          screen: WelcomeScreen(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.03),
-                    const Row(
-                      children: [
-                        CustomContainer(
-                          text:
-                              'Bloquear Usuarios                   ', // TODO: Agregar productos
+                              'Bloquear Usuarios                   ', // TODO: Bloquear productos
                           screen: WelcomeScreen(),
                         ),
                       ],
