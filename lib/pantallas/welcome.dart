@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
@@ -165,7 +166,7 @@ class WelcomeScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => const CategorySceen(),
                       ),
                     );
                   },
