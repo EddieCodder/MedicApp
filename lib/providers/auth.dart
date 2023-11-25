@@ -33,7 +33,8 @@ class Auth with ChangeNotifier {
 
   Future<void> _authenticate(String nombreUsuario, String correo,
       String contrasena, String urlSegment) async {
-    final url = Uri.parse('http://192.168.100.3/api_medicapp/user/$urlSegment');
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/$urlSegment');
 
     try {
       final response = await http.post(
@@ -95,26 +96,20 @@ class Auth with ChangeNotifier {
     return true;
   }
 
-  void logout(Usuario updateUsuario) async {
-    final url = Uri.parse('http://192.168.100.3/api_medicapp/user/logout.php');
-    final usuarioIndex = _list.indexWhere(
-      (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
-    );
-
-    if (usuarioIndex >= 0) {
-      try {
-        final response = await http.post(
-          url,
-          body: {
-            'codigoUsuario': codigoUsuario,
-          },
-        );
-        updateUsuario = Usuario.fromJson(jsonDecode(response.body));
-        _list[usuarioIndex] = updateUsuario;
-      } catch (error) {
+  void logout() async {
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/logout.php');
+    try {
+      await http.post(
+        url,
+        body: {
+          'codigoUsuario': _codigoUsuario.toString(),
+        },
+      );
+    } catch (error) {
         rethrow;
-      }
     }
+
     _esAutenticado = null;
     _codigoUsuario = null;
     _esAdmin = null;
@@ -124,8 +119,9 @@ class Auth with ChangeNotifier {
     prefs.clear();
   }
 
-  Future<void> getUsuarios([bool filterByUser = false]) async {
-    final url = Uri.parse('http://192.168.100.3/api_medicapp/user/users.php');
+  Future<void> getUsuarios() async {
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/users.php');
 
     try {
       final response = await http.get(url);
@@ -133,8 +129,8 @@ class Auth with ChangeNotifier {
       if (jsonDecode(response.body) != null) {
         final data = jsonDecode(response.body);
         final List<Usuario> loadedUsers = [];
-        data.forEach((codigoUsuario, userData) {
-          loadedUsers.add(Usuario.fromJson(jsonDecode(data)));
+        data.forEach((data) {
+          loadedUsers.add(Usuario.fromJson(data));
         });
 
         _list = loadedUsers;
@@ -146,8 +142,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> updateUsuario(Usuario updateUsuario) async {
-    final url =
-        Uri.parse('http://192.168.100.3/api_medicapp/user/updateUser.php');
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/updateUser.php');
     final usuarioIndex = _list.indexWhere(
       (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
     );
@@ -168,8 +164,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> bloquearUsuario(Usuario updateUsuario) async {
-    final url =
-        Uri.parse('http://192.168.100.3/api_medicapp/user/blockUser.php');
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/blockUser.php');
     final usuarioIndex = _list.indexWhere(
       (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
     );
@@ -190,8 +186,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> actualizarDireccion(Usuario updateUsuario) async {
-    final url =
-        Uri.parse('http://192.168.100.3/api_medicapp/user/updateDirection.php');
+    final url = Uri.parse(
+        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/updateDirection.php');
     final usuarioIndex = _list.indexWhere(
       (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
     );

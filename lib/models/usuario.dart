@@ -15,7 +15,7 @@ class Usuario {
     final String contrasena;
     final String nombre;
     final String apellido;
-    final int telefono;
+    final String telefono;
     final String direccion;
     final DateTime fechaNacimiento;
     final String genero;
