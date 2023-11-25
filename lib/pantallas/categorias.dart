@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_categorias.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/seccion.dart';
 
 void main() => runApp(const CategorySceen());
 
@@ -125,7 +126,16 @@ class CuadroCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // TODO: REDIRIGIR A LA PANTALLA CORRESPONDIENTE
+        Widget widget = SeccionScreen(
+          nombreRecibido: name,
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => widget,
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
