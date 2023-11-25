@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'components/autenticate_fields.dart';
+
+import '../providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final TextEditingController _nombreUsuarioController =
+      TextEditingController();
+  final TextEditingController _contrasenaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,17 +77,22 @@ class LoginScreen extends StatelessWidget {
                   // Campo de texto Usuario
                   SizedBox(height: size.height * 0.02),
 
-                  const TextFieldRegister(
+                  TextFieldRegister(
+                    iconLeft: const Icon(null),
+                    iconRight: const Icon(null),
                     hintText: 'Nombre de Usuario o Correo',
                     esOculto: false,
+                    controller: _nombreUsuarioController,
                   ),
 
                   // Campo de texto Usuario
                   SizedBox(height: size.height * 0.02),
-                  const TextFieldRegister(
+                  TextFieldRegister(
+                    iconLeft: const Icon(null),
+                    iconRight: const Icon(Icons.remove_red_eye_outlined),
                     hintText: 'Contraseña',
-                    iconRight: Icon(Icons.remove_red_eye_outlined),
                     esOculto: true,
+                    controller: _contrasenaController,
                   ),
 
                   // Boton textual olvidaste contraseñas
@@ -90,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
@@ -106,12 +119,27 @@ class LoginScreen extends StatelessWidget {
 
                   FloatingActionButton.extended(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(),
-                          ),
-                        );
+                        final nombreUsuario = _nombreUsuarioController.text;
+                        final contrasena = _contrasenaController.text;
+                        // Verifica si el valor contiene '@' para determinar si es un correo electrónico
+                        bool esCorreo = nombreUsuario.contains('@');
+                        if (esCorreo) {
+                          Provider.of<Auth>(context, listen: false).login(
+                              correo: nombreUsuario, contrasena: contrasena);
+                        } else {
+                          Provider.of<Auth>(context, listen: false).login(
+                              nombreUsuario: nombreUsuario,
+                              contrasena: contrasena);
+                        }
+
+                        if (Provider.of<Auth>(context, listen: false).esAutenticado == 1) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeScreen(),
+                            ),
+                          );
+                        }
                       },
                       label: const Text('Iniciar Sesión'),
                       extendedPadding:
@@ -179,7 +207,7 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
+                                builder: (context) => RegisterScreen(),
                               ),
                             );
                           },
@@ -197,68 +225,6 @@ class LoginScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TextFieldRegister extends StatefulWidget {
-  final String hintText;
-  final Icon? iconRight;
-  final bool esOculto;
-
-  const TextFieldRegister({
-    super.key,
-    required this.hintText,
-    this.iconRight,
-    required this.esOculto,
-  });
-
-  @override
-  TextFieldRegisterState createState() {
-    return TextFieldRegisterState();
-  }
-}
-
-class TextFieldRegisterState extends State<TextFieldRegister> {
-  late TextEditingController _controller;
-  late bool _obscureText;
-
-  final outlineInputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(width: 2, color: Color(0xFF9747FF)),
-      borderRadius: BorderRadius.circular(15));
-
-  @override
-  void initState() {
-    super.initState();
-    _obscureText = widget.esOculto;
-    _controller = TextEditingController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      obscureText: _obscureText,
-      decoration: InputDecoration(
-        focusedBorder: outlineInputBorder,
-        enabledBorder: outlineInputBorder,
-        hintText: widget.hintText,
-        suffixIcon: validarIconoIzquierda(widget.iconRight),
-      ),
-    );
-  }
-
-  Widget? validarIconoIzquierda(Icon? iconRight) {
-    if (iconRight == null) {
-      return null;
-    }
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          _obscureText = !_obscureText;
-        });
-      },
-      icon: iconRight,
     );
   }
 }

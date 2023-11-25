@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
 import 'package:medic_app/pantallas/login.dart';
@@ -102,7 +103,14 @@ class MenuScreen extends StatelessWidget {
         )),
 
         bottomSheet: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OpcionesAdmin(),
+                ),
+              );
+            },
             child: Text(
               'Opciones de Administrador',
               style: TextStyle(
@@ -154,7 +162,7 @@ class FotoPerfil extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                        builder: (context) => LoginScreen()));
               },
               child: const Icon(
                 Icons.edit,
