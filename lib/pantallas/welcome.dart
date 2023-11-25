@@ -12,7 +12,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         // Fondo con degradado
         body: Container(
@@ -98,7 +97,6 @@ class WelcomeScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // TODO: REDIRIGIR A DIRECCION
-                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
@@ -174,23 +172,21 @@ class WelcomeScreen extends StatelessWidget {
                   label: const Text(
                     'Ver Productos',
                     style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Inter',
+                      fontSize: 25,
+                      fontFamily: 'Inter',
                     ),
                   ),
                   backgroundColor: const Color.fromARGB(255, 139, 46, 215),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
-                  )
-                ),
+                  )),
             ],
-          ), 
+          ),
         ),
 
         // BARRA DE NAVEGACIÓN
         bottomNavigationBar: const BarraNavegacion(),
       ),
-
     );
   }
 }
