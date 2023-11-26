@@ -6,6 +6,9 @@ import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/auth.dart';
 
 // ignore: must_be_immutable
 class BotonSeleccion extends StatelessWidget {
@@ -76,22 +79,23 @@ class BotonSeleccion extends StatelessWidget {
         break;
       case 'Mis pedidos':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE MIS PEDIDOS
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE MIS PEDIDOS
         break;
       case 'Información de la cuenta':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
         break;
       case 'Contáctanos':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CONTACTO
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE CONTACTO
         break;
       case 'Ayuda':
         widget =
-            const LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE AYUDA
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE AYUDA
         break;
       case 'Cerrar Sesión':
-        widget = const LoginScreen();
+        Provider.of<Auth>(context, listen: false).logout();
+        widget = LoginScreen();
         break;
 
       // PARA EL TIPO DE PEDIDO

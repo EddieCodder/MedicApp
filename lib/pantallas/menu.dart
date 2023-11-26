@@ -162,7 +162,7 @@ class FotoPerfil extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                        builder: (context) => LoginScreen()));
               },
               child: const Icon(
                 Icons.edit,
