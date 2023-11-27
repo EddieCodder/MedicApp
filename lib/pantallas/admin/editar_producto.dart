@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/admin/editar_producto_img.dart';
+
 import '../components/barra_navegacion.dart';
 
 class EditarProductoScreen extends StatelessWidget {
-  const EditarProductoScreen({super.key});
+  // ignore: prefer_const_constructors_in_immutables
+  EditarProductoScreen({super.key});
+  final String _imagePath =
+      "https://www.hogarysalud.com.pe/wp-content/uploads/2021/04/00199811-C1.jpg";
+  Future<void> _getImage() async {
+    /* final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imagePath = pickedFile.path;
+      });
+    }*/
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,11 +39,11 @@ class EditarProductoScreen extends StatelessWidget {
               ),
             ),
             child: Column(children: [
-              SizedBox(height: size.height * 0.004),
+              SizedBox(height: size.height * 0.001),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: size.height * 0.12),
+                  SizedBox(height: size.height * 0.02),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -91,7 +105,7 @@ class EditarProductoScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: Container(
                       width: 430,
-                      height: 150,
+                      height: 80,
                       decoration: const BoxDecoration(
                         color: Color(0xFFF2EFF4),
                         boxShadow: [
@@ -180,31 +194,54 @@ class EditarProductoScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-            ])),
-        floatingActionButton: Stack(
-          children: [
-            Positioned(
-              bottom: 16.0,
-              right: 16.0,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EditarProductoImgScreen(),
+              InkWell(
+                onTap: _getImage,
+                child: Container(
+                  width: 90,
+                  height: 90,
+                  decoration: ShapeDecoration(
+                    color: const Color(0x00D9D9D9),
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                backgroundColor: Colors.white,
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Color(0xFF471AA0),
-                  size: 25,
+                  ),
+                  // ignore: unnecessary_null_comparison
+                  child: _imagePath != null
+                      ? Image.network(
+                          _imagePath,
+                          width: 57,
+                          height: 57,
+                          fit: BoxFit.cover,
+                        )
+                      : const Center(
+                          child: Icon(
+                            Icons.image,
+                            size: 50,
+                            color: Colors.black,
+                          ),
+                        ),
                 ),
               ),
-            ),
-          ],
-        ),
+              SizedBox(height: size.height * 0.03),
+              FloatingActionButton.extended(
+                  onPressed: () {
+                    //TODO: Logica de la edición
+                  },
+                  extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  elevation: 20,
+                  label: const Text(
+                    'Guardar',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  )),
+            ])),
         bottomNavigationBar: const BarraNavegacion(),
       ),
     );
