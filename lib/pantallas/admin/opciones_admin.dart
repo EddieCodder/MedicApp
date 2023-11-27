@@ -159,7 +159,7 @@ class OpcionesAdmin extends StatelessWidget {
               ),
               SizedBox(height: size.height * 0.03),
               BotonSeleccion(
-                texto: 'Agregar Producto',
+                texto: 'Agregar producto',
               ),
               SizedBox(height: size.height * 0.03),
               BotonSeleccion(

@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/agregar_producto.dart';
+import 'package:medic_app/pantallas/admin/bloquear_usuarios.dart';
+import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/login.dart';
@@ -118,9 +120,16 @@ class BotonSeleccion extends StatelessWidget {
         widget = const PedidosSinReceta();
         break;
 
-      case 'Agregar Producto':
-        widget = const AgregarProductoScreen();
+      case 'Agregar producto':
+        widget = AgregarProductoScreen();
         break;
+      case 'Editar producto(s)':
+        widget = const EditarProductoBuscarScreen();
+        break;
+      case 'Bloquear usuarios':
+        widget = const BloquearUsuariosScreen();
+        break;
+
       default:
         throw ArgumentError('Nombre de widget no reconocido: $widgetName');
     }
