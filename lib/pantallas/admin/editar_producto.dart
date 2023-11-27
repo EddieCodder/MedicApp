@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/editar_producto_img.dart';
 import '../components/barra_navegacion.dart';
 
 class EditarProductoScreen extends StatelessWidget {
@@ -187,7 +188,12 @@ class EditarProductoScreen extends StatelessWidget {
               right: 16.0,
               child: FloatingActionButton(
                 onPressed: () {
-                  //TODO: Implementar la logica de subida de Datos Post
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditarProductoImgScreen(),
+                    ),
+                  );
                 },
                 backgroundColor: Colors.white,
                 child: const Icon(
@@ -266,8 +272,8 @@ class _ReusableRowState extends State<ReusableRow> {
                   Expanded(
                     child: TextField(
                       controller: _textEditingController,
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.3),
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontSize: 20,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
@@ -275,7 +281,7 @@ class _ReusableRowState extends State<ReusableRow> {
                       decoration: InputDecoration(
                         hintText: widget.highText,
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 25, 2, 2),
+                          color: Color.fromARGB(255, 11, 0, 0),
                           fontSize: 20,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
