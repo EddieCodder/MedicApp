@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/agregar_producto_img.dart';
 import '../components/barra_navegacion.dart';
 
 class AgregarProductoScreen extends StatelessWidget {
@@ -166,7 +167,12 @@ class AgregarProductoScreen extends StatelessWidget {
               right: 16.0,
               child: FloatingActionButton(
                 onPressed: () {
-                  //TODO: Implementar la logica de subida de Datos Post
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AgregarProductoImgScreen(),
+                    ),
+                  );
                 },
                 backgroundColor: Colors.white,
                 child: const Icon(
