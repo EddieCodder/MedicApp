@@ -1,4 +1,7 @@
+// ignore: avoid_web_libraries_in_flutter
+
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/fondo.dart';
 
 void main() => runApp(const UserScreen());
@@ -11,8 +14,9 @@ class UserScreen extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
-      title: 'Material App',
       home: Scaffold(
+        extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
+        appBar: BarraRetorno(),
         body: Stack(children: [
           Fondo(),
         ]),
@@ -20,5 +24,3 @@ class UserScreen extends StatelessWidget {
     );
   }
 }
-
-
