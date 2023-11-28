@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_categorias.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
 
 void main() => runApp(const CategorySceen());
@@ -11,31 +12,17 @@ class CategorySceen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
       home: Scaffold(
         extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
-        appBar: const AppBarCategorias(),
+        appBar: AppBarCategorias(),
 
         body: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment(0.00, -1.00),
-                  end: Alignment(0, 1),
-                  colors: [
-                    Color.fromARGB(255, 162, 130, 178),
-                    Color.fromARGB(255, 237, 227, 242),
-                    Color.fromARGB(255, 255, 255, 255),
-                    Color(0xFFFDFAFE),
-                    Color.fromARGB(255, 147, 109, 166)
-                  ],
-                ),
-              ),
-            ),
-            const Center(
+            Fondo(),
+            Center(
               child: Column(
                 children: [
                   SizedBox(
@@ -75,7 +62,7 @@ class CategorySceen extends StatelessWidget {
             )
           ],
         ),
-        bottomNavigationBar: const BarraNavegacion(),
+        bottomNavigationBar: BarraNavegacion(),
       ),
     );
   }
