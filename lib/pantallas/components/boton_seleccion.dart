@@ -5,6 +5,7 @@ import 'package:medic_app/pantallas/admin/bloquear_usuarios.dart';
 import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/categorias.dart';
+import 'package:medic_app/pantallas/compra_receta.dart';
 import 'package:medic_app/pantallas/info_user.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
@@ -108,7 +109,7 @@ class BotonSeleccion extends StatelessWidget {
 
       case 'Con Receta':
         widget =
-            const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO CON RECETA
+            const CompraRecetaScreen(); 
         break;
 
       //  OPCIONES ADMIN
