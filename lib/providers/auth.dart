@@ -31,6 +31,10 @@ class Auth with ChangeNotifier {
     return _esAdmin;
   }
 
+  List<Usuario> get list {
+    return _list;
+  }
+
   Future<void> _authenticate(String nombreUsuario, String correo,
       String contrasena, String urlSegment) async {
     final url = Uri.parse(
@@ -107,7 +111,7 @@ class Auth with ChangeNotifier {
         },
       );
     } catch (error) {
-        rethrow;
+      rethrow;
     }
 
     _esAutenticado = null;
@@ -137,7 +141,11 @@ class Auth with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      rethrow;
+      // No imprimir mensajes de error en el modo de depuración
+      assert(() {
+        print('Error de conexión: $e');
+        return true;
+      }());
     }
   }
 
@@ -157,28 +165,28 @@ class Auth with ChangeNotifier {
         );
         updateUsuario = Usuario.fromJson(jsonDecode(response.body));
         _list[usuarioIndex] = updateUsuario;
+        notifyListeners();
       } catch (error) {
         rethrow;
       }
     }
   }
 
-  Future<void> bloquearUsuario(Usuario updateUsuario) async {
+  Future<void> bloquearUsuario(int codigoUsuario) async {
     final url = Uri.parse(
         'http://ivelitaunsa201920210.c1.is/api_medicapp/user/blockUser.php');
     final usuarioIndex = _list.indexWhere(
-      (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
+      (usuario) => usuario.codigoUsuario == codigoUsuario,
     );
     if (usuarioIndex >= 0) {
       try {
         final response = await http.post(
           url,
-          body: {
-            updateUsuario.toJson(),
-          },
+          body: {'codigoUsuario': codigoUsuario.toString(), 'esAdmin': 1.toString()},
         );
-        updateUsuario = Usuario.fromJson(jsonDecode(response.body));
+        Usuario updateUsuario = Usuario.fromJson(jsonDecode(response.body));
         _list[usuarioIndex] = updateUsuario;
+        notifyListeners();
       } catch (error) {
         rethrow;
       }
@@ -201,6 +209,7 @@ class Auth with ChangeNotifier {
         );
         updateUsuario = Usuario.fromJson(jsonDecode(response.body));
         _list[usuarioIndex] = updateUsuario;
+        notifyListeners();
       } catch (error) {
         rethrow;
       }

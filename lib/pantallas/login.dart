@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/register.dart';
-import 'package:medic_app/pantallas/welcome.dart';
 import 'components/autenticate_fields.dart';
-
+import 'welcome.dart';
 import '../providers/auth.dart';
 import 'package:provider/provider.dart';
 

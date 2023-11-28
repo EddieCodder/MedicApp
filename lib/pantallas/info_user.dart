@@ -5,6 +5,7 @@ import 'package:medic_app/pantallas/admin/editar_producto.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/components/boton_guardar.dart';
+import 'package:medic_app/pantallas/components/field_producto_update_admin.dart';
 import 'package:medic_app/pantallas/components/foto_perfil.dart';
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/menu.dart';
@@ -73,7 +74,7 @@ class UserScreen extends StatelessWidget {
               ),
               const ReusableRow(
                 labelText: 'Nombre(s)',
-                highText: 'NOMBRE NOMBRE2|',
+                highText: 'NOMBRE NOMBRE2|', controller: null, 
               ),
 
               const SizedBox(
@@ -81,7 +82,7 @@ class UserScreen extends StatelessWidget {
               ),
               const ReusableRow(
                 labelText: 'Apellido(s)',
-                highText: 'APELLIDO|',
+                highText: 'APELLIDO|', controller: null,
               ),
 
               const SizedBox(
@@ -89,7 +90,7 @@ class UserScreen extends StatelessWidget {
               ),
               const ReusableRow(
                 labelText: 'Correo Electrónico',
-                highText: 'correo@gmail.com',
+                highText: 'correo@gmail.com', controller: null,
               ),
 
               const SizedBox(
@@ -97,7 +98,7 @@ class UserScreen extends StatelessWidget {
               ),
               const ReusableRow(
                 labelText: 'Fecha Nacimiento',
-                highText: '10/10/2000',
+                highText: '10/10/2000', controller: null,
               ),
 
               const SizedBox(
@@ -105,7 +106,7 @@ class UserScreen extends StatelessWidget {
               ),
               const ReusableRow(
                 labelText: 'Género',
-                highText: 'Hombre/Mujer/Otro',
+                highText: 'Hombre/Mujer/Otro', controller: null,
               ),
 
               const SizedBox(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth.dart';
 import '../components/barra_navegacion.dart';
+import 'opciones_admin.dart';
 
 class BloquearUsuariosScreen extends StatelessWidget {
   const BloquearUsuariosScreen({super.key});
@@ -32,7 +35,12 @@ class BloquearUsuariosScreen extends StatelessWidget {
                   SizedBox(height: size.height * 0.12),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OpcionesAdmin(),
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.arrow_back_ios),
                     color: const Color(0xFF471AA0),
@@ -69,36 +77,35 @@ class BloquearUsuariosScreen extends StatelessWidget {
               SizedBox(height: size.height * 0.02),
               const BarraBusqueda(),
               SizedBox(height: size.height * 0.05),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
-              ),
-              SizedBox(height: size.height * 0.03),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
-              ),
-              SizedBox(height: size.height * 0.03),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
-              ),
-              SizedBox(height: size.height * 0.03),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
-              ),
-              SizedBox(height: size.height * 0.03),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
-              ),
-              SizedBox(height: size.height * 0.03),
-              CustomContainer(
-                leftText: "Maria Fernando Martilla Guzman",
-                onDelete: () {},
+              Expanded(
+                child: ListView.builder(
+                  itemCount: Provider.of<Auth>(context).list.length,
+                  itemBuilder: (context, index) {
+                    // Filtrar usuarios bloqueados
+                    final usuario = Provider.of<Auth>(context).list[index];
+                    if (usuario.esBloqueado==1) {
+                      return Container(); // Devolver un contenedor vacío para usuarios bloqueados
+                    }
+                    return CustomContainer(
+                      leftText: usuario.nombreUsuario,
+                      onDelete: () {
+                        Provider.of<Auth>(context, listen: false)
+                            .bloquearUsuario(usuario.codigoUsuario);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BloquearUsuariosScreen(),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  
+                ),
               )
-            ])),
+            ]
+          )
+        ),
         bottomNavigationBar: const BarraNavegacion(),
       ),
     );
@@ -120,52 +127,48 @@ class CustomContainer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          width: 401,
-          height: 55,
-          decoration: const BoxDecoration(
-            color: Color(0xFFF2EFF4),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x3F000000),
-                blurRadius: 4,
-                offset: Offset(0, 4),
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: Stack(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                    child: Text(
-                      leftText,
-                      style: const TextStyle(
-                        color: Color(0xFF5C4F5F),
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 401,
+            height: 55,
+            decoration: const BoxDecoration(
+              color: Color(0xFFF2EFF4),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x3F000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Text(
+                    leftText,
+                    style: const TextStyle(
+                      color: Color(0xFF5C4F5F),
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 30, 25),
-                    child: SizedBox(
-                      width: 10,
-                      height: 10,
-                      child: IconButton(
-                        onPressed: onDelete,
-                        icon: const Icon(Icons.close),
-                      ),
-                    ),
+                ),
+                GestureDetector(
+                  onTap: onDelete,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.transparent,
+                    child: const Icon(Icons.close),
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

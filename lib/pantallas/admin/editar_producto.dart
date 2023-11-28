@@ -1,21 +1,76 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
+import 'package:provider/provider.dart';
+import '../../models/producto.dart';
+import '../../providers/productos.dart';
 
 import '../components/barra_navegacion.dart';
+import 'package:image_picker/image_picker.dart';
 
-class EditarProductoScreen extends StatelessWidget {
-  // ignore: prefer_const_constructors_in_immutables
-  EditarProductoScreen({super.key});
-  final String _imagePath =
-      "https://www.hogarysalud.com.pe/wp-content/uploads/2021/04/00199811-C1.jpg";
+import '../components/field_producto_update_admin.dart';
+
+class EditarProductoScreen extends StatefulWidget {
+  final int codigoProducto;
+
+  const EditarProductoScreen({Key? key, required this.codigoProducto})
+      : super(key: key);
+
+  @override
+  EditarProductoScreenState createState() => EditarProductoScreenState();
+}
+
+class EditarProductoScreenState extends State<EditarProductoScreen> {
+  late int _codigoProducto;
+  late TextEditingController _nombreController;
+  late TextEditingController _marcaController;
+  late TextEditingController _descripcionController;
+  late TextEditingController _precioController;
+  late TextEditingController _categoriaController;
+  late TextEditingController _cantidadController;
+  late String _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Obtener el producto con el código proporcionado
+    final producto = Provider.of<Productos>(context, listen: false)
+        .list
+        .firstWhere((p) => p.codigoProducto == widget.codigoProducto);
+
+    // Inicializar controladores con los datos del producto
+    _codigoProducto = producto.codigoProducto;
+    _nombreController = TextEditingController(text: producto.nombreProducto);
+    _marcaController = TextEditingController(text: producto.marca);
+    _descripcionController = TextEditingController(text: producto.descripcion);
+    _precioController = TextEditingController(text: producto.precio.toString());
+    _categoriaController =
+        TextEditingController(text: producto.codigoCategoria.toString());
+    _cantidadController =
+        TextEditingController(text: producto.cantidadStock.toString());
+    _imagePath = producto.imagen;
+  }
+
+  @override
+  void dispose() {
+    // Dispose de los controladores
+    _nombreController.dispose();
+    _marcaController.dispose();
+    // ... Dispose de otros controladores
+    super.dispose();
+  }
+
   Future<void> _getImage() async {
-    /* final pickedFile =
+    final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
         _imagePath = pickedFile.path;
       });
-    }*/
+    }
   }
 
   @override
@@ -26,19 +81,20 @@ class EditarProductoScreen extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.00, -1.00),
-                end: Alignment(0, 1),
-                colors: [
-                  Color.fromARGB(255, 215, 120, 230),
-                  Color.fromARGB(255, 251, 246, 251),
-                  Color.fromARGB(255, 251, 246, 251),
-                  Color.fromARGB(255, 251, 246, 251),
-                ],
-              ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(0.00, -1.00),
+              end: Alignment(0, 1),
+              colors: [
+                Color.fromARGB(255, 215, 120, 230),
+                Color.fromARGB(255, 251, 246, 251),
+                Color.fromARGB(255, 251, 246, 251),
+                Color.fromARGB(255, 251, 246, 251),
+              ],
             ),
-            child: Column(children: [
+          ),
+          child: Column(
+            children: [
               SizedBox(height: size.height * 0.001),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -81,115 +137,56 @@ class EditarProductoScreen extends StatelessWidget {
                 )
               ]),
               SizedBox(height: size.height * 0.03),
-              const Row(
+              Row(
                 children: [
                   ReusableRow(
                     labelText: 'Nombre',
-                    highText: 'Amoxilcilina',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              const Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Marca',
-                    highText: 'Nartugen',
+                    controller: _nombreController, highText: '',
                   ),
                 ],
               ),
               SizedBox(height: size.height * 0.03),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Container(
-                      width: 430,
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF2EFF4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Descripcion',
-                                  style: TextStyle(
-                                    color: Colors.black.withOpacity(0.32),
-                                    fontSize: 15,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(
-                                      color: Colors.black.withOpacity(0.3),
-                                      fontSize: 20,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: '|',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black.withOpacity(0.3),
-                                        fontSize: 20,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  ReusableRow(
+                    labelText: 'Marca',
+                    controller: _marcaController, highText: '',
                   ),
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              const Row(
+              Row(
+                children: [
+                  ReusableRow(
+                    labelText: 'Descripcion',
+                    controller: _descripcionController, highText: '',
+                  ),
+                ],
+              ),
+              SizedBox(height: size.height * 0.03),
+              Row(
                 children: [
                   ReusableRow(
                     labelText: 'Precio',
-                    highText: 'S/. 4.00',
+                    controller: _precioController, highText: '',
                   ),
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              const Row(
+              Row(
                 children: [
                   ReusableRow(
-                    labelText: 'Categoría',
-                    highText: 'Antibacteriano',
+                    labelText: 'Categoria',
+                    controller: _categoriaController, highText: '',
                   ),
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              const Row(
+              Row(
                 children: [
                   ReusableRow(
                     labelText: 'Cantidad',
-                    highText: '1280',
+                    controller: _cantidadController, highText: '',
                   ),
                 ],
               ),
@@ -206,140 +203,71 @@ class EditarProductoScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  // ignore: unnecessary_null_comparison
-                  child: _imagePath != null
+                  child: _imagePath.startsWith("images") // Verificar si es una URL
                       ? Image.network(
-                          _imagePath,
+                          "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
                           width: 57,
                           height: 57,
                           fit: BoxFit.cover,
                         )
-                      : const Center(
-                          child: Icon(
-                            Icons.image,
-                            size: 50,
-                            color: Colors.black,
-                          ),
-                        ),
+                      : Image.file(
+                          File(_imagePath),
+                          width: 57,
+                          height: 57,
+                          fit: BoxFit.cover,
+                        )
                 ),
               ),
+
               SizedBox(height: size.height * 0.03),
               FloatingActionButton.extended(
-                  onPressed: () {
-                    //TODO: Logica de la edición
-                  },
-                  extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
-                  elevation: 20,
-                  label: const Text(
-                    'Guardar',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: 'Inter',
-                    ),
+                label: const Text(
+                  'Guardar',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Inter',
                   ),
-                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  )),
-            ])),
-        bottomNavigationBar: const BarraNavegacion(),
-      ),
-    );
-  }
-}
+                ),
+                backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                onPressed: () {
+                  // Acceder al valor actualizado desde los controladores
+                  final nuevoNombre = _nombreController.text;
+                  final nuevaMarca = _marcaController.text;
+                  final nuevaDescripcion = _descripcionController.text;
+                  final nuevoPrecio = _precioController.text;
+                  final nuevaCategoria = _categoriaController.text;
+                  final nuevaCantidad = _cantidadController.text;
 
-class ReusableRow extends StatefulWidget {
-  final String labelText;
-  final String highText;
-
-  const ReusableRow({Key? key, required this.labelText, required this.highText})
-      : super(key: key);
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _ReusableRowState createState() => _ReusableRowState();
-}
-
-class _ReusableRowState extends State<ReusableRow> {
-  late TextEditingController _textEditingController;
-
-  @override
-  void initState() {
-    super.initState();
-    _textEditingController = TextEditingController(text: widget.highText);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: Container(
-        width: 430,
-        decoration: const BoxDecoration(
-          color: Color(0xFFF2EFF4),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x3F000000),
-              blurRadius: 4,
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, top: 10),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    widget.labelText,
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.32),
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _textEditingController,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: widget.highText,
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 11, 0, 0),
-                          fontSize: 20,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                      onChanged: (value) {},
-                    ),
-                  ),
-                ],
+                  try {
+                    Map<String, dynamic> parametros = {
+                      'codigoProducto': _codigoProducto,
+                      'nombreProducto': nuevoNombre,
+                      'marca': nuevaMarca,
+                      'descripcion': nuevaDescripcion,
+                      'precio': double.parse(nuevoPrecio),
+                      'codigoCategoria': int.parse(nuevaCategoria),
+                      'cantidadStock': int.parse(nuevaCantidad),
+                      'imagen': ''
+                    };
+                    Provider.of<Productos>(context, listen: false).updateProducto(
+                        Producto.fromJson(parametros), _imagePath);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditarProductoBuscarScreen()));
+                  } catch (error) {
+                    rethrow;
+                  }
+                },
               ),
             ],
           ),
         ),
+        bottomNavigationBar: const BarraNavegacion(),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
   }
 }

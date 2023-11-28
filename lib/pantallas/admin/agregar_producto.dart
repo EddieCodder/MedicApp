@@ -1,29 +1,40 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import '../components/barra_navegacion.dart';
 import '../components/producto_fields.dart';
+import 'package:provider/provider.dart';
+import '../../providers/productos.dart';
+import '../../models/producto.dart';
 import 'dart:io';
 
-class AgregarProductoScreen extends StatelessWidget {
-  AgregarProductoScreen({super.key});
+class AgregarProductoScreen extends StatefulWidget {
+  const AgregarProductoScreen({Key? key}) : super(key: key);
 
+  @override
+  AgregarProductoScreenState createState() => AgregarProductoScreenState();
+}
+
+class AgregarProductoScreenState extends State<AgregarProductoScreen> {
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController marcaController = TextEditingController();
   final TextEditingController precioController = TextEditingController();
   final TextEditingController categoriaController = TextEditingController();
+  final TextEditingController cantidadStockController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
 
   String? _imagePath;
   Future<void> _getImage() async {
-    /*final pickedFile =
+    final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
+
     if (pickedFile != null) {
       setState(() {
         _imagePath = pickedFile.path;
       });
-    }*/
-    //TODO: Implementar el _getImage para usar la galeria del usuario
+    }
   }
 
   @override
@@ -155,7 +166,27 @@ class AgregarProductoScreen extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               FloatingActionButton.extended(
                   onPressed: () {
-                    //TODO: Funcionalidad del guardado
+                    try {
+                      Map<String, dynamic> parametros = {
+                        'codigoProducto': 0,
+                        'nombreProducto': nombreController.text,
+                        'marca': marcaController.text,
+                        'descripcion': descripcionController.text,
+                        'precio': double.parse(precioController.text,),
+                        'codigoCategoria': int.parse(categoriaController.text),
+                        'cantidadStock': 100,
+                        'imagen': ''
+                      };
+                      Provider.of<Productos>(context, listen: false)
+                          .addProducto(
+                              Producto.fromJson(parametros), _imagePath ?? '');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OpcionesAdmin()));
+                    } catch (error) {
+                      rethrow;
+                    }
                   },
                   extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
                   elevation: 20,
