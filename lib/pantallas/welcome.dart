@@ -3,6 +3,9 @@ import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/menu.dart';
+import 'package:provider/provider.dart';
+import '../providers/productos.dart';
+import '../providers/auth.dart';
 
 void main() => runApp(const WelcomeScreen());
 
@@ -11,6 +14,13 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productosProvider = Provider.of<Productos>(context);
+    final usuariosProvider = Provider.of<Auth>(context);
+
+    // Llamar a la función getProducts para cargar la lista de productos
+    productosProvider.getProductos();
+    usuariosProvider.getUsuarios();
+    
     return MaterialApp(
       home: Scaffold(
         // Fondo con degradado

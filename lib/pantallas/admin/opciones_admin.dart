@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
+import 'package:medic_app/pantallas/menu.dart';
 import '../components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
@@ -33,7 +34,12 @@ class OpcionesAdmin extends StatelessWidget {
                 SizedBox(height: size.height * 0.12),
                 IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MenuScreen(),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                   color: const Color(0xFF471AA0),

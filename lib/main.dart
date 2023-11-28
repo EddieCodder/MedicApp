@@ -5,6 +5,7 @@ import 'package:medic_app/pantallas/welcome.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
+import 'providers/productos.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<Auth>(
           create: (ctx) => Auth(),
-        )
+        ),
+        ChangeNotifierProvider<Productos>(
+          create: (ctx) => Productos(),
+        ),
       ],
       child: Consumer<Auth>(builder: (ctx, authData, child) {
         // print(authData.isAuth);
