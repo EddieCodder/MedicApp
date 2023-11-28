@@ -7,7 +7,7 @@ class ReusableRow extends StatefulWidget {
   const ReusableRow({
     Key? key,
     required this.labelText,
-    required this.controller,
+    required this.controller, required String highText,
   }) : super(key: key);
 
   @override
