@@ -4,10 +4,12 @@ import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/field_basic.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
 
-void main() => runApp(const DireccionScreen());
 
 class DireccionScreen extends StatelessWidget {
-  const DireccionScreen({super.key});
+
+  final bool ingresoDesdeBienvenida; 
+
+  const DireccionScreen({super.key, required this.ingresoDesdeBienvenida});
 
   @override
   Widget build(BuildContext context) {
@@ -53,43 +55,51 @@ class DireccionScreen extends StatelessWidget {
                     height: 0,
                   ),
                 )),
+
+          
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              'O',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF5C4F5F),
-                fontSize: 15,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-                height: 0,
+            Visibility(
+              visible: ingresoDesdeBienvenida,
+              child: const Text(
+                'O',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF5C4F5F),
+                  fontSize: 15,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            TextButton(
-              onPressed: () {
-                // TODO: USAR LA UBICACIÓN ACTUAL
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset('assets/ubiActual.png'),
-                  const SizedBox(
-                      width: 8.0), // Espacio entre la imagen y el texto
-                  const Text(
-                    'Usar ubicación actual',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 122, 57, 175),
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
+            Visibility(
+              visible: ingresoDesdeBienvenida,
+              child: TextButton(
+                onPressed: () {
+                  // TODO: USAR LA UBICACIÓN ACTUAL
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/ubiActual.png'),
+                    const SizedBox(
+                        width: 8.0), // Espacio entre la imagen y el texto
+                    const Text(
+                      'Usar ubicación actual',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 122, 57, 175),
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/boton_guardar.dart';
+import 'package:medic_app/pantallas/direccion.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
 
 void main() => runApp(const CompraRecetaScreen());
@@ -102,7 +103,7 @@ class CompraRecetaScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const BotonGuardado(text: 'Continuar'),
+            const BotonBasic(text: 'Continuar',pantalla: DireccionScreen(ingresoDesdeBienvenida: false,), ),
           ],
         ),
       ),

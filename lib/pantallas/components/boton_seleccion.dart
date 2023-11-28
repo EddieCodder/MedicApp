@@ -123,7 +123,7 @@ class BotonSeleccion extends StatelessWidget {
         break;
 
       case 'Agregar producto':
-        widget = AgregarProductoScreen();
+        widget = const AgregarProductoScreen();
         break;
       case 'Editar producto(s)':
         widget = const EditarProductoBuscarScreen();

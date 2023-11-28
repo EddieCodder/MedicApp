@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 
-class BotonGuardado extends StatelessWidget {
+class BotonBasic extends StatelessWidget {
+  final Widget pantalla;
   final String text;
-  const BotonGuardado({
-    super.key, required this.text,
+  const BotonBasic({
+    super.key,
+    required this.text,
+    required this.pantalla,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // FUNCION
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => pantalla,
+          ),
+        );
       },
       child: Container(
         alignment: Alignment.center,

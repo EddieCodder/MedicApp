@@ -123,8 +123,9 @@ class UserScreenState extends State<UserScreen> {
                 height: 40,
               ),
 
-              const BotonGuardado(
+              const BotonBasic(
                 text: 'Guardar',
+                pantalla: MenuScreen(),
               )
             ],
           )

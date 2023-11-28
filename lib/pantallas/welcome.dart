@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/direccion.dart';
 import 'package:medic_app/pantallas/menu.dart';
 import 'package:provider/provider.dart';
 import '../providers/productos.dart';
@@ -20,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
     // Llamar a la función getProducts para cargar la lista de productos
     productosProvider.getProductos();
     usuariosProvider.getUsuarios();
-    
+
     return MaterialApp(
       home: Scaffold(
         // Fondo con degradado
@@ -106,7 +107,14 @@ class WelcomeScreen extends StatelessWidget {
               // REALIZAR PEDIDO
               ElevatedButton(
                 onPressed: () {
-                  // TODO: REDIRIGIR A DIRECCION
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DireccionScreen(
+                        ingresoDesdeBienvenida: true,
+                      ),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(
@@ -125,7 +133,7 @@ class WelcomeScreen extends StatelessWidget {
                     const SizedBox(
                         width: 8.0), // Espacio entre el icono y el texto
                     const Text(
-                      '¿Dónde quieres recbir tu pedido? ',
+                      '¿Dónde quieres recibir tu pedido? ',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'Inter',
@@ -144,8 +152,12 @@ class WelcomeScreen extends StatelessWidget {
               // REALIZAR PEDIDO (UBICACIÓN ACTUAL)
               TextButton(
                 onPressed: () {
-                  // Acciones a realizar cuando se presiona el botón
-                },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CategorySceen(),
+                    ),
+                  );                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
