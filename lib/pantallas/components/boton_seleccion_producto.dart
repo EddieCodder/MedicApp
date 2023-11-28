@@ -166,7 +166,7 @@ class BotonSeleccionProducto extends StatelessWidget {
         break;
 
       case 'Agregar Producto':
-        widget = const AgregarProductoScreen();
+        widget = AgregarProductoScreen();
         break;
       default:
         throw ArgumentError('Nombre de widget no reconocido: $widgetName');

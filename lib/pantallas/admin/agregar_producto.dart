@@ -1,8 +1,31 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import '../components/barra_navegacion.dart';
+import '../components/producto_fields.dart';
+import 'dart:io';
 
 class AgregarProductoScreen extends StatelessWidget {
-  const AgregarProductoScreen({super.key});
+  AgregarProductoScreen({super.key});
+
+  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController marcaController = TextEditingController();
+  final TextEditingController precioController = TextEditingController();
+  final TextEditingController categoriaController = TextEditingController();
+  final TextEditingController descripcionController = TextEditingController();
+
+  String? _imagePath;
+  Future<void> _getImage() async {
+    /*final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imagePath = pickedFile.path;
+      });
+    }*/
+    //TODO: Implementar el _getImage para usar la galeria del usuario
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -66,191 +89,89 @@ class AgregarProductoScreen extends StatelessWidget {
                 )
               ]),
               SizedBox(height: size.height * 0.03),
-              const Row(
+              Row(
                 children: [
-                  ReusableRow(labelText: 'Nombre'),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              const Row(
-                children: [
-                  ReusableRow(labelText: 'Marca'),
+                  ReusableRow(
+                      labelText: 'Nombre', controller: nombreController),
                 ],
               ),
               SizedBox(height: size.height * 0.03),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Container(
-                      width: 430,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF2EFF4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Descripcion',
-                                  style: TextStyle(
-                                    color: Colors.black.withOpacity(0.32),
-                                    fontSize: 15,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(
-                                      color: Colors.black.withOpacity(0.3),
-                                      fontSize: 20,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: '|',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black.withOpacity(0.3),
-                                        fontSize: 20,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                  ReusableRow(labelText: 'Marca', controller: marcaController),
+                ],
+              ),
+              SizedBox(height: size.height * 0.03),
+              Row(children: [
+                ReusableRow(
+                  labelText: 'Descripcion',
+                  controller: descripcionController,
+                )
+              ]),
+              SizedBox(height: size.height * 0.03),
+              Row(
+                children: [
+                  ReusableRow(
+                      labelText: 'Precio', controller: precioController),
+                ],
+              ),
+              SizedBox(height: size.height * 0.03),
+              Row(
+                children: [
+                  ReusableRow(
+                      labelText: 'Categoría', controller: categoriaController),
+                ],
+              ),
+              SizedBox(height: size.height * 0.03),
+              InkWell(
+                onTap: _getImage,
+                child: Container(
+                  width: 107,
+                  height: 107,
+                  decoration: ShapeDecoration(
+                    color: const Color(0x00D9D9D9),
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              const Row(
-                children: [
-                  ReusableRow(labelText: 'Precio'),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              const Row(
-                children: [
-                  ReusableRow(labelText: 'Categoría'),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-            ])),
-        floatingActionButton: Stack(
-          children: [
-            Positioned(
-              bottom: 16.0,
-              right: 16.0,
-              child: FloatingActionButton(
-                onPressed: () {
-                  //TODO: Implementar la logica de subida de Datos Post
-                },
-                backgroundColor: Colors.white,
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Color(0xFF471AA0),
-                  size: 25,
+                  child: _imagePath != null
+                      ? Image.file(
+                          // Muestra la imagen seleccionada
+                          File(_imagePath!),
+                          width: 207,
+                          height: 207,
+                          fit: BoxFit.cover,
+                        )
+                      : const Center(
+                          child: Icon(
+                            Icons.image,
+                            size: 50,
+                            color: Colors.black,
+                          ),
+                        ),
                 ),
               ),
-            ),
-          ],
-        ),
-        bottomNavigationBar: const BarraNavegacion(),
-      ),
-    );
-  }
-}
-
-class ReusableRow extends StatelessWidget {
-  final String labelText;
-
-  const ReusableRow({Key? key, required this.labelText}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: Container(
-        width: 430,
-        decoration: const BoxDecoration(
-          color: Color(0xFFF2EFF4),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x3F000000),
-              blurRadius: 4,
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, top: 10),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    labelText,
+              SizedBox(height: size.height * 0.03),
+              FloatingActionButton.extended(
+                  onPressed: () {
+                    //TODO: Funcionalidad del guardado
+                  },
+                  extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  elevation: 20,
+                  label: const Text(
+                    'Guardar',
                     style: TextStyle(
-                      color: Colors.black.withOpacity(0.32),
-                      fontSize: 15,
+                      fontSize: 25,
                       fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.3),
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: '|',
-                        hintStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.3),
-                          fontSize: 20,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  )),
+            ])),
+        bottomNavigationBar: const BarraNavegacion(),
       ),
     );
   }
