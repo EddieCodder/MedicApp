@@ -3,6 +3,9 @@ import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
 
 void main() => runApp(const MenuScreen());
 
@@ -102,25 +105,34 @@ class MenuScreen extends StatelessWidget {
           ],
         )),
 
-        bottomSheet: TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const OpcionesAdmin(),
+        bottomSheet: Consumer<Auth>(
+          builder: (context, auth, child) {
+            if (auth.esAdmin == 1) {
+              return TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OpcionesAdmin(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Opciones de Administrador',
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.6000000238418579),
+                    fontSize: 15,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
                 ),
               );
-            },
-            child: Text(
-              'Opciones de Administrador',
-              style: TextStyle(
-                color: Colors.black.withOpacity(0.6000000238418579),
-                fontSize: 15,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-                height: 0,
-              ),
-            )),
+            } else {
+              return const SizedBox.shrink(); // Devuelve un contenedor vacío si no es admin
+            }
+          },
+        ),
 
         // ---------------------------------------------------------------------
       ),

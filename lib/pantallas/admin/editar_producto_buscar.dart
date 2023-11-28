@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/editar_producto.dart';
 
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:provider/provider.dart';
+import '../../providers/productos.dart';
 
 import '../components/barra_busqueda.dart';
+import './opciones_admin.dart';
 
 class EditarProductoBuscarScreen extends StatelessWidget {
   const EditarProductoBuscarScreen({super.key});
@@ -36,7 +39,12 @@ class EditarProductoBuscarScreen extends StatelessWidget {
                     SizedBox(height: size.height * 0.12),
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OpcionesAdmin(),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.arrow_back_ios),
                       color: const Color(0xFF471AA0),
@@ -319,68 +327,32 @@ class EditarProductoBuscarScreen extends StatelessWidget {
                   )
                 ]),
                 SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Amoxilcilina',
-                    rightText: '1280 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: Provider.of<Productos>(context).list.length,
+                    itemBuilder: (context, index) {
+                      final producto =
+                          Provider.of<Productos>(context).list[index];
+
+                      return CustomContainer(
+                        codigoProducto: producto.codigoProducto,
+                        leftText: producto.nombreProducto,
+                        rightText: producto.cantidadStock.toString(),
+                        onDelete: () {
+                          Provider.of<Productos>(context, listen: false)
+                              .deleteProducto(producto.codigoProducto);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const EditarProductoBuscarScreen(),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Cetirizina',
-                    rightText: '15000 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Fibra',
-                    rightText: '2890 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Gatorade',
-                    rightText: '1834 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Ibuprofeno',
-                    rightText: '350 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Metformina',
-                    rightText: '3829 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ]),
-                SizedBox(height: size.height * 0.018),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomContainer(
-                    leftText: 'Multivitamínico Centrum',
-                    rightText: '3554 unidades',
-                    onDelete:
-                        () {}, //TODO: La funcionalidad para la eliminación de productos
-                  ),
-                ])
+                )
               ])),
           bottomNavigationBar: const BarraNavegacion(),
         ));
@@ -391,12 +363,14 @@ class CustomContainer extends StatelessWidget {
   final String leftText;
   final String rightText;
   final VoidCallback onDelete;
+  final int codigoProducto;
 
   const CustomContainer({
     Key? key,
     required this.leftText,
     required this.rightText,
     required this.onDelete,
+    required this.codigoProducto,
   }) : super(key: key);
 
   @override
@@ -406,75 +380,68 @@ class CustomContainer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EditarProductoScreen(),
+            builder: (context) => EditarProductoScreen(codigoProducto:codigoProducto),
           ),
         );
       },
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: 351,
-            height: 45,
-            decoration: const BoxDecoration(
-              color: Color(0xFFF2EFF4),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x3F000000),
-                  blurRadius: 4,
-                  offset: Offset(0, 4),
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            child: Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      child: Text(
-                        leftText,
-                        style: const TextStyle(
-                          color: Color(0xFF5C4F5F),
-                          fontSize: 14,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(9, 13, 10, 0),
-                      child: Text(
-                        rightText,
-                        style: const TextStyle(
-                          color: Color(0xFF5C4F5F),
-                          fontSize: 14,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  top: -10,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 50, right: 17),
-                    child: SizedBox(
-                      width: 10,
-                      height: 10,
-                      child: IconButton(
-                        onPressed: onDelete,
-                        icon: const Icon(Icons.close),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 351,
+              height: 45,
+              decoration: const BoxDecoration(
+                color: Color(0xFFF2EFF4),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Text(
+                      leftText,
+                      style: const TextStyle(
+                        color: Color(0xFF5C4F5F),
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(9, 13, 10, 0),
+                    child: Text(
+                      rightText,
+                      style: const TextStyle(
+                        color: Color(0xFF5C4F5F),
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: onDelete,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.transparent,
+                      child: const Icon(Icons.close),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
