@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
+  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
+  final widget_viaje;
   final String text;
-  const BarraRetorno({super.key, required this.text});
+  // ignore: non_constant_identifier_names
+  const BarraRetorno({super.key, required this.text, required this.widget_viaje});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,7 +18,12 @@ class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => widget_viaje,
+                  ),
+                );
               },
               icon: const Icon(Icons.arrow_back_ios),
               color: const Color(0xFF471AA0),

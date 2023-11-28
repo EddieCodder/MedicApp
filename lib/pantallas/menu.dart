@@ -26,7 +26,7 @@ class MenuScreen extends StatelessWidget {
           children: [
             // -------------------------------------------------------------------------
             // FOTO DE PERFIL
-            const FotoPerfil(),
+            const FotoPerfil(tam: 125),
 
             // -------------------------------------------------------------------------
             // SALUDO
