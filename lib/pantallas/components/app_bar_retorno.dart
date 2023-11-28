@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const BarraRetorno());
-
 class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
-  const BarraRetorno({super.key});
+  final String text;
+  const BarraRetorno({super.key, required this.text});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 60,),
+        const SizedBox(
+          height: 60,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -21,9 +22,9 @@ class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
               iconSize: 25,
               padding: const EdgeInsets.only(left: 30),
             ),
-            const Text(
-              'Información de la cuenta',
-              style: TextStyle(
+            Text(
+              text,
+              style: const TextStyle(
                 color: Color(0xFF471AA0),
                 fontSize: 24,
                 fontFamily: 'Inter',

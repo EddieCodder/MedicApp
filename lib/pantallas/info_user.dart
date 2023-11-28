@@ -16,7 +16,7 @@ class UserScreen extends StatelessWidget {
 
       home: Scaffold(
         extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
-        appBar: BarraRetorno(),
+        appBar: BarraRetorno(text: 'Información de la cuenta'),
         body: Stack(children: [
           Fondo(),
         ]),
