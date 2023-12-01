@@ -1,12 +1,8 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/agregar_producto.dart';
-import 'package:medic_app/pantallas/admin/bloquear_usuarios.dart';
-import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/categorias.dart';
-import 'package:medic_app/pantallas/compra_receta.dart';
-import 'package:medic_app/pantallas/info_user.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
 import 'package:medic_app/pantallas/welcome.dart';
@@ -15,10 +11,11 @@ import 'package:provider/provider.dart';
 import '../../providers/auth.dart';
 
 // ignore: must_be_immutable
-class BotonSeleccion extends StatelessWidget {
+class BotonSeleccionProducto extends StatelessWidget {
   String texto;
+  bool disp = true;
 
-  BotonSeleccion({super.key, required this.texto});
+  BotonSeleccionProducto({super.key, required this.texto, required this.disp});
 
   @override
   Widget build(BuildContext context) {
@@ -36,41 +33,87 @@ class BotonSeleccion extends StatelessWidget {
         //padding: EdgeInsets.all(0), // Ajusta el relleno según tus preferencias
       ),
       child: Container(
-          width: 325,
-          height: 50,
+          width: 370,
+          height: 80,
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
+          decoration: ShapeDecoration(
             gradient: const LinearGradient(
               begin: Alignment(0.00, -1.00),
               end: Alignment(0, 1),
               colors: [Color(0x00EAD0F6), Color(0xFFEAD0F6)],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
           alignment: Alignment.center,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  texto,
-                  style: const TextStyle(
-                    color: Color(0xFF5C4F5F),
-                    fontSize: 18,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Image.asset('assets/producto.png'),
                   ),
-                ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        texto,
+                        style: const TextStyle(
+                          color: Color(0xFF5C4F5F),
+                          fontSize: 18,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w800,
+                          height: 0,
+                        ),
+                      ),
+                      const Text(
+                        'S/. 4.00 por unidad',
+                        style: TextStyle(
+                          color: Color(0xFF5C4F5F),
+                          fontSize: 11,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const Icon(
-                Icons.arrow_forward_ios_outlined,
-                color: Color(0xFF471AA0),
-                size: 20,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _disponibilidad(),
               ),
             ],
           )),
+    );
+  }
+
+  Text _disponibilidad() {
+    if (disp) {
+      return const Text(
+        'Disponible',
+        style: TextStyle(
+          color: Color(0xFF2CC51F),
+          fontSize: 13,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w800,
+          height: 0,
+        ),
+      );
+    }
+    return const Text(
+      'Agotado',
+      style: TextStyle(
+        color: Color(0xFFED1A1A),
+        fontSize: 13,
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w800,
+        height: 0,
+      ),
     );
   }
 
@@ -87,7 +130,7 @@ class BotonSeleccion extends StatelessWidget {
         break;
       case 'Información de la cuenta':
         widget =
-            const UserScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
+            LoginScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE INFORMACIÓN DE LA CUENTA
         break;
       case 'Contáctanos':
         widget =
@@ -109,7 +152,7 @@ class BotonSeleccion extends StatelessWidget {
 
       case 'Con Receta':
         widget =
-            const CompraRecetaScreen(); 
+            const WelcomeScreen(); // TODO: CAMBIAR LA REDIRECCIÓN A PANTALLA DE PEDIDO CON RECETA
         break;
 
       //  OPCIONES ADMIN
@@ -122,16 +165,9 @@ class BotonSeleccion extends StatelessWidget {
         widget = const PedidosSinReceta();
         break;
 
-      case 'Agregar producto':
-        widget = const AgregarProductoScreen();
+      case 'Agregar Producto':
+        widget = AgregarProductoScreen();
         break;
-      case 'Editar producto(s)':
-        widget = const EditarProductoBuscarScreen();
-        break;
-      case 'Bloquear usuarios':
-        widget = const BloquearUsuariosScreen();
-        break;
-
       default:
         throw ArgumentError('Nombre de widget no reconocido: $widgetName');
     }

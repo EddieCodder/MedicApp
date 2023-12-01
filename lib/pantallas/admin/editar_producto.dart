@@ -142,7 +142,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Nombre',
-                    controller: _nombreController,
+                    controller: _nombreController, highText: '',
                   ),
                 ],
               ),
@@ -151,7 +151,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Marca',
-                    controller: _marcaController,
+                    controller: _marcaController, highText: '',
                   ),
                 ],
               ),
@@ -160,7 +160,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Descripcion',
-                    controller: _descripcionController,
+                    controller: _descripcionController, highText: '',
                   ),
                 ],
               ),
@@ -169,7 +169,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Precio',
-                    controller: _precioController,
+                    controller: _precioController, highText: '',
                   ),
                 ],
               ),
@@ -216,7 +216,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Cantidad',
-                    controller: _cantidadController,
+                    controller: _cantidadController, highText: '',
                   ),
                 ],
               ),
