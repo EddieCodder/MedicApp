@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
+import 'package:medic_app/pantallas/mis_pedidos.dart';
 import 'package:medic_app/pantallas/splash_screen.dart';
 import 'package:medic_app/pantallas/welcome.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return MultiProvider(
+    return MisPedidosScreen();
+    /*return MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
           create: (ctx) => Auth(),
@@ -48,8 +49,6 @@ class MyApp extends StatelessWidget {
           // initialRoute: 'login',
         );
       }),
-    );
-
-
+    );*/
   }
 }
