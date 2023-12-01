@@ -4,8 +4,11 @@ class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
   // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   final widget_viaje;
   final String text;
+  final double tamLetra;
   // ignore: non_constant_identifier_names
-  const BarraRetorno({super.key, required this.text, required this.widget_viaje});
+  const BarraRetorno(
+      // ignore: non_constant_identifier_names
+      {super.key, required this.text, required this.widget_viaje, required this.tamLetra});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,9 +35,9 @@ class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
             ),
             Text(
               text,
-              style: const TextStyle(
-                color: Color(0xFF471AA0),
-                fontSize: 24,
+              style: TextStyle(
+                color: const Color(0xFF471AA0),
+                fontSize: tamLetra,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.bold,
                 height: 0,

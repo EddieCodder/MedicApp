@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/carrito.dart';
 import 'package:medic_app/pantallas/detalles_producto.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/mis_pedidos.dart';
@@ -16,8 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DetallesProducto();
-    /*return MultiProvider(
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
           create: (ctx) => Auth(),
@@ -50,6 +50,6 @@ class MyApp extends StatelessWidget {
           // initialRoute: 'login',
         );
       }),
-    );*/
+    );
   }
 }

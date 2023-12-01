@@ -22,6 +22,7 @@ class CompraRecetaScreen extends StatelessWidget {
             const BarraRetorno(
               text: 'Regresar',
               widget_viaje: SelecPedidoScreen(),
+              tamLetra: 24,
             ),
             const SizedBox(
               height: 30,

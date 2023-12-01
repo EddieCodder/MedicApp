@@ -18,21 +18,24 @@ class UserScreen extends StatefulWidget {
 }
 
 class UserScreenState extends State<UserScreen> {
-
   late TextEditingController _nombreController;
   late TextEditingController _appelidoController;
   late TextEditingController _correoController;
   late TextEditingController _fecNacController;
   late TextEditingController _genController;
- 
- @override
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
       home: Scaffold(
         extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
-        appBar: const BarraRetorno(text: 'Información de la cuenta', widget_viaje: MenuScreen(),),
+        appBar: const BarraRetorno(
+          text: 'Información de la cuenta',
+          widget_viaje: MenuScreen(),
+          tamLetra: 24,
+        ),
         body: Stack(children: [
           //const Fondo(),
           Column(
@@ -84,7 +87,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Nombre(s)',
-                highText: 'NOMBRE NOMBRE2|', controller: _nombreController, 
+                highText: 'NOMBRE NOMBRE2|',
+                controller: _nombreController,
               ),
 
               const SizedBox(
@@ -92,7 +96,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Apellido(s)',
-                highText: 'APELLIDO|', controller: _appelidoController,
+                highText: 'APELLIDO|',
+                controller: _appelidoController,
               ),
 
               const SizedBox(
@@ -100,7 +105,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Correo Electrónico',
-                highText: 'correo@gmail.com', controller: _correoController,
+                highText: 'correo@gmail.com',
+                controller: _correoController,
               ),
 
               const SizedBox(
@@ -108,7 +114,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Fecha Nacimiento',
-                highText: '10/10/2000', controller: _fecNacController,
+                highText: '10/10/2000',
+                controller: _fecNacController,
               ),
 
               const SizedBox(
@@ -116,7 +123,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Género',
-                highText: 'Hombre/Mujer/Otro', controller: _genController,
+                highText: 'Hombre/Mujer/Otro',
+                controller: _genController,
               ),
 
               const SizedBox(
@@ -134,5 +142,4 @@ class UserScreenState extends State<UserScreen> {
       ),
     );
   }
-
 }

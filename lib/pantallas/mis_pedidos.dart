@@ -24,12 +24,18 @@ class MisPedidosScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const BarraRetorno(text: 'Mis Pedidos', widget_viaje: MenuScreen()),
+                const BarraRetorno(
+                  text: 'Mis Pedidos',
+                  widget_viaje: MenuScreen(),
+                  tamLetra: 30,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 const BarraBusqueda(),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: 10,

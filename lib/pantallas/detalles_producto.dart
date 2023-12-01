@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/carrito.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
@@ -180,9 +181,9 @@ class DetallesProducto extends StatelessWidget {
                 ),
 
                 const SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
-                
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -199,7 +200,14 @@ class DetallesProducto extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CarritoScreen(),
+                          ),
+                        );
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         width: 307,
@@ -234,7 +242,6 @@ class DetallesProducto extends StatelessWidget {
             )
           ],
         ),
-        bottomNavigationBar: const BarraNavegacion(),
       ),
     );
   }
@@ -251,7 +258,7 @@ class BotonAumento extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        // TODO: Accion de incrementar producto
+        // TODO: AUMENTAR LA CANTIDAD DE PRODUCTOS
       },
       child: Container(
         alignment: Alignment.center,

@@ -55,7 +55,7 @@ class BotonSeleccionProducto extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(14.0),
-                    child: Image.asset('assets/producto.png'),
+                    child: Image.asset('assets/amoxicilina.png'),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
