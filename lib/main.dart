@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/detalles_producto.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/mis_pedidos.dart';
 import 'package:medic_app/pantallas/splash_screen.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MisPedidosScreen();
+    return const WelcomeScreen();
     /*return MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
