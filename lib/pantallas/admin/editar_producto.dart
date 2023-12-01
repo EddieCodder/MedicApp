@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
 import 'package:provider/provider.dart';
+import '../../models/categoria.dart';
 import '../../models/producto.dart';
+import '../../providers/categorias.dart';
 import '../../providers/productos.dart';
 
 import '../components/barra_navegacion.dart';
@@ -27,8 +29,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
   late TextEditingController _marcaController;
   late TextEditingController _descripcionController;
   late TextEditingController _precioController;
-  late TextEditingController _categoriaController;
   late TextEditingController _cantidadController;
+  late int _codigoCategoria;
   late String _imagePath;
 
   @override
@@ -46,8 +48,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
     _marcaController = TextEditingController(text: producto.marca);
     _descripcionController = TextEditingController(text: producto.descripcion);
     _precioController = TextEditingController(text: producto.precio.toString());
-    _categoriaController =
-        TextEditingController(text: producto.codigoCategoria.toString());
+    _codigoCategoria = producto.codigoCategoria;
     _cantidadController =
         TextEditingController(text: producto.cantidadStock.toString());
     _imagePath = producto.imagen;
@@ -173,13 +174,42 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Categoria',
-                    controller: _categoriaController,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 35),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Categoría',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 56, 20, 126),
+                        fontSize: 18,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.bold,
+                        height: 0,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Consumer<Categorias>(
+                      builder: (context, categoriasProvider, _) {
+                        return DropdownButton<int>(
+                          value: _codigoCategoria,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _codigoCategoria = newValue!;
+                            });
+                          },
+                          items: categoriasProvider.list
+                              .map((Categoria categoria) {
+                            return DropdownMenuItem<int>(
+                              value: categoria.codigoCategoria,
+                              child: Text(categoria.descripcion),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: size.height * 0.03),
               Row(
@@ -194,31 +224,30 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
               InkWell(
                 onTap: _getImage,
                 child: Container(
-                  width: 90,
-                  height: 90,
-                  decoration: ShapeDecoration(
-                    color: const Color(0x00D9D9D9),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(20),
+                    width: 90,
+                    height: 90,
+                    decoration: ShapeDecoration(
+                      color: const Color(0x00D9D9D9),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: _imagePath.startsWith("images") // Verificar si es una URL
-                      ? Image.network(
-                          "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
-                          width: 57,
-                          height: 57,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.file(
-                          File(_imagePath),
-                          width: 57,
-                          height: 57,
-                          fit: BoxFit.cover,
-                        )
-                ),
+                    child: _imagePath
+                            .startsWith("images") // Verificar si es una URL
+                        ? Image.network(
+                            "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
+                            width: 57,
+                            height: 57,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(_imagePath),
+                            width: 57,
+                            height: 57,
+                            fit: BoxFit.cover,
+                          )),
               ),
-
               SizedBox(height: size.height * 0.03),
               FloatingActionButton.extended(
                 label: const Text(
@@ -238,7 +267,7 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                   final nuevaMarca = _marcaController.text;
                   final nuevaDescripcion = _descripcionController.text;
                   final nuevoPrecio = _precioController.text;
-                  final nuevaCategoria = _categoriaController.text;
+                  final nuevaCategoria = _codigoCategoria;
                   final nuevaCantidad = _cantidadController.text;
 
                   try {
@@ -248,16 +277,18 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                       'marca': nuevaMarca,
                       'descripcion': nuevaDescripcion,
                       'precio': double.parse(nuevoPrecio),
-                      'codigoCategoria': int.parse(nuevaCategoria),
+                      'codigoCategoria': nuevaCategoria,
                       'cantidadStock': int.parse(nuevaCantidad),
                       'imagen': ''
                     };
-                    Provider.of<Productos>(context, listen: false).updateProducto(
-                        Producto.fromJson(parametros), _imagePath);
+                    Provider.of<Productos>(context, listen: false)
+                        .updateProducto(
+                            Producto.fromJson(parametros), _imagePath);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditarProductoBuscarScreen()));
+                            builder: (context) =>
+                                const EditarProductoBuscarScreen()));
                   } catch (error) {
                     rethrow;
                   }

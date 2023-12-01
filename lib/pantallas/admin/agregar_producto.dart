@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medic_app/pantallas/admin/opciones_admin.dart';
+import '../../models/categoria.dart';
+import '../../providers/categorias.dart';
 import '../components/barra_navegacion.dart';
 import '../components/producto_fields.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +23,9 @@ class AgregarProductoScreenState extends State<AgregarProductoScreen> {
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController marcaController = TextEditingController();
   final TextEditingController precioController = TextEditingController();
-  final TextEditingController categoriaController = TextEditingController();
   final TextEditingController cantidadStockController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
+  int codigoCategoria = 0;
 
   String? _imagePath;
   Future<void> _getImage() async {
@@ -127,11 +129,41 @@ class AgregarProductoScreenState extends State<AgregarProductoScreen> {
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                      labelText: 'Categoría', controller: categoriaController),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 35),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Categoría',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 56, 20, 126),
+                        fontSize: 18,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.bold,
+                        height: 0,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Consumer<Categorias>(
+                      builder: (context, categoriasProvider, _) {
+                        return DropdownButton<int>(
+                          value: codigoCategoria,
+                          onChanged: (newValue) {
+                            setState(() {
+                              codigoCategoria = newValue!;
+                            });
+                          },
+                          items: categoriasProvider.list.map((Categoria categoria) {
+                            return DropdownMenuItem<int>(
+                              value: categoria.codigoCategoria,
+                              child: Text(categoria.descripcion),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: size.height * 0.03),
               InkWell(
@@ -172,8 +204,10 @@ class AgregarProductoScreenState extends State<AgregarProductoScreen> {
                         'nombreProducto': nombreController.text,
                         'marca': marcaController.text,
                         'descripcion': descripcionController.text,
-                        'precio': double.parse(precioController.text,),
-                        'codigoCategoria': int.parse(categoriaController.text),
+                        'precio': double.parse(
+                          precioController.text,
+                        ),
+                        'codigoCategoria': codigoCategoria,
                         'cantidadStock': 100,
                         'imagen': ''
                       };

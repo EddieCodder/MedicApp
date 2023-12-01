@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/splash_screen.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'package:medic_app/providers/categorias.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Productos>(
           create: (ctx) => Productos(),
+        ),
+        ChangeNotifierProvider<Categorias>(
+          create: (ctx) => Categorias(),
         ),
       ],
       child: Consumer<Auth>(builder: (ctx, authData, child) {

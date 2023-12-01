@@ -108,7 +108,6 @@ class Productos with ChangeNotifier {
 
         // Leyendo respuesta
         var responseBody = await response.stream.bytesToString();
-        print('Response from server: $responseBody');
 
         // Intentar decodificar la respuesta JSON
         try {
