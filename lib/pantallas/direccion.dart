@@ -4,10 +4,8 @@ import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/field_basic.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
 
-
 class DireccionScreen extends StatelessWidget {
-
-  final bool ingresoDesdeBienvenida; 
+  final bool ingresoDesdeBienvenida;
 
   const DireccionScreen({super.key, required this.ingresoDesdeBienvenida});
 
@@ -23,6 +21,7 @@ class DireccionScreen extends StatelessWidget {
             const BarraRetorno(
               text: 'Regresar',
               widget_viaje: SelecPedidoScreen(),
+              tamLetra: 15,
             ),
             const SizedBox(
               height: 70,
@@ -55,8 +54,6 @@ class DireccionScreen extends StatelessWidget {
                     height: 0,
                   ),
                 )),
-
-          
             const SizedBox(
               height: 20,
             ),
@@ -102,8 +99,7 @@ class DireccionScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-                      const SizedBox(
+            const SizedBox(
               height: 50,
             ),
             InkWell(

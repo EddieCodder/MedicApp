@@ -48,7 +48,7 @@ class UserScreenState extends State<UserScreen> {
         extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
         appBar: const BarraRetorno(
           text: 'Información de la cuenta',
-          widget_viaje: MenuScreen(),
+          widget_viaje: MenuScreen(), tamLetra: 24,
         ),
         body: Stack(children: [
           //const Fondo(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
+import 'package:medic_app/pantallas/menu.dart';
 
 void main() => runApp(const SelecPedidoScreen());
 
@@ -22,7 +23,12 @@ class SelecPedidoScreen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MenuScreen(),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.arrow_back_ios),
                 color: const Color(0xFF471AA0),
