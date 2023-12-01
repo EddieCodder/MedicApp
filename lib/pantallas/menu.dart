@@ -14,6 +14,9 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuariosProvider = Provider.of<Auth>(context);
+    final usuario = usuariosProvider.list.firstWhere(
+        (user) => user.codigoUsuario == usuariosProvider.codigoUsuario);
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
@@ -33,10 +36,10 @@ class MenuScreen extends StatelessWidget {
 
             // -------------------------------------------------------------------------
             // SALUDO
-            const Text(
-              'Hola USUARIO',
+            Text(
+              'Hola ${usuario.nombreUsuario}',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFF5C4F5F),
                 fontSize: 24,
                 fontFamily: 'Lalezar',

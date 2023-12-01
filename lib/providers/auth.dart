@@ -150,23 +150,46 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> updateUsuario(Usuario updateUsuario) async {
-    final url = Uri.parse(
-        'http://ivelitaunsa201920210.c1.is/api_medicapp/user/updateUser.php');
     final usuarioIndex = _list.indexWhere(
       (usuario) => usuario.codigoUsuario == updateUsuario.codigoUsuario,
     );
     if (usuarioIndex >= 0) {
+      final url = Uri.parse(
+          'http://ivelitaunsa201920210.c1.is/api_medicapp/user/updateUser.php');
       try {
-        final response = await http.post(
-          url,
-          body: {
-            updateUsuario.toJson(),
-          },
-        );
-        updateUsuario = Usuario.fromJson(jsonDecode(response.body));
-        _list[usuarioIndex] = updateUsuario;
-        notifyListeners();
-      } catch (error) {
+        var request = http.MultipartRequest('POST', url);
+
+        // Agregar campos de texto
+        request.fields['codigoUsuario'] =
+            updateUsuario.codigoUsuario.toString();
+        // request.fields['nombreUsuario'] = updateUsuario.nombreUsuario;
+        request.fields['correo'] = updateUsuario.correo;
+        // request.fields['contrasena'] = updateUsuario.contrasena;
+        request.fields['nombre'] = updateUsuario.nombre;
+        request.fields['apellido'] = updateUsuario.apellido;
+        // request.fields['telefono'] = updateUsuario.telefono;
+        // request.fields['direccion'] = updateUsuario.direccion;
+        request.fields['fechaNacimiento'] =
+            updateUsuario.fechaNacimiento.toString();
+        request.fields['genero'] = updateUsuario.genero;
+        // request.fields['esAdmin'] = updateUsuario.esAdmin.toString();
+        // request.fields['esBloqueado'] = updateUsuario.esBloqueado.toString();
+        // request.fields['esAutenticado'] = updateUsuario.esAutenticado.toString();
+
+        var response = await request.send();
+
+        // Leyendo respuesta
+        var responseBody = await response.stream.bytesToString();
+
+        // Intentar decodificar la respuesta JSON
+        try {
+          final newUser = Usuario.fromJson(jsonDecode(responseBody));
+          _list[usuarioIndex] = newUser;
+          notifyListeners();
+        } catch (error) {
+          print('Error decoding JSON: $error');
+        }
+      } catch (e) {
         rethrow;
       }
     }
@@ -182,7 +205,10 @@ class Auth with ChangeNotifier {
       try {
         final response = await http.post(
           url,
-          body: {'codigoUsuario': codigoUsuario.toString(), 'esAdmin': 1.toString()},
+          body: {
+            'codigoUsuario': codigoUsuario.toString(),
+            'esAdmin': 1.toString()
+          },
         );
         Usuario updateUsuario = Usuario.fromJson(jsonDecode(response.body));
         _list[usuarioIndex] = updateUsuario;

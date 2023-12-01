@@ -3,10 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
-import 'package:medic_app/pantallas/components/boton_guardar.dart';
 import 'package:medic_app/pantallas/components/field_producto_update_admin.dart';
 import 'package:medic_app/pantallas/components/foto_perfil.dart';
 import 'package:medic_app/pantallas/menu.dart';
+import 'package:provider/provider.dart';
+
+import '../models/usuario.dart';
+import '../providers/auth.dart';
 
 void main() => runApp(const UserScreen());
 
@@ -18,21 +21,35 @@ class UserScreen extends StatefulWidget {
 }
 
 class UserScreenState extends State<UserScreen> {
-
   late TextEditingController _nombreController;
   late TextEditingController _appelidoController;
   late TextEditingController _correoController;
   late TextEditingController _fecNacController;
   late TextEditingController _genController;
- 
- @override
+
+  @override
   Widget build(BuildContext context) {
+    final usuariosProvider = Provider.of<Auth>(context, listen: false);
+    final usuario = usuariosProvider.list.firstWhere(
+        (user) => user.codigoUsuario == usuariosProvider.codigoUsuario);
+
+    _nombreController = TextEditingController(text: usuario.nombre);
+    _appelidoController = TextEditingController(text: usuario.apellido);
+    _correoController = TextEditingController(text: usuario.correo);
+    _fecNacController = TextEditingController(
+        text:
+            "${usuario.fechaNacimiento.year.toString().padLeft(4, '0')}-${usuario.fechaNacimiento.month.toString().padLeft(2, '0')}-${usuario.fechaNacimiento.day.toString().padLeft(2, '0')}");
+    _genController = TextEditingController(text: usuario.genero);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
       home: Scaffold(
         extendBodyBehindAppBar: true, // ELIMINAR FONDO DE LA BARRA
-        appBar: const BarraRetorno(text: 'Información de la cuenta', widget_viaje: MenuScreen(),),
+        appBar: const BarraRetorno(
+          text: 'Información de la cuenta',
+          widget_viaje: MenuScreen(),
+        ),
         body: Stack(children: [
           //const Fondo(),
           Column(
@@ -63,9 +80,9 @@ class UserScreenState extends State<UserScreen> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const Text(
-                        'NOMBRE NOMBRE2 APELLIDO',
-                        style: TextStyle(
+                      Text(
+                        '${usuario.nombre} ${usuario.apellido}',
+                        style: const TextStyle(
                           color: Color(0xFF5C4F5F),
                           fontSize: 18,
                           fontFamily: 'Inter',
@@ -84,7 +101,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Nombre(s)',
-                highText: 'NOMBRE NOMBRE2|', controller: _nombreController, 
+                controller: _nombreController,
+                highText: '',
               ),
 
               const SizedBox(
@@ -92,7 +110,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Apellido(s)',
-                highText: 'APELLIDO|', controller: _appelidoController,
+                controller: _appelidoController,
+                highText: '',
               ),
 
               const SizedBox(
@@ -100,7 +119,8 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Correo Electrónico',
-                highText: 'correo@gmail.com', controller: _correoController,
+                controller: _correoController,
+                highText: '',
               ),
 
               const SizedBox(
@@ -108,25 +128,69 @@ class UserScreenState extends State<UserScreen> {
               ),
               ReusableRow(
                 labelText: 'Fecha Nacimiento',
-                highText: '10/10/2000', controller: _fecNacController,
+                controller: _fecNacController,
+                highText: '',
               ),
 
               const SizedBox(
                 height: 30,
               ),
               ReusableRow(
-                labelText: 'Género',
-                highText: 'Hombre/Mujer/Otro', controller: _genController,
+                labelText: 'Género(H, M, O(Otro))',
+                controller: _genController,
+                highText: '',
               ),
 
               const SizedBox(
                 height: 40,
               ),
 
-              const BotonBasic(
-                text: 'Guardar',
-                pantalla: MenuScreen(),
-              )
+              FloatingActionButton.extended(
+                label: const Text(
+                  'Guardar',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                onPressed: () {
+                  // Acceder al valor actualizado desde los controladores
+                  final nuevoNombre = _nombreController.text;
+                  final nuevoApellido = _appelidoController.text;
+                  final nuevoCorreo = _correoController.text;
+                  final nuevaFecha = _fecNacController.text;
+                  final nuevoGenero = _genController.text;
+                  try {
+                    Map<String, dynamic> parametros = {
+                      'codigoUsuario': usuario.codigoUsuario,
+                      'nombreUsuario': "",
+                      'correo': nuevoCorreo,
+                      'contrasena': "",
+                      'nombre': nuevoNombre,
+                      'apellido': nuevoApellido,
+                      'telefono': usuario.telefono,
+                      'direccion': usuario.direccion,
+                      'fechaNacimiento': nuevaFecha,
+                      'genero': nuevoGenero,
+                      'esAdmin': usuario.esAdmin,
+                      'esBloqueado': usuario.esBloqueado,
+                      'esAutenticado': usuario.esAutenticado,
+                    };
+                    Provider.of<Auth>(context, listen: false)
+                        .updateUsuario(Usuario.fromJson(parametros));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MenuScreen()));
+                  } catch (error) {
+                    rethrow;
+                  }
+                },
+              ),
             ],
           )
         ]),
@@ -134,5 +198,4 @@ class UserScreenState extends State<UserScreen> {
       ),
     );
   }
-
 }

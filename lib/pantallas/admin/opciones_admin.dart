@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
 import 'package:medic_app/pantallas/menu.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth.dart';
 import '../components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/login.dart';
 
@@ -9,6 +11,10 @@ class OpcionesAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuariosProvider = Provider.of<Auth>(context, listen: false);
+    final usuario = usuariosProvider.list.firstWhere(
+        (user) => user.codigoUsuario == usuariosProvider.codigoUsuario);
+
     final size = MediaQuery.of(context).size;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -107,14 +113,14 @@ class OpcionesAdmin extends StatelessWidget {
                     ),
                   ),
                 ]),
-                const Row(
+                Row(
                   children: [
                     Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(left: 10, bottom: 5),
                               child: Text(
                                 'Mi perfil',
@@ -130,11 +136,11 @@ class OpcionesAdmin extends StatelessWidget {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(top: 2, left: 10),
+                                  padding: const EdgeInsets.only(top: 2, left: 10),
                                   child: Row(children: [
                                     Text(
-                                      'NOMBRE NOMBRE2 APELLIDO',
-                                      style: TextStyle(
+                                      "${usuario.nombre} ${usuario.apellido}",
+                                      style: const TextStyle(
                                         color: Color(0xFF5C4F5F),
                                         fontSize: 20,
                                         fontFamily: 'Inter',
