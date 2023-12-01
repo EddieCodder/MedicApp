@@ -3,20 +3,25 @@ import 'package:medic_app/pantallas/components/app_bar_menu_logo.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion_producto.dart';
+import 'package:medic_app/providers/productos.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(SeccionScreen());
 
 // ignore: must_be_immutable
 class SeccionScreen extends StatelessWidget {
   String name;
+  int codigoCategoria;
 
-  SeccionScreen({super.key, String? nombreRecibido})
-      : name = nombreRecibido ?? "Sección";
+  SeccionScreen({super.key, String? nombreRecibido, int? codigoRecibido})
+      : name = nombreRecibido ?? "Sección",
+        codigoCategoria = codigoRecibido ?? 0;
 
   //const SeccionScreen({super.key, this.name});
 
   @override
   Widget build(BuildContext context) {
+    final productosProvider = Provider.of<Productos>(context, listen: false);
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Quita la etiqueta debug
 
@@ -71,20 +76,28 @@ class SeccionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
               ],
             ),
-
             SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 200,),
-                  Expanded(child: ListView.builder(
+                  const SizedBox(
+                    height: 200,
+                  ),
+                  Expanded(
+                      child: ListView.builder(
+                    itemCount: productosProvider.list.length,
                     itemBuilder: (context, index) {
+                      final producto = productosProvider.list[index];
+                      if (producto.codigoCategoria != codigoCategoria) {
+                        return Container();
+                      }
                       return Column(
                         children: [
                           BotonSeleccionProducto(
-                            texto: 'Nombre del producto', disp: true,
+                            texto: producto.nombreProducto,
+                            precio: producto.precio,
+                            disp: producto.cantidadStock > 0,
                           ),
                           const SizedBox(
                             height: 30,

@@ -13,9 +13,10 @@ import '../../providers/auth.dart';
 // ignore: must_be_immutable
 class BotonSeleccionProducto extends StatelessWidget {
   String texto;
+  double precio;
   bool disp = true;
 
-  BotonSeleccionProducto({super.key, required this.texto, required this.disp});
+  BotonSeleccionProducto({super.key, required this.texto, required this.disp, required this.precio});
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +70,9 @@ class BotonSeleccionProducto extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      const Text(
-                        'S/. 4.00 por unidad',
-                        style: TextStyle(
+                      Text(
+                        'S/. $precio por unidad',
+                        style: const TextStyle(
                           color: Color(0xFF5C4F5F),
                           fontSize: 11,
                           fontFamily: 'Inter',
