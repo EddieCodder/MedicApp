@@ -84,7 +84,7 @@ class SeccionScreen extends StatelessWidget {
                       return Column(
                         children: [
                           BotonSeleccionProducto(
-                            texto: 'Nombre del producto', disp: true,
+                            texto: 'Amoxicilina', disp: true,
                           ),
                           const SizedBox(
                             height: 30,

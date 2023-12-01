@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const WelcomeScreen();
+    return const DetallesProducto();
     /*return MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(

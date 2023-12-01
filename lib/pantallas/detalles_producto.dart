@@ -1,11 +1,9 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
-import 'package:medic_app/pantallas/components/boton_guardar.dart';
 import 'package:medic_app/pantallas/fondo.dart';
-import 'package:medic_app/pantallas/menu.dart';
 import 'package:medic_app/pantallas/seccion.dart';
+
+void main() => runApp(const DetallesProducto());
 
 class DetallesProducto extends StatelessWidget {
   const DetallesProducto({super.key});
@@ -21,7 +19,7 @@ class DetallesProducto extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(
-                  height: 30,
+                  height: 60,
                 ),
                 Stack(
                   alignment: Alignment.topRight,
@@ -59,7 +57,7 @@ class DetallesProducto extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 60,
                 ),
                 Container(
                   width: 371,
@@ -147,7 +145,7 @@ class DetallesProducto extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 60,
                 ),
                 Container(
                   width: 250,
@@ -180,36 +178,11 @@ class DetallesProducto extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 15,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'Ingresar cantidad:',
-                      style: TextStyle(
-                        color: Color(0xFF505050),
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w800,
-                        height: 0,
-                      ),
-                    ),
-                    const TextField()
-                  ],
-                ),
+
                 const SizedBox(
-                  height: 80,
+                  height: 50,
                 ),
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
