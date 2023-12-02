@@ -213,21 +213,6 @@ class _PedidosConRecetaDetalleScreenState
                       bottomLeftText: '4.00',
                     ),
                     SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                      topLeftText: 'Amoxicilina',
-                      bottomLeftText: '4.00',
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                      topLeftText: 'Amoxicilina',
-                      bottomLeftText: '4.00',
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                      topLeftText: 'Amoxicilina',
-                      bottomLeftText: '4.00',
-                    ),
-                    SizedBox(height: size.height * 0.02),
                   ]),
                 ),
               ],
