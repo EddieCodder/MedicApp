@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
 import 'package:medic_app/pantallas/info_user.dart';
 import 'package:medic_app/pantallas/menu.dart';
@@ -29,36 +30,12 @@ class OpcionesAdmin extends StatelessWidget {
             ),
           ),
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: size.height * 0.12),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MenuScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.arrow_back_ios),
-                  color: const Color(0xFF471AA0),
-                  iconSize: 25,
-                  padding: const EdgeInsets.only(left: 30),
-                ),
-                const Text(
-                  'Opciones de administrador',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 33, 11, 75),
-                    fontSize: 30,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold,
-                    height: 0,
-                  ),
-                ),
-              ],
+            const BarraRetorno(
+              text: 'Mis Pedidos',
+              widget_viaje: MenuScreen(),
+              tamLetra: 30,
             ),
+            SizedBox(height: size.height * 0.03),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

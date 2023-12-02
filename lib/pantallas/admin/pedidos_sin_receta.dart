@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta_detalle.dart';
+import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/components/tipo_estado_pedido.dart';
 
 import '../components/barra_busqueda.dart';
 
@@ -30,144 +32,32 @@ class PedidosSinReceta extends StatelessWidget {
               ),
               child: Column(children: [
                 SizedBox(height: size.height * 0.004),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: size.height * 0.12),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios),
-                      color: const Color(0xFF471AA0),
-                      iconSize: 25,
-                      padding: const EdgeInsets.only(left: 30),
-                    ),
-                    const Text(
-                      'Pedidos sin Receta',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 33, 11, 75),
-                        fontSize: 30,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.bold,
-                        height: 0,
-                      ),
-                    ),
-                  ],
+                const BarraRetorno(
+                  text: 'Pedidos sin Receta',
+                  widget_viaje: OpcionesAdmin(),
+                  tamLetra: 30,
                 ),
                 const BarraBusqueda(),
                 SizedBox(height: size.height * 0.03),
                 Row(
                   children: [
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: Container(
-                            width: 105,
-                            height: 35,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFF2EFF4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Pendiente',
-                                  style: TextStyle(
-                                    color: Color(0xFF5C4F5F),
-                                    fontSize: 18,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                            padding: EdgeInsets.only(left: 40),
+                            child: EstadoPedido(estado: 'Pendiente')),
                       ],
                     ),
                     SizedBox(width: size.width * 0.04),
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 105,
-                          height: 35,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFF2EFF4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 4,
-                                offset: Offset(0, 4),
-                                spreadRadius: 0,
-                              ),
-                            ],
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Cancelado',
-                                style: TextStyle(
-                                  color: Color(0xFF5C4F5F),
-                                  fontSize: 18,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                      children: [EstadoPedido(estado: 'Cancelado')],
                     ),
                     SizedBox(width: size.width * 0.04),
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 105,
-                          height: 35,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFF2EFF4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 4,
-                                offset: Offset(0, 4),
-                                spreadRadius: 0,
-                              ),
-                            ],
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Entregado',
-                                style: TextStyle(
-                                  color: Color(0xFF5C4F5F),
-                                  fontSize: 18,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                      children: [EstadoPedido(estado: 'Entregado')],
                     ),
                   ],
                 ),

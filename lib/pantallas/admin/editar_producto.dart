@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
+import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:provider/provider.dart';
 import '../../models/producto.dart';
 import '../../providers/productos.dart';
@@ -96,30 +97,10 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
           child: Column(
             children: [
               SizedBox(height: size.height * 0.001),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: size.height * 0.02),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: const Color(0xFF471AA0),
-                    iconSize: 25,
-                    padding: const EdgeInsets.only(left: 30),
-                  ),
-                  const Text(
-                    'Regresar',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 56, 20, 126),
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      height: 0,
-                    ),
-                  ),
-                ],
+              const BarraRetorno(
+                text: 'Mis Pedidos',
+                widget_viaje: EditarProductoBuscarScreen(),
+                tamLetra: 30,
               ),
               const Row(children: [
                 Padding(
@@ -141,7 +122,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Nombre',
-                    controller: _nombreController, highText: '',
+                    controller: _nombreController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -150,7 +132,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Marca',
-                    controller: _marcaController, highText: '',
+                    controller: _marcaController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -159,7 +142,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Descripcion',
-                    controller: _descripcionController, highText: '',
+                    controller: _descripcionController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -168,7 +152,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Precio',
-                    controller: _precioController, highText: '',
+                    controller: _precioController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -177,7 +162,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Categoria',
-                    controller: _categoriaController, highText: '',
+                    controller: _categoriaController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -186,7 +172,8 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                 children: [
                   ReusableRow(
                     labelText: 'Cantidad',
-                    controller: _cantidadController, highText: '',
+                    controller: _cantidadController,
+                    highText: '',
                   ),
                 ],
               ),
@@ -194,31 +181,30 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
               InkWell(
                 onTap: _getImage,
                 child: Container(
-                  width: 90,
-                  height: 90,
-                  decoration: ShapeDecoration(
-                    color: const Color(0x00D9D9D9),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(20),
+                    width: 90,
+                    height: 90,
+                    decoration: ShapeDecoration(
+                      color: const Color(0x00D9D9D9),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: _imagePath.startsWith("images") // Verificar si es una URL
-                      ? Image.network(
-                          "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
-                          width: 57,
-                          height: 57,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.file(
-                          File(_imagePath),
-                          width: 57,
-                          height: 57,
-                          fit: BoxFit.cover,
-                        )
-                ),
+                    child: _imagePath
+                            .startsWith("images") // Verificar si es una URL
+                        ? Image.network(
+                            "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
+                            width: 57,
+                            height: 57,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(_imagePath),
+                            width: 57,
+                            height: 57,
+                            fit: BoxFit.cover,
+                          )),
               ),
-
               SizedBox(height: size.height * 0.03),
               FloatingActionButton.extended(
                 label: const Text(
@@ -252,12 +238,14 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
                       'cantidadStock': int.parse(nuevaCantidad),
                       'imagen': ''
                     };
-                    Provider.of<Productos>(context, listen: false).updateProducto(
-                        Producto.fromJson(parametros), _imagePath);
+                    Provider.of<Productos>(context, listen: false)
+                        .updateProducto(
+                            Producto.fromJson(parametros), _imagePath);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditarProductoBuscarScreen()));
+                            builder: (context) =>
+                                const EditarProductoBuscarScreen()));
                   } catch (error) {
                     rethrow;
                   }
