@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:medic_app/pantallas/admin/buscar_producto.dart';
+//import 'package:image_picker/image_picker.dart';
+//import 'package:medic_app/pantallas/admin/buscar_producto.dart';
 import 'package:medic_app/pantallas/admin/detalles_producto_Receta.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 

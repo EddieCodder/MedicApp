@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion.dart';
+import 'package:medic_app/pantallas/info_user.dart';
 import 'package:medic_app/pantallas/menu.dart';
+
 import '../components/barra_navegacion.dart';
-import 'package:medic_app/pantallas/login.dart';
 
 class OpcionesAdmin extends StatelessWidget {
   const OpcionesAdmin({super.key});
@@ -94,7 +95,7 @@ class OpcionesAdmin extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
+                                  builder: (context) => const UserScreen(),
                                 ),
                               );
                             },
