@@ -380,9 +380,9 @@ class CustomContainer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  const DetallesProductoReceta() //TODO: Comprar Producto por me dio de los detalles
-              ),
+            builder: (context) =>
+                const DetallesProductoReceta(), //TODO: Comprar Producto por me dio de los detalles
+          ),
         );
       },
       child: Row(

@@ -61,9 +61,9 @@ class AgregarProductoScreenState extends State<AgregarProductoScreen> {
             child: Column(children: [
               SizedBox(height: size.height * 0.004),
               const BarraRetorno(
-                text: 'Mis Pedidos',
+                text: 'Regresar',
                 widget_viaje: OpcionesAdmin(),
-                tamLetra: 30,
+                tamLetra: 20,
               ),
               const Row(children: [
                 Padding(

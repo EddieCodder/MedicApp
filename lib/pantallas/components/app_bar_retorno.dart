@@ -8,13 +8,16 @@ class BarraRetorno extends StatelessWidget implements PreferredSizeWidget {
   // ignore: non_constant_identifier_names
   const BarraRetorno(
       // ignore: non_constant_identifier_names
-      {super.key, required this.text, required this.widget_viaje, required this.tamLetra});
+      {super.key,
+      required this.text,
+      required this.widget_viaje,
+      required this.tamLetra});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(
-          height: 60,
+          height: 40,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

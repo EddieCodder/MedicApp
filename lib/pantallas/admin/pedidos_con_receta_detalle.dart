@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/admin/buscar_producto.dart';
+import 'package:medic_app/pantallas/admin/correo_confirmacion.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:medic_app/pantallas/admin/buscar_producto.dart';
 import 'package:medic_app/pantallas/admin/detalles_producto_Receta.dart';
@@ -211,6 +213,21 @@ class _PedidosConRecetaDetalleScreenState
                       bottomLeftText: '4.00',
                     ),
                     SizedBox(height: size.height * 0.02),
+                    const BarraLateralButton(
+                      topLeftText: 'Amoxicilina',
+                      bottomLeftText: '4.00',
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                    const BarraLateralButton(
+                      topLeftText: 'Amoxicilina',
+                      bottomLeftText: '4.00',
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                    const BarraLateralButton(
+                      topLeftText: 'Amoxicilina',
+                      bottomLeftText: '4.00',
+                    ),
+                    SizedBox(height: size.height * 0.02),
                   ]),
                 ),
               ],
@@ -223,8 +240,15 @@ class _PedidosConRecetaDetalleScreenState
             Padding(
               padding: const EdgeInsets.only(top: 200),
               child: FloatingActionButton(
-                onPressed:
-                    () {}, // TODO: Enviar el correro para ver la entrega del producto
+                heroTag: 'uniqueTagForEmailButton',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CorreoConfirmacion(),
+                    ),
+                  );
+                }, // TODO: Enviar el correro para ver la entrega del producto
                 backgroundColor: const Color.fromARGB(255, 99, 47, 141),
                 child: const Icon(
                   Icons.email,
@@ -235,12 +259,12 @@ class _PedidosConRecetaDetalleScreenState
             Padding(
               padding: const EdgeInsets.only(top: 100),
               child: FloatingActionButton(
-                heroTag: 'uniqueTagForEmailButton',
+                heroTag: 'uniqueTagForDetalleButton',
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const DetallesProductoReceta(),
+                      builder: (context) => const BuscarProductoScreen(),
                     ),
                   );
                 },

@@ -96,11 +96,10 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
           ),
           child: Column(
             children: [
-              SizedBox(height: size.height * 0.001),
               const BarraRetorno(
-                text: 'Mis Pedidos',
+                text: 'Regresar',
                 widget_viaje: EditarProductoBuscarScreen(),
-                tamLetra: 30,
+                tamLetra: 20,
               ),
               const Row(children: [
                 Padding(

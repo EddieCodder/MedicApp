@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/buscar_producto.dart';
 
-
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
-
-void main() => runApp(const DetallesProductoReceta());
 
 class DetallesProductoReceta extends StatelessWidget {
   const DetallesProductoReceta({super.key});
@@ -13,6 +10,7 @@ class DetallesProductoReceta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
           alignment: Alignment.center,
@@ -165,7 +163,10 @@ class DetallesProductoReceta extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BotonAumento(text: '-'),
+                      BotonAumento(
+                        text: '-',
+                        position: 1,
+                      ),
                       Text(
                         'Cantidad',
                         style: TextStyle(
@@ -176,7 +177,10 @@ class DetallesProductoReceta extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      BotonAumento(text: '+'),
+                      BotonAumento(
+                        text: '+',
+                        position: 2,
+                      ),
                     ],
                   ),
                 ),
@@ -238,9 +242,12 @@ class DetallesProductoReceta extends StatelessWidget {
 
 class BotonAumento extends StatelessWidget {
   final String text;
+  final int position; // Nueva propiedad para almacenar la posición del botón
+
   const BotonAumento({
     super.key,
     required this.text,
+    required this.position,
   });
 
   @override
@@ -249,6 +256,8 @@ class BotonAumento extends StatelessWidget {
       onPressed: () {
         // TODO: AUMENTAR LA CANTIDAD DE PRODUCTOS
       },
+      heroTag:
+          'uniqueTag$position', // Usa la posición para generar una etiqueta única
       child: Container(
         alignment: Alignment.center,
         width: 76,

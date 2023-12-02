@@ -31,7 +31,7 @@ class OpcionesAdmin extends StatelessWidget {
           ),
           child: Column(children: [
             const BarraRetorno(
-              text: 'Mis Pedidos',
+              text: 'Opciones de Administrador',
               widget_viaje: MenuScreen(),
               tamLetra: 30,
             ),
