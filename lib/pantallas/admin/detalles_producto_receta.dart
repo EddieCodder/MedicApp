@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/carrito.dart';
+import 'package:medic_app/pantallas/admin/buscar_producto.dart';
+
 
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
 
-void main() => runApp(const DetallesProducto());
+void main() => runApp(const DetallesProductoReceta());
 
-class DetallesProducto extends StatelessWidget {
-  const DetallesProducto({super.key});
+class DetallesProductoReceta extends StatelessWidget {
+  const DetallesProductoReceta({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -185,26 +186,14 @@ class DetallesProducto extends StatelessWidget {
                 ),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 68,
-                        height: 64.27,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFFC7BEBE),
-                          shape: OvalBorder(),
-                        ),
-                        child: Image.asset('assets/carrito.png'),
-                      ),
-                    ),
                     InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CarritoScreen(),
+                            builder: (context) => const BuscarProductoScreen(),
                           ),
                         );
                       },

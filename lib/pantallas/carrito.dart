@@ -332,10 +332,7 @@ class Cuadro1 extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-      
-          children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Text(
             '5 unidades: ',
             style: TextStyle(
