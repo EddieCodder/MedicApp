@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/carrito.dart';
-import 'package:medic_app/pantallas/detalles_producto.dart';
 import 'package:medic_app/pantallas/login.dart';
-import 'package:medic_app/pantallas/mis_pedidos.dart';
 import 'package:medic_app/pantallas/splash_screen.dart';
 import 'package:medic_app/pantallas/welcome.dart';
 import 'package:medic_app/providers/categorias.dart';

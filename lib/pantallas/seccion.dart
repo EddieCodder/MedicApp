@@ -3,6 +3,7 @@ import 'package:medic_app/pantallas/components/app_bar_menu_logo.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/components/boton_seleccion_producto.dart';
+import 'package:medic_app/pantallas/tipo_pedido.dart';
 import 'package:medic_app/providers/productos.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +58,12 @@ class SeccionScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SelecPedidoScreen(),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.arrow_back_ios),
                       color: const Color(0xFF471AA0),
@@ -95,6 +101,8 @@ class SeccionScreen extends StatelessWidget {
                       return Column(
                         children: [
                           BotonSeleccionProducto(
+                            imagen: "http://ivelitaunsa201920210.c1.is/api_medicapp/product/${producto.imagen}",
+                            codigoProducto: producto.codigoProducto,
                             texto: producto.nombreProducto,
                             precio: producto.precio,
                             disp: producto.cantidadStock > 0,

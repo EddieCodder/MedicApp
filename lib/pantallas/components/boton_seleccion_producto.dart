@@ -1,23 +1,31 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/admin/agregar_producto.dart';
-import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
-import 'package:medic_app/pantallas/categorias.dart';
+// import 'package:medic_app/pantallas/admin/agregar_producto.dart';
+// import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
+// import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/detalles_producto.dart';
-import 'package:medic_app/pantallas/login.dart';
-import 'package:medic_app/pantallas/tipo_pedido.dart';
-import 'package:medic_app/pantallas/welcome.dart';
-import 'package:provider/provider.dart';
+// import 'package:medic_app/pantallas/login.dart';
+// import 'package:medic_app/pantallas/tipo_pedido.dart';
+// import 'package:medic_app/pantallas/welcome.dart';
+// import 'package:provider/provider.dart';
 
-import '../../providers/auth.dart';
+// import '../../providers/auth.dart';
 
 // ignore: must_be_immutable
 class BotonSeleccionProducto extends StatelessWidget {
   String texto;
+  String imagen;
+  int codigoProducto;
   double precio;
   bool disp = true;
 
-  BotonSeleccionProducto({super.key, required this.texto, required this.disp, required this.precio});
+  BotonSeleccionProducto(
+      {super.key,
+      required this.texto,
+      required this.disp,
+      required this.precio,
+      required this.codigoProducto,
+      this.imagen="assests/producto.png",});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +64,7 @@ class BotonSeleccionProducto extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(14.0),
-                    child: Image.asset('assets/amoxicilina.png'),
+                    child: Image.network(imagen),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,16 +129,7 @@ class BotonSeleccionProducto extends StatelessWidget {
 
   void _navegarA(BuildContext context, {required String widgetName}) {
     Widget widget;
-
-    switch (widgetName) {
-      case 'Amoxicilina':
-        widget = const DetallesProducto();
-        break;
-     
-      default:
-        throw ArgumentError('Nombre de widget no reconocido: $widgetName');
-    }
-
+    widget = DetallesProducto(codigoProducto: codigoProducto,);
     Navigator.push(
       context,
       MaterialPageRoute(

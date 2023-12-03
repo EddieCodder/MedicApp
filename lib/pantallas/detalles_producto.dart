@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/carrito.dart';
-import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+// import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
+import 'package:medic_app/providers/categorias.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const DetallesProducto());
+import '../providers/productos.dart';
 
-class DetallesProducto extends StatelessWidget {
-  const DetallesProducto({super.key});
+class DetallesProducto extends StatefulWidget {
+  final int codigoProducto;
+  const DetallesProducto({super.key, required this.codigoProducto});
 
   @override
+  State<DetallesProducto> createState() => DetallesProductoState();
+}
+
+class DetallesProductoState extends State<DetallesProducto> {
+  @override
   Widget build(BuildContext context) {
+    final producto = Provider.of<Productos>(context, listen: false)
+        .list
+        .firstWhere((p) => p.codigoProducto == widget.codigoProducto);
+    final categoria = Provider.of<Categorias>(context, listen: false)
+        .list
+        .firstWhere((cat) => cat.codigoCategoria == producto.codigoCategoria);
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -29,8 +43,9 @@ class DetallesProducto extends StatelessWidget {
                       width: 374,
                       height: 355,
                       decoration: ShapeDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage('assets/amoxicilina.png'),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              "http://ivelitaunsa201920210.c1.is/api_medicapp/product/${producto.imagen}"),
                           fit: BoxFit.fill,
                         ),
                         shape: RoundedRectangleBorder(
@@ -45,7 +60,11 @@ class DetallesProducto extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SeccionScreen()));
+                                  builder: (context) => SeccionScreen(
+                                        nombreRecibido: categoria.descripcion,
+                                        codigoRecibido:
+                                            categoria.codigoCategoria,
+                                      )));
                         },
                         child: const Icon(
                           size: 50,
@@ -73,7 +92,7 @@ class DetallesProducto extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
@@ -83,8 +102,8 @@ class DetallesProducto extends StatelessWidget {
                             width: 218,
                             height: 38.06,
                             child: Text(
-                              'Amoxicilina',
-                              style: TextStyle(
+                              producto.nombreProducto,
+                              style: const TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 18,
                                 fontFamily: 'Inter',
@@ -97,8 +116,8 @@ class DetallesProducto extends StatelessWidget {
                             width: 214,
                             height: 48,
                             child: Text(
-                              'Antibiótico para tratar una amplia variedad de infecciones bacterianas, como infecciones del tracto respiratorio y del oído.',
-                              style: TextStyle(
+                              producto.descripcion,
+                              style: const TextStyle(
                                 color: Color(0xFF5C4F5F),
                                 fontSize: 10,
                                 fontFamily: 'Inter',
@@ -111,8 +130,8 @@ class DetallesProducto extends StatelessWidget {
                             width: 116,
                             height: 28,
                             child: Text(
-                              'S/. 4.00',
-                              style: TextStyle(
+                              'S/. ${producto.precio}',
+                              style: const TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 14,
                                 fontFamily: 'Inter',
@@ -130,9 +149,9 @@ class DetallesProducto extends StatelessWidget {
                             width: 81,
                             height: 38.06,
                             child: Text(
-                              'Disponible',
+                              producto.cantidadStock > 0 ? 'Disponible' : "No Disponible",
                               style: TextStyle(
-                                color: Color(0xFF2CC51F),
+                                color: producto.cantidadStock > 0 ? const Color(0xFF2CC51F) : const Color.fromARGB(255, 197, 31, 31),
                                 fontSize: 13,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w800,
@@ -204,7 +223,9 @@ class DetallesProducto extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CarritoScreen(),
+                            builder: (context) => CarritoScreen(
+                              codigoProducto: producto.codigoProducto,
+                            ),
                           ),
                         );
                       },

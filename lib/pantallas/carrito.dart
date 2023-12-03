@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
-import 'package:medic_app/pantallas/components/boton_guardar.dart';
 import 'package:medic_app/pantallas/detalles_producto.dart';
-import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/welcome.dart';
 
 class CarritoScreen extends StatelessWidget {
-  const CarritoScreen({super.key});
+  final int codigoProducto;
+  const CarritoScreen({super.key, required this.codigoProducto});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +18,9 @@ class CarritoScreen extends StatelessWidget {
 
           Column(
             children: [
-              const BarraRetorno(
+              BarraRetorno(
                 text: 'Mi pedido',
-                widget_viaje: DetallesProducto(),
+                widget_viaje: DetallesProducto(codigoProducto: codigoProducto),
                 tamLetra: 30,
               ),
               const SizedBox(
@@ -330,12 +329,9 @@ class Cuadro1 extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-      
-          children: [
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Text(
             '5 unidades: ',
             style: TextStyle(
