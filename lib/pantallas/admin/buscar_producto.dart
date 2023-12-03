@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/admin/editar_producto.dart';
-import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
+import 'package:medic_app/pantallas/admin/detalles_producto_Receta.dart';
 
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +8,8 @@ import '../../providers/productos.dart';
 import '../components/barra_busqueda.dart';
 import './opciones_admin.dart';
 
-class EditarProductoBuscarScreen extends StatelessWidget {
-  const EditarProductoBuscarScreen({super.key});
+class BuscarProductoScreen extends StatelessWidget {
+  const BuscarProductoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,35 @@ class EditarProductoBuscarScreen extends StatelessWidget {
               ),
               child: Column(children: [
                 SizedBox(height: size.height * 0.01),
-                const BarraRetorno(
-                  text: 'Regresar',
-                  widget_viaje: OpcionesAdmin(),
-                  tamLetra: 20,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: size.height * 0.12),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OpcionesAdmin(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color: const Color(0xFF471AA0),
+                      iconSize: 25,
+                      padding: const EdgeInsets.only(left: 30),
+                    ),
+                    const Text(
+                      'Regresar',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 33, 11, 75),
+                        fontSize: 30,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.bold,
+                        height: 0,
+                      ),
+                    ),
+                  ],
                 ),
                 const BarraBusqueda(),
                 SizedBox(height: size.height * 0.03),
@@ -321,7 +345,7 @@ class EditarProductoBuscarScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const EditarProductoBuscarScreen(),
+                                  const BuscarProductoScreen(),
                             ),
                           );
                         },
@@ -357,7 +381,7 @@ class CustomContainer extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                EditarProductoScreen(codigoProducto: codigoProducto),
+                const DetallesProductoReceta(), //TODO: Comprar Producto por me dio de los detalles
           ),
         );
       },

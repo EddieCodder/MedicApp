@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth.dart';
@@ -28,36 +29,10 @@ class BloquearUsuariosScreen extends StatelessWidget {
               ),
             ),
             child: Column(children: [
-              SizedBox(height: size.height * 0.01),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: size.height * 0.12),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OpcionesAdmin(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: const Color(0xFF471AA0),
-                    iconSize: 25,
-                    padding: const EdgeInsets.only(left: 30),
-                  ),
-                  const Text(
-                    'Regresar',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 56, 20, 126),
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      height: 0,
-                    ),
-                  ),
-                ],
+              const BarraRetorno(
+                text: 'Regresar',
+                widget_viaje: OpcionesAdmin(),
+                tamLetra: 20,
               ),
               const Row(children: [
                 Padding(
@@ -83,7 +58,7 @@ class BloquearUsuariosScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     // Filtrar usuarios bloqueados
                     final usuario = Provider.of<Auth>(context).list[index];
-                    if (usuario.esBloqueado==1) {
+                    if (usuario.esBloqueado == 1) {
                       return Container(); // Devolver un contenedor vacío para usuarios bloqueados
                     }
                     return CustomContainer(
@@ -94,18 +69,16 @@ class BloquearUsuariosScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const BloquearUsuariosScreen(),
+                            builder: (context) =>
+                                const BloquearUsuariosScreen(),
                           ),
                         );
                       },
                     );
                   },
-                  
                 ),
               )
-            ]
-          )
-        ),
+            ])),
         bottomNavigationBar: const BarraNavegacion(),
       ),
     );

@@ -1,32 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:medic_app/pantallas/carrito.dart';
-// import 'package:medic_app/pantallas/components/barra_navegacion.dart';
+import 'package:medic_app/pantallas/admin/buscar_producto.dart';
 
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
-import 'package:medic_app/providers/categorias.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/productos.dart';
+class DetallesProductoReceta extends StatelessWidget {
+  const DetallesProductoReceta({super.key});
 
-class DetallesProducto extends StatefulWidget {
-  final int codigoProducto;
-  const DetallesProducto({super.key, required this.codigoProducto});
-
-  @override
-  State<DetallesProducto> createState() => DetallesProductoState();
-}
-
-class DetallesProductoState extends State<DetallesProducto> {
   @override
   Widget build(BuildContext context) {
-    final producto = Provider.of<Productos>(context, listen: false)
-        .list
-        .firstWhere((p) => p.codigoProducto == widget.codigoProducto);
-    final categoria = Provider.of<Categorias>(context, listen: false)
-        .list
-        .firstWhere((cat) => cat.codigoCategoria == producto.codigoCategoria);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
           alignment: Alignment.center,
@@ -44,9 +28,8 @@ class DetallesProductoState extends State<DetallesProducto> {
                       width: 374,
                       height: 355,
                       decoration: ShapeDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "http://ivelitaunsa201920210.c1.is/api_medicapp/product/${producto.imagen}"),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/amoxicilina.png'),
                           fit: BoxFit.fill,
                         ),
                         shape: RoundedRectangleBorder(
@@ -61,11 +44,7 @@ class DetallesProductoState extends State<DetallesProducto> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SeccionScreen(
-                                        nombreRecibido: categoria.descripcion,
-                                        codigoRecibido:
-                                            categoria.codigoCategoria,
-                                      )));
+                                  builder: (context) => SeccionScreen()));
                         },
                         child: const Icon(
                           size: 50,
@@ -93,7 +72,7 @@ class DetallesProductoState extends State<DetallesProducto> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
@@ -103,8 +82,8 @@ class DetallesProductoState extends State<DetallesProducto> {
                             width: 218,
                             height: 38.06,
                             child: Text(
-                              producto.nombreProducto,
-                              style: const TextStyle(
+                              'Amoxicilina',
+                              style: TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 18,
                                 fontFamily: 'Inter',
@@ -117,8 +96,8 @@ class DetallesProductoState extends State<DetallesProducto> {
                             width: 214,
                             height: 48,
                             child: Text(
-                              producto.descripcion,
-                              style: const TextStyle(
+                              'Antibiótico para tratar una amplia variedad de infecciones bacterianas, como infecciones del tracto respiratorio y del oído.',
+                              style: TextStyle(
                                 color: Color(0xFF5C4F5F),
                                 fontSize: 10,
                                 fontFamily: 'Inter',
@@ -131,8 +110,8 @@ class DetallesProductoState extends State<DetallesProducto> {
                             width: 116,
                             height: 28,
                             child: Text(
-                              'S/. ${producto.precio}',
-                              style: const TextStyle(
+                              'S/. 4.00',
+                              style: TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 14,
                                 fontFamily: 'Inter',
@@ -150,9 +129,9 @@ class DetallesProductoState extends State<DetallesProducto> {
                             width: 81,
                             height: 38.06,
                             child: Text(
-                              producto.cantidadStock > 0 ? 'Disponible' : "No Disponible",
+                              'Disponible',
                               style: TextStyle(
-                                color: producto.cantidadStock > 0 ? const Color(0xFF2CC51F) : const Color.fromARGB(255, 197, 31, 31),
+                                color: Color(0xFF2CC51F),
                                 fontSize: 13,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w800,
@@ -184,7 +163,10 @@ class DetallesProductoState extends State<DetallesProducto> {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BotonAumento(text: '-'),
+                      BotonAumento(
+                        text: '-',
+                        position: 1,
+                      ),
                       Text(
                         'Cantidad',
                         style: TextStyle(
@@ -195,7 +177,10 @@ class DetallesProductoState extends State<DetallesProducto> {
                           height: 0,
                         ),
                       ),
-                      BotonAumento(text: '+'),
+                      BotonAumento(
+                        text: '+',
+                        position: 2,
+                      ),
                     ],
                   ),
                 ),
@@ -205,28 +190,14 @@ class DetallesProductoState extends State<DetallesProducto> {
                 ),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 68,
-                        height: 64.27,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFFC7BEBE),
-                          shape: OvalBorder(),
-                        ),
-                        child: Image.asset('assets/carrito.png'),
-                      ),
-                    ),
                     InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CarritoScreen(
-                              codigoProducto: producto.codigoProducto,
-                            ),
+                            builder: (context) => const BuscarProductoScreen(),
                           ),
                         );
                       },
@@ -271,9 +242,12 @@ class DetallesProductoState extends State<DetallesProducto> {
 
 class BotonAumento extends StatelessWidget {
   final String text;
+  final int position; // Nueva propiedad para almacenar la posición del botón
+
   const BotonAumento({
     super.key,
     required this.text,
+    required this.position,
   });
 
   @override
@@ -282,6 +256,8 @@ class BotonAumento extends StatelessWidget {
       onPressed: () {
         // TODO: AUMENTAR LA CANTIDAD DE PRODUCTOS
       },
+      heroTag:
+          'uniqueTag$position', // Usa la posición para generar una etiqueta única
       child: Container(
         alignment: Alignment.center,
         width: 76,

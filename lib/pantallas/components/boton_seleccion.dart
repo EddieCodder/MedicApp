@@ -1,8 +1,8 @@
-// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/agregar_producto.dart';
 import 'package:medic_app/pantallas/admin/bloquear_usuarios.dart';
 import 'package:medic_app/pantallas/admin/editar_producto_buscar.dart';
+import 'package:medic_app/pantallas/admin/pedidos_con_receta.dart';
 import 'package:medic_app/pantallas/admin/pedidos_sin_receta.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/compra_receta.dart';
@@ -10,7 +10,6 @@ import 'package:medic_app/pantallas/info_user.dart';
 import 'package:medic_app/pantallas/login.dart';
 import 'package:medic_app/pantallas/mis_pedidos.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
-import 'package:medic_app/pantallas/welcome.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth.dart';
@@ -83,8 +82,7 @@ class BotonSeleccion extends StatelessWidget {
         widget = const SelecPedidoScreen();
         break;
       case 'Mis pedidos':
-        widget =
-            const MisPedidosScreen();
+        widget = const MisPedidosScreen();
         break;
       case 'Información de la cuenta':
         widget =
@@ -109,26 +107,30 @@ class BotonSeleccion extends StatelessWidget {
         break;
 
       case 'Con Receta':
-        widget =
-            const CompraRecetaScreen(); 
+        widget = const CompraRecetaScreen();
         break;
 
       //  OPCIONES ADMIN
       //CON RECETA
       case 'Realizar Pedido (Con Receta)':
-        widget = const WelcomeScreen();
+        widget = const PedidosConReceta();
         break;
+      //SIN RECETA
 
       case 'Realizar Pedido (Sin Receta)':
         widget = const PedidosSinReceta();
         break;
 
+      //AGREGAR PRODUCTO
       case 'Agregar producto':
         widget = const AgregarProductoScreen();
         break;
+      //EDITAR PRODUCTO
       case 'Editar producto(s)':
         widget = const EditarProductoBuscarScreen();
         break;
+
+      //BLOQUEAR USUARIO
       case 'Bloquear usuarios':
         widget = const BloquearUsuariosScreen();
         break;

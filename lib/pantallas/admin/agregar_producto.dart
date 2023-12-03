@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:medic_app/pantallas/admin/opciones_admin.dart';
 import '../../models/categoria.dart';
 import '../../providers/categorias.dart';
+import '../components/app_bar_retorno.dart';
 import '../components/barra_navegacion.dart';
 import '../components/producto_fields.dart';
 import 'package:provider/provider.dart';
@@ -61,30 +62,10 @@ class AgregarProductoScreenState extends State<AgregarProductoScreen> {
             ),
             child: Column(children: [
               SizedBox(height: size.height * 0.004),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: size.height * 0.12),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                    color: const Color(0xFF471AA0),
-                    iconSize: 25,
-                    padding: const EdgeInsets.only(left: 30),
-                  ),
-                  const Text(
-                    'Regresar',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 56, 20, 126),
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.bold,
-                      height: 0,
-                    ),
-                  ),
-                ],
+              const BarraRetorno(
+                text: 'Regresar',
+                widget_viaje: OpcionesAdmin(),
+                tamLetra: 20,
               ),
               const Row(children: [
                 Padding(
