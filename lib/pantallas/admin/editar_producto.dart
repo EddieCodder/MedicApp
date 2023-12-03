@@ -81,176 +81,178 @@ class EditarProductoScreenState extends State<EditarProductoScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(0.00, -1.00),
-              end: Alignment(0, 1),
-              colors: [
-                Color.fromARGB(255, 215, 120, 230),
-                Color.fromARGB(255, 251, 246, 251),
-                Color.fromARGB(255, 251, 246, 251),
-                Color.fromARGB(255, 251, 246, 251),
-              ],
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(0.00, -1.00),
+                end: Alignment(0, 1),
+                colors: [
+                  Color.fromARGB(255, 215, 120, 230),
+                  Color.fromARGB(255, 251, 246, 251),
+                  Color.fromARGB(255, 251, 246, 251),
+                  Color.fromARGB(255, 251, 246, 251),
+                ],
+              ),
             ),
-          ),
-          child: Column(
-            children: [
-              const BarraRetorno(
-                text: 'Regresar',
-                widget_viaje: EditarProductoBuscarScreen(),
-                tamLetra: 20,
-              ),
-              const Row(children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 35),
-                  child: Text(
-                    'EDITAR PRODUCTO',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 56, 20, 126),
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                      height: 0,
-                    ),
-                  ),
-                )
-              ]),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Nombre',
-                    controller: _nombreController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Marca',
-                    controller: _marcaController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Descripcion',
-                    controller: _descripcionController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Precio',
-                    controller: _precioController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Categoria',
-                    controller: _categoriaController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              Row(
-                children: [
-                  ReusableRow(
-                    labelText: 'Cantidad',
-                    controller: _cantidadController,
-                    highText: '',
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.03),
-              InkWell(
-                onTap: _getImage,
-                child: Container(
-                    width: 90,
-                    height: 90,
-                    decoration: ShapeDecoration(
-                      color: const Color(0x00D9D9D9),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(20),
+            child: Column(
+              children: [
+                const BarraRetorno(
+                  text: 'Regresar',
+                  widget_viaje: EditarProductoBuscarScreen(),
+                  tamLetra: 20,
+                ),
+                const Row(children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 35),
+                    child: Text(
+                      'EDITAR PRODUCTO',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 56, 20, 126),
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
                       ),
                     ),
-                    child: _imagePath
-                            .startsWith("images") // Verificar si es una URL
-                        ? Image.network(
-                            "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
-                            width: 57,
-                            height: 57,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            File(_imagePath),
-                            width: 57,
-                            height: 57,
-                            fit: BoxFit.cover,
-                          )),
-              ),
-              SizedBox(height: size.height * 0.03),
-              FloatingActionButton.extended(
-                label: const Text(
-                  'Guardar',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Inter',
+                  )
+                ]),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Nombre',
+                      controller: _nombreController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Marca',
+                      controller: _marcaController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Descripcion',
+                      controller: _descripcionController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Precio',
+                      controller: _precioController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Categoria',
+                      controller: _categoriaController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Row(
+                  children: [
+                    ReusableRow(
+                      labelText: 'Cantidad',
+                      controller: _cantidadController,
+                      highText: '',
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                InkWell(
+                  onTap: _getImage,
+                  child: Container(
+                      width: 90,
+                      height: 90,
+                      decoration: ShapeDecoration(
+                        color: const Color(0x00D9D9D9),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(width: 1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: _imagePath
+                              .startsWith("images") // Verificar si es una URL
+                          ? Image.network(
+                              "http://ivelitaunsa201920210.c1.is/api_medicapp/product/$_imagePath",
+                              width: 57,
+                              height: 57,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              File(_imagePath),
+                              width: 57,
+                              height: 57,
+                              fit: BoxFit.cover,
+                            )),
+                ),
+                SizedBox(height: size.height * 0.03),
+                FloatingActionButton.extended(
+                  label: const Text(
+                    'Guardar',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Inter',
+                    ),
                   ),
-                ),
-                backgroundColor: const Color.fromARGB(255, 139, 46, 215),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                onPressed: () {
-                  // Acceder al valor actualizado desde los controladores
-                  final nuevoNombre = _nombreController.text;
-                  final nuevaMarca = _marcaController.text;
-                  final nuevaDescripcion = _descripcionController.text;
-                  final nuevoPrecio = _precioController.text;
-                  final nuevaCategoria = _categoriaController.text;
-                  final nuevaCantidad = _cantidadController.text;
+                  backgroundColor: const Color.fromARGB(255, 139, 46, 215),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  onPressed: () {
+                    // Acceder al valor actualizado desde los controladores
+                    final nuevoNombre = _nombreController.text;
+                    final nuevaMarca = _marcaController.text;
+                    final nuevaDescripcion = _descripcionController.text;
+                    final nuevoPrecio = _precioController.text;
+                    final nuevaCategoria = _categoriaController.text;
+                    final nuevaCantidad = _cantidadController.text;
 
-                  try {
-                    Map<String, dynamic> parametros = {
-                      'codigoProducto': _codigoProducto,
-                      'nombreProducto': nuevoNombre,
-                      'marca': nuevaMarca,
-                      'descripcion': nuevaDescripcion,
-                      'precio': double.parse(nuevoPrecio),
-                      'codigoCategoria': int.parse(nuevaCategoria),
-                      'cantidadStock': int.parse(nuevaCantidad),
-                      'imagen': ''
-                    };
-                    Provider.of<Productos>(context, listen: false)
-                        .updateProducto(
-                            Producto.fromJson(parametros), _imagePath);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const EditarProductoBuscarScreen()));
-                  } catch (error) {
-                    rethrow;
-                  }
-                },
-              ),
-            ],
+                    try {
+                      Map<String, dynamic> parametros = {
+                        'codigoProducto': _codigoProducto,
+                        'nombreProducto': nuevoNombre,
+                        'marca': nuevaMarca,
+                        'descripcion': nuevaDescripcion,
+                        'precio': double.parse(nuevoPrecio),
+                        'codigoCategoria': int.parse(nuevaCategoria),
+                        'cantidadStock': int.parse(nuevaCantidad),
+                        'imagen': ''
+                      };
+                      Provider.of<Productos>(context, listen: false)
+                          .updateProducto(
+                              Producto.fromJson(parametros), _imagePath);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const EditarProductoBuscarScreen()));
+                    } catch (error) {
+                      rethrow;
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: const BarraNavegacion(),
