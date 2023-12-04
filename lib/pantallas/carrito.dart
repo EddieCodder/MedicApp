@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:medic_app/models/carrito.dart';
 import 'package:medic_app/pantallas/categorias.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/detalles_producto.dart';
 import 'package:medic_app/pantallas/welcome.dart';
+import 'package:medic_app/providers/pedidos.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
+import '../providers/carritos.dart';
 
 class CarritoScreen extends StatelessWidget {
   final int codigoProducto;
-  const CarritoScreen({super.key, required this.codigoProducto});
+  const CarritoScreen({
+    super.key,
+    required this.codigoProducto,
+  });
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       home: Scaffold(
           body: Stack(
@@ -26,13 +36,19 @@ class CarritoScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return const CuadroCompra();
-                  },
-                ),
+              Consumer<Cart>(
+                builder: (context, cart, child) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: cart.items.length,
+                      itemBuilder: (context, index) {
+                        final carrito = cart.items.values.elementAt(index);
+                        return CuadroCompra(carrito: carrito);
+                      },
+                    ),
+                  );
+                  // ... Otros widgets ...
+                },
               ),
               const SizedBox(
                 height: 30,
@@ -81,32 +97,45 @@ class CarritoScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  FilaPrecio(
-                    textoIzquierdo: 'Subtotal:',
-                    textoDerecho: 'S/ 12.00',
-                    tam: 26,
-                  ),
-                  FilaPrecio(
-                    textoIzquierdo: 'Costo/Envío:',
-                    textoDerecho: 'S/ 5.00',
-                    tam: 26,
-                  ),
-                  FilaPrecio(
-                    textoIzquierdo: 'Total:',
-                    textoDerecho: 'S/ 17.00',
-                    tam: 32,
-                  )
-                ],
+              Consumer<Cart>(
+                builder: (context, cart, child) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FilaPrecio(
+                        textoIzquierdo: 'Subtotal:',
+                        textoDerecho:
+                            ((cart.totalPrice * 100).round() / 100).toString(),
+                        tam: 26,
+                      ),
+                      const FilaPrecio(
+                        textoIzquierdo: 'Costo/Envío:',
+                        textoDerecho: 'S/ 5.00',
+                        tam: 26,
+                      ),
+                      FilaPrecio(
+                        textoIzquierdo: 'Total:',
+                        textoDerecho:
+                            (((cart.totalPrice + 5) * 100).round() / 100)
+                                .toString(),
+                        tam: 32,
+                      )
+                    ],
+                  );
+                },
               ),
               const SizedBox(
                 height: 50,
               ),
               InkWell(
                 onTap: () {
+                  int? codigoUsuario =
+                      Provider.of<Auth>(context, listen: false).codigoUsuario;
+                  Provider.of<Pedidos>(context, listen: false).addPedido(
+                    codigoUsuario,
+                    Provider.of<Cart>(context, listen: false).totalPrice
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -200,40 +229,31 @@ class FilaPrecio extends StatelessWidget {
 }
 
 class CuadroCompra extends StatelessWidget {
+  final CartItem carrito;
   const CuadroCompra({
     super.key,
+    required this.carrito,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
         children: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: InkWell(
-                  onTap: () {
-                    // TODO: Accion de borrar de la ListView
-                  },
-                  child: const Icon(
-                    size: 50,
-                    Icons.cancel,
-                    color: Color.fromARGB(255, 0, 0,
-                        0), // Cambia el color del lápiz según tus preferencias
-                  ),
-                ),
-              ),
-              const Cuadro1(alto: 200),
-            ],
+          IconButton(
+            onPressed: () {
+              Provider.of<Cart>(context, listen: false)
+                  .remove(carrito.codigoProducto);
+            },
+            icon: const Icon(
+              Icons.cancel,
+              size: 40,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
           ),
-          const Cuadro2(
-            alto: 130,
-          ),
+          Cuadro2(alto: 130, carrito: carrito),
+          Cuadro1(alto: 35, carrito: carrito),
         ],
       ),
     );
@@ -241,16 +261,17 @@ class CuadroCompra extends StatelessWidget {
 }
 
 class Cuadro2 extends StatelessWidget {
+  final CartItem carrito;
   final double alto;
   const Cuadro2({
-    super.key,
+    Key? key,
     required this.alto,
-  });
+    required this.carrito,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //alignment: Alignment.topCenter,
       width: 371,
       height: alto,
       decoration: ShapeDecoration(
@@ -268,19 +289,21 @@ class Cuadro2 extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/amoxicilina.png',
-            ),
+            child: carrito.imagen != ""
+                ? Image.network(
+                    "http://ivelitaunsa201920210.c1.is/api_medicapp/product/${carrito.imagen}",
+                  )
+                : const SizedBox.shrink(),
           ),
           const SizedBox(
             width: 15,
           ),
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Amoxicilina',
-                style: TextStyle(
+                carrito.nombreProducto,
+                style: const TextStyle(
                   color: Color(0xFF5C4F5F),
                   fontSize: 18,
                   fontFamily: 'Inter',
@@ -289,8 +312,8 @@ class Cuadro2 extends StatelessWidget {
                 ),
               ),
               Text(
-                'S/. 4.00 por unidad',
-                style: TextStyle(
+                'S/. ${carrito.precio} por unidad',
+                style: const TextStyle(
                   color: Color(0xFF5C4F5F),
                   fontSize: 11,
                   fontFamily: 'Inter',
@@ -307,14 +330,18 @@ class Cuadro2 extends StatelessWidget {
 }
 
 class Cuadro1 extends StatelessWidget {
+  final CartItem carrito;
   final double alto;
   const Cuadro1({
-    super.key,
+    Key? key,
     required this.alto,
-  });
+    required this.carrito,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    num subtotal = carrito.precio * carrito.cantidad;
+
     return Container(
       alignment: Alignment.bottomCenter,
       width: 371,
@@ -329,30 +356,33 @@ class Cuadro1 extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Text(
-            '5 unidades: ',
-            style: TextStyle(
-              color: Color(0xFF080808),
-              fontSize: 13,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
-              height: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              carrito.cantidad.toString(),
+              style: const TextStyle(
+                color: Color(0xFF080808),
+                fontSize: 13,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                height: 0,
+              ),
             ),
-          ),
-          Text(
-            'S/ 12.00',
-            style: TextStyle(
-              color: Color(0xFF080808),
-              fontSize: 16,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w300,
-              height: 0,
+            Text(
+              subtotal.toString(),
+              style: const TextStyle(
+                color: Color(0xFF080808),
+                fontSize: 16,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w300,
+                height: 0,
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

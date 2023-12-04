@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/boton_guardar.dart';
@@ -7,8 +10,26 @@ import 'package:medic_app/pantallas/tipo_pedido.dart';
 
 void main() => runApp(const CompraRecetaScreen());
 
-class CompraRecetaScreen extends StatelessWidget {
+class CompraRecetaScreen extends StatefulWidget {
   const CompraRecetaScreen({super.key});
+
+  @override
+  State<CompraRecetaScreen> createState() => _CompraRecetaScreenState();
+}
+
+class _CompraRecetaScreenState extends State<CompraRecetaScreen> {
+  String? _imagePath;
+
+  Future<void> _getImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imagePath = pickedFile.path;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +76,7 @@ class CompraRecetaScreen extends StatelessWidget {
             ),
             const SizedBox(height: 50 * 0.03),
             InkWell(
-              onTap: () {
-                // TODO: Hacer la función de recibir imagen
-              },
+              onTap: _getImage,
               child: Container(
                 width: 254,
                 height: 254,
@@ -68,7 +87,15 @@ class CompraRecetaScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Image.asset('assets/insertarImagen.png'),
+                child: _imagePath != null
+                  ? Image.file(
+                      // Muestra la imagen seleccionada
+                      File(_imagePath!),
+                      // width: 207,
+                      // height: 207,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset('assets/insertarImagen.png'),
               ),
             ),
             const SizedBox(
@@ -104,7 +131,7 @@ class CompraRecetaScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const BotonBasic(text: 'Continuar',pantalla: DireccionScreen(ingresoDesdeBienvenida: false,), ),
+            BotonBasic(text: 'Continuar',pantalla: DireccionScreen(ingresoDesdeBienvenida: false, imagePath: _imagePath), ),
           ],
         ),
       ),

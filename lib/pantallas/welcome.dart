@@ -4,6 +4,7 @@ import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/direccion.dart';
 import 'package:medic_app/pantallas/menu.dart';
+import 'package:medic_app/providers/pedidos.dart';
 import 'package:provider/provider.dart';
 import '../providers/productos.dart';
 import '../providers/auth.dart';
@@ -17,10 +18,12 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productosProvider = Provider.of<Productos>(context);
     final usuariosProvider = Provider.of<Auth>(context);
+    final pedidosProvider = Provider.of<Pedidos>(context);
 
     // Llamar a la función getProducts para cargar la lista de productos
     productosProvider.getProductos();
     usuariosProvider.getUsuarios();
+    pedidosProvider.getPedidos();
 
     return MaterialApp(
       home: Scaffold(
@@ -110,7 +113,7 @@ class WelcomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const DireccionScreen(
+                      builder: (context) => const DireccionScreen(imagePath: "",
                         ingresoDesdeBienvenida: true,
                       ),
                     ),
@@ -157,7 +160,8 @@ class WelcomeScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => const CategorySceen(),
                     ),
-                  );                },
+                  );
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

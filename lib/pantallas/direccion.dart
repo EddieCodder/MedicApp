@@ -3,11 +3,17 @@ import 'package:medic_app/pantallas/components/app_bar_con_logo_izq.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/field_basic.dart';
 import 'package:medic_app/pantallas/tipo_pedido.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
+import '../providers/pedidos.dart';
+import 'welcome.dart';
 
 class DireccionScreen extends StatelessWidget {
   final bool ingresoDesdeBienvenida;
+  final String? imagePath;
 
-  const DireccionScreen({super.key, required this.ingresoDesdeBienvenida});
+  const DireccionScreen({super.key, required this.ingresoDesdeBienvenida, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +109,23 @@ class DireccionScreen extends StatelessWidget {
               height: 50,
             ),
             InkWell(
-                onTap: () {
-                  // TODO: REALIZAR PEDIDO
-                },
+                onTap: imagePath != null && imagePath != ""
+                ? () {
+                  int? codigoUsuario =
+                  Provider.of<Auth>(context, listen: false).codigoUsuario;
+                  Provider.of<Pedidos>(context, listen: false).addPedido(
+                    codigoUsuario,
+                    0,
+                    imagePath: imagePath ?? ''
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen(),
+                    ),
+                  );
+                }
+                : null,
                 child: Container(
                   width: 270,
                   height: 65,

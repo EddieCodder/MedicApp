@@ -4,6 +4,7 @@ import 'package:medic_app/pantallas/carrito.dart';
 
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/seccion.dart';
+import 'package:medic_app/providers/carritos.dart';
 import 'package:medic_app/providers/categorias.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class DetallesProducto extends StatefulWidget {
 }
 
 class DetallesProductoState extends State<DetallesProducto> {
+  int cantidad = 0;
   @override
   Widget build(BuildContext context) {
     final producto = Provider.of<Productos>(context, listen: false)
@@ -26,6 +28,7 @@ class DetallesProductoState extends State<DetallesProducto> {
     final categoria = Provider.of<Categorias>(context, listen: false)
         .list
         .firstWhere((cat) => cat.codigoCategoria == producto.codigoCategoria);
+    final carritoProvider = Provider.of<Cart>(context, listen: false);
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -150,9 +153,13 @@ class DetallesProductoState extends State<DetallesProducto> {
                             width: 81,
                             height: 38.06,
                             child: Text(
-                              producto.cantidadStock > 0 ? 'Disponible' : "No Disponible",
+                              producto.cantidadStock > 0
+                                  ? 'Disponible'
+                                  : "No Disponible",
                               style: TextStyle(
-                                color: producto.cantidadStock > 0 ? const Color(0xFF2CC51F) : const Color.fromARGB(255, 197, 31, 31),
+                                color: producto.cantidadStock > 0
+                                    ? const Color(0xFF2CC51F)
+                                    : const Color.fromARGB(255, 197, 31, 31),
                                 fontSize: 13,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w800,
@@ -168,38 +175,6 @@ class DetallesProductoState extends State<DetallesProducto> {
                 const SizedBox(
                   height: 60,
                 ),
-                Container(
-                  width: 250,
-                  height: 51,
-                  decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment(0.00, -1.00),
-                      end: Alignment(0, 1),
-                      colors: [Color(0x00EAD0F6), Color(0xFFEAD0F6)],
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BotonAumento(text: '-'),
-                      Text(
-                        'Cantidad',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w800,
-                          height: 0,
-                        ),
-                      ),
-                      BotonAumento(text: '+'),
-                    ],
-                  ),
-                ),
-
                 const SizedBox(
                   height: 70,
                 ),
@@ -221,12 +196,11 @@ class DetallesProductoState extends State<DetallesProducto> {
                     ),
                     InkWell(
                       onTap: () {
+                        carritoProvider.addTocart(producto.codigoProducto, producto.nombreProducto, producto.imagen, producto.precio);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CarritoScreen(
-                              codigoProducto: producto.codigoProducto,
-                            ),
+                            builder: (context) => CarritoScreen(codigoProducto: producto.codigoProducto),
                           ),
                         );
                       },
@@ -245,7 +219,7 @@ class DetallesProductoState extends State<DetallesProducto> {
                           ),
                         ),
                         child: const Text(
-                          '(3) Agregar al carrito S/. 12.00',
+                          'Agregar al carrito',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -263,48 +237,6 @@ class DetallesProductoState extends State<DetallesProducto> {
               ],
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class BotonAumento extends StatelessWidget {
-  final String text;
-  const BotonAumento({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        // TODO: AUMENTAR LA CANTIDAD DE PRODUCTOS
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: 76,
-        height: 65,
-        decoration: ShapeDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment(0.00, -1.00),
-            end: Alignment(0, 1),
-            colors: [Color(0xFF9550CE), Color(0xFFEAD0F6)],
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 40,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w800,
-            height: 0,
-          ),
         ),
       ),
     );

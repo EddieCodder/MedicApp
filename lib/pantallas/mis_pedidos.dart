@@ -4,6 +4,12 @@ import 'package:medic_app/pantallas/components/barra_busqueda.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/fondo.dart';
 import 'package:medic_app/pantallas/menu.dart';
+import 'package:medic_app/providers/auth.dart';
+import 'package:medic_app/providers/estados.dart';
+import 'package:provider/provider.dart';
+
+import '../models/pedido.dart';
+import '../providers/pedidos.dart';
 
 //void main() => runApp(const MisPedidosScreen());
 
@@ -12,6 +18,9 @@ class MisPedidosScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Pedidos pedidosProvider = Provider.of<Pedidos>(context, listen: false);
+    Estados estadosProvider = Provider.of<Estados>(context, listen: false);
+    Auth usuarioProvider = Provider.of<Auth>(context, listen: false);
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
@@ -38,18 +47,22 @@ class MisPedidosScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: pedidosProvider.items.length,
                     itemBuilder: (context, index) {
-                      return const Column(
+                      Pedido pedido = pedidosProvider.items[index];
+                      if (pedido.codigoUsuario != usuarioProvider.codigoUsuario) {
+                        return Container(); // Devolver un contenedor vacío para usuarios bloqueados
+                      }
+                      return Column(
                         children: [
                           BarraLateralButton(
-                            text: '17.00',
-                            screen: MisPedidosScreen(),
-                            topLeftText: '30/10/2023',
-                            topRightText: 'Por confirmar',
-                            bottomLeftText: '#0004',
+                            text: pedido.precioTotal.toString(),
+                            screen: const MisPedidosScreen(),
+                            topLeftText: "${pedido.fecha.year.toString().padLeft(4, '0')}-${pedido.fecha.month.toString().padLeft(2, '0')}-${pedido.fecha.day.toString().padLeft(2, '0')}",
+                            topRightText: (estadosProvider.list[pedido.codEstEnt].descripcion).toString(),
+                            bottomLeftText: pedido.codPedCab.toString(),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           )
                         ],
