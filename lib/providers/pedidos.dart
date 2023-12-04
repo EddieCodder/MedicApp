@@ -12,7 +12,7 @@ class Pedidos with ChangeNotifier {
   }
 
   Future<void> getPedidos() async {
-    final url = Uri.parse('http://192.168.100.3/api_medicapp/order/orders.php');
+    final url = Uri.parse('http://ivelitaunsa201920210.c1.is/api_medicapp/order/orders.php');
 
     try {
       final response = await http.get(url);
@@ -40,7 +40,7 @@ class Pedidos with ChangeNotifier {
       String direccionEntrega = "No definido",
       String imagePath = ""}) async {
     final url =
-        Uri.parse('http://192.168.100.3/api_medicapp/order/createOrder.php');
+        Uri.parse('http://ivelitaunsa201920210.c1.is/api_medicapp/order/createOrder.php');
     try {
       var request = http.MultipartRequest('POST', url);
 
@@ -78,7 +78,7 @@ class Pedidos with ChangeNotifier {
 
   Future<void> cambiarEstado(int codPedCab, int codEstEnt) async {
     final url =
-        Uri.parse('http://192.168.100.3/api_medicapp/user/blockUser.php');
+        Uri.parse('http://ivelitaunsa201920210.c1.is/api_medicapp/order/updateOrderStatus.php');
     final pedidoIndex = _items.indexWhere(
       (pedido) => pedido.codPedCab == codPedCab,
     );
@@ -89,6 +89,30 @@ class Pedidos with ChangeNotifier {
           body: {
             'codPedCab': codPedCab.toString(),
             'codEstEnt': codEstEnt.toString(),
+          },
+        );
+        Pedido updatePedido = Pedido.fromJson(jsonDecode(response.body));
+        _items[pedidoIndex] = updatePedido;
+        notifyListeners();
+      } catch (error) {
+        rethrow;
+      }
+    }
+  }
+
+  Future<void> llenarPedidosReceta(int codPedCab, double precioTotal) async {
+    final url =
+        Uri.parse('http://ivelitaunsa201920210.c1.is/api_medicapp/order/updateOrderPrice.php');
+    final pedidoIndex = _items.indexWhere(
+      (pedido) => pedido.codPedCab == codPedCab,
+    );
+    if (pedidoIndex >= 0) {
+      try {
+        final response = await http.post(
+          url,
+          body: {
+            'codPedCab': codPedCab.toString(),
+            'precioTotal': precioTotal.toString(),
           },
         );
         Pedido updatePedido = Pedido.fromJson(jsonDecode(response.body));

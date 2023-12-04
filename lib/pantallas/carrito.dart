@@ -131,11 +131,12 @@ class CarritoScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   int? codigoUsuario =
-                      Provider.of<Auth>(context, listen: false).codigoUsuario;
+                  Provider.of<Auth>(context, listen: false).codigoUsuario;
                   Provider.of<Pedidos>(context, listen: false).addPedido(
                     codigoUsuario,
                     Provider.of<Cart>(context, listen: false).totalPrice
                   );
+                  Provider.of<Cart>(context, listen: false).clearCart();
                   Navigator.push(
                     context,
                     MaterialPageRoute(

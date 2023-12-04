@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:medic_app/pantallas/admin/buscar_producto.dart';
 
 import 'package:medic_app/pantallas/fondo.dart';
-import 'package:medic_app/pantallas/seccion.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/carritos.dart';
+import '../../providers/productos.dart';
 
 class DetallesProductoReceta extends StatelessWidget {
-  const DetallesProductoReceta({super.key});
+  final int codigoProducto;
+  const DetallesProductoReceta({super.key, required this.codigoProducto});
 
   @override
   Widget build(BuildContext context) {
+    final producto = Provider.of<Productos>(context, listen: false)
+        .list
+        .firstWhere((p) => p.codigoProducto == codigoProducto);
+    final carritoProvider = Provider.of<Cart>(context, listen: false);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -28,8 +36,9 @@ class DetallesProductoReceta extends StatelessWidget {
                       width: 374,
                       height: 355,
                       decoration: ShapeDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage('assets/amoxicilina.png'),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              "http://ivelitaunsa201920210.c1.is/api_medicapp/product/${producto.imagen}"),
                           fit: BoxFit.fill,
                         ),
                         shape: RoundedRectangleBorder(
@@ -44,7 +53,8 @@ class DetallesProductoReceta extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SeccionScreen()));
+                                  builder: (context) =>
+                                      const BuscarProductoScreen()));
                         },
                         child: const Icon(
                           size: 50,
@@ -72,7 +82,7 @@ class DetallesProductoReceta extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
@@ -82,8 +92,8 @@ class DetallesProductoReceta extends StatelessWidget {
                             width: 218,
                             height: 38.06,
                             child: Text(
-                              'Amoxicilina',
-                              style: TextStyle(
+                              producto.nombreProducto,
+                              style: const TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 18,
                                 fontFamily: 'Inter',
@@ -96,8 +106,8 @@ class DetallesProductoReceta extends StatelessWidget {
                             width: 214,
                             height: 48,
                             child: Text(
-                              'Antibiótico para tratar una amplia variedad de infecciones bacterianas, como infecciones del tracto respiratorio y del oído.',
-                              style: TextStyle(
+                              producto.descripcion,
+                              style: const TextStyle(
                                 color: Color(0xFF5C4F5F),
                                 fontSize: 10,
                                 fontFamily: 'Inter',
@@ -110,8 +120,8 @@ class DetallesProductoReceta extends StatelessWidget {
                             width: 116,
                             height: 28,
                             child: Text(
-                              'S/. 4.00',
-                              style: TextStyle(
+                              'S/. ${producto.precio}',
+                              style: const TextStyle(
                                 color: Color(0xFF080808),
                                 fontSize: 14,
                                 fontFamily: 'Inter',
@@ -129,9 +139,13 @@ class DetallesProductoReceta extends StatelessWidget {
                             width: 81,
                             height: 38.06,
                             child: Text(
-                              'Disponible',
+                              producto.cantidadStock > 0
+                                  ? 'Disponible'
+                                  : "No Disponible",
                               style: TextStyle(
-                                color: Color(0xFF2CC51F),
+                                color: producto.cantidadStock > 0
+                                    ? const Color(0xFF2CC51F)
+                                    : const Color.fromARGB(255, 197, 31, 31),
                                 fontSize: 13,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w800,
@@ -147,43 +161,6 @@ class DetallesProductoReceta extends StatelessWidget {
                 const SizedBox(
                   height: 60,
                 ),
-                Container(
-                  width: 250,
-                  height: 51,
-                  decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment(0.00, -1.00),
-                      end: Alignment(0, 1),
-                      colors: [Color(0x00EAD0F6), Color(0xFFEAD0F6)],
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BotonAumento(
-                        text: '-',
-                        position: 1,
-                      ),
-                      Text(
-                        'Cantidad',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w800,
-                          height: 0,
-                        ),
-                      ),
-                      BotonAumento(
-                        text: '+',
-                        position: 2,
-                      ),
-                    ],
-                  ),
-                ),
 
                 const SizedBox(
                   height: 70,
@@ -194,6 +171,12 @@ class DetallesProductoReceta extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
+                        carritoProvider.addTocart(
+                            codigoProducto,
+                            producto.nombreProducto,
+                            producto.imagen,
+                            producto.precio
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -216,7 +199,7 @@ class DetallesProductoReceta extends StatelessWidget {
                           ),
                         ),
                         child: const Text(
-                          '(3) Agregar al carrito S/. 12.00',
+                          'Agregar al carrito',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -234,53 +217,6 @@ class DetallesProductoReceta extends StatelessWidget {
               ],
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class BotonAumento extends StatelessWidget {
-  final String text;
-  final int position; // Nueva propiedad para almacenar la posición del botón
-
-  const BotonAumento({
-    super.key,
-    required this.text,
-    required this.position,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        // TODO: AUMENTAR LA CANTIDAD DE PRODUCTOS
-      },
-      heroTag:
-          'uniqueTag$position', // Usa la posición para generar una etiqueta única
-      child: Container(
-        alignment: Alignment.center,
-        width: 76,
-        height: 65,
-        decoration: ShapeDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment(0.00, -1.00),
-            end: Alignment(0, 1),
-            colors: [Color(0xFF9550CE), Color(0xFFEAD0F6)],
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 40,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w800,
-            height: 0,
-          ),
         ),
       ),
     );

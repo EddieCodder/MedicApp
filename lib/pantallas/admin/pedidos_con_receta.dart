@@ -4,7 +4,11 @@ import 'package:medic_app/pantallas/admin/pedidos_con_receta_detalle.dart';
 import 'package:medic_app/pantallas/components/app_bar_retorno.dart';
 import 'package:medic_app/pantallas/components/barra_navegacion.dart';
 import 'package:medic_app/pantallas/components/tipo_estado_pedido.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/pedido.dart';
+import '../../providers/estados.dart';
+import '../../providers/pedidos.dart';
 import '../components/barra_busqueda.dart';
 
 class PedidosConReceta extends StatelessWidget {
@@ -12,124 +16,122 @@ class PedidosConReceta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Pedidos pedidosProvider = Provider.of<Pedidos>(context, listen: false);
+    Estados estadosProvider = Provider.of<Estados>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.transparent,
           body: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment(0.00, -1.00),
-                  end: Alignment(0, 1),
-                  colors: [
-                    Color.fromARGB(255, 215, 120, 230),
-                    Color.fromARGB(255, 251, 246, 251),
-                    Color.fromARGB(255, 251, 246, 251),
-                    Color.fromARGB(255, 251, 246, 251),
-                  ],
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(0.00, -1.00),
+                end: Alignment(0, 1),
+                colors: [
+                  Color.fromARGB(255, 215, 120, 230),
+                  Color.fromARGB(255, 251, 246, 251),
+                  Color.fromARGB(255, 251, 246, 251),
+                  Color.fromARGB(255, 251, 246, 251),
+                ],
+              ),
+            ),
+            child: Column(
+              children: [
+              SizedBox(height: size.height * 0.004),
+              const BarraRetorno(
+                  text: 'Pedidos con Receta',
+                  widget_viaje: OpcionesAdmin(),
+                  tamLetra: 30),
+              const BarraBusqueda(),
+              SizedBox(height: size.height * 0.03),
+              Row(
+                children: [
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(left: 40),
+                          child: EstadoPedido(estado: 'Cancelado')),
+                    ],
+                  ),
+                  SizedBox(width: size.width * 0.04),
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [EstadoPedido(estado: 'Entregado')],
+                  ),
+                  SizedBox(width: size.width * 0.04),
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [EstadoPedido(estado: 'Enviado')],
+                  ),
+                ],
+              ),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: pedidosProvider.items.length,
+                  itemBuilder: (context, index) {
+                    Pedido pedido = pedidosProvider.items[index];
+                    if (pedido.esConReceta==0) {
+                      return Container(); // Devolver un contenedor vacío para usuarios bloqueados
+                    }
+                    return Column(
+                      children: [
+                        BarraLateralButton(
+                          codPedCab: pedido.codPedCab,
+                          topLeftText: "${pedido.fecha.year.toString().padLeft(4, '0')}-${pedido.fecha.month.toString().padLeft(2, '0')}-${pedido.fecha.day.toString().padLeft(2, '0')}",
+                          bottomLeftText: pedido.codPedCab.toString(),
+                          text: pedido.precioTotal.toString(),
+                          topRightText: (estadosProvider.list[pedido.codEstEnt].descripcion).toString(),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    );
+                  },
                 ),
               ),
-              child: Column(children: [
-                SizedBox(height: size.height * 0.004),
-                const BarraRetorno(
-                    text: 'Pedidos con Receta',
-                    widget_viaje: OpcionesAdmin(),
-                    tamLetra: 30),
-                const BarraBusqueda(),
+              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                
                 SizedBox(height: size.height * 0.03),
-                Row(
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(left: 40),
-                            child: EstadoPedido(estado: 'Cancelado')),
-                      ],
-                    ),
-                    SizedBox(width: size.width * 0.04),
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [EstadoPedido(estado: 'Entregado')],
-                    ),
-                    SizedBox(width: size.width * 0.04),
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [EstadoPedido(estado: 'Enviado')],
+                    Text(
+                      'No hay más pedidos',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 144, 143, 143),
+                        fontSize: 25,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35),
-                  child: Column(children: [
-                    SizedBox(height: size.height * 0.05),
-                    const BarraLateralButton(
-                        screen: PedidosConRecetaDetalleScreen(),
-                        topLeftText: '30/10/2023',
-                        bottomLeftText: '0004',
-                        text: '17.00',
-                        topRightText: 'pediente'),
-                    SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                        screen: PedidosConRecetaDetalleScreen(),
-                        topLeftText: '15/10/2023',
-                        bottomLeftText: '0003',
-                        text: '3.50',
-                        topRightText: 'entregado'),
-                    SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                        screen: OpcionesAdmin(),
-                        topLeftText: '30/10/2023',
-                        bottomLeftText: '0002',
-                        text: '1.00',
-                        topRightText: 'entregado'),
-                    SizedBox(height: size.height * 0.02),
-                    const BarraLateralButton(
-                        screen: OpcionesAdmin(),
-                        topLeftText: '30/10/2023',
-                        bottomLeftText: '0001',
-                        text: '7.00',
-                        topRightText: 'entregado'),
-                    SizedBox(height: size.height * 0.02),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 80),
-                      child: Row(
-                        children: [
-                          Center(
-                            child: Text(
-                              'No hay más pedidos',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 144, 143, 143),
-                                fontSize: 25,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ]),
-                )
-              ])),
-          bottomNavigationBar: const BarraNavegacion(),
-        ));
+              ]),
+            ]
+          ),
+        ),
+        bottomNavigationBar: const BarraNavegacion(),
+      )
+    );
   }
 }
 
 class BarraLateralButton extends StatelessWidget {
+  final int codPedCab;
   final String text;
-  final Widget screen;
   final String topLeftText;
   final String topRightText;
   final String bottomLeftText;
 
   const BarraLateralButton({
     Key? key,
+    required this.codPedCab,
     required this.text,
-    required this.screen,
     required this.topLeftText,
     required this.topRightText,
     required this.bottomLeftText,
@@ -138,6 +140,7 @@ class BarraLateralButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
         Container(
@@ -240,7 +243,7 @@ class BarraLateralButton extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => screen,
+                                builder: (context) => PedidosConRecetaDetalleScreen(codPedCab: codPedCab),
                               ),
                             );
                           },
